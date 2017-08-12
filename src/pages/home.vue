@@ -2,7 +2,12 @@
 <div>
 
   <cardCourse></cardCourse>
+  <div class="layout-padding">
+      <button class="primary small" @click="increaseNumber">+</button>
+      <button class="primary small" @click="decreaseNumber">-</button>
+  </div>
 
+    <h4>Number => {{this.$store.getters.number}}</h4>
 </div>
 
 </template>
@@ -29,6 +34,14 @@ export default {
   data () {
     return {
       courseList: []
+    }
+  },
+  methods: {
+    increaseNumber () {
+      this.$store.commit('increaseNumber')
+    },
+    decreaseNumber () {
+      this.$store.commit('decreaseNumber')
     }
   }
 }
