@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import homePage from './pages/home.vue'
+import courseContent from './pages/courseContent.vue'
+import bookmark from './pages/bookmark.vue'
+import message from './pages/message.vue'
+import account from './pages/account.vue'
 Vue.use(VueRouter)
 
 function load (component) {
@@ -22,6 +26,10 @@ export default new VueRouter({
 
   routes: [
     { path: '/', component: homePage }, // Default
+    { path: '/courseContent/:id', component: courseContent },
+    { path: '/bookmark', component: bookmark },
+    { path: '/message', component: message },
+    { path: '/account', component: account },
     { path: '*', component: load('Error404') } // Not found
   ]
 })

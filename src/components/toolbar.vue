@@ -2,11 +2,11 @@
   <div>
 
     <div slot="header" class="toolbar">
-      <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
-        <i>menu</i>
+      <button v-if="icon!=null" @click="linkTo(goto)">
+          <i>{{icon}}</i>
       </button>
       <q-toolbar-title :padding="1">
-        {{this.$store.getters.titleName }}
+        {{this.title }}
       </q-toolbar-title>
       <button @click="$refs.rightDrawer.open()">
         <i>assignment</i>
@@ -17,9 +17,12 @@
 </template>
 <script>
 export default {
-
-  data: () => ({
-
-  })
+  props: ['title', 'icon', 'goto'],
+  methods: {
+    linkTo (url) {
+      console.log('linkto: ' + url)
+      this.$router.push({path: url})
+    }
+  }
 }
 </script>

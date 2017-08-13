@@ -6,13 +6,14 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     title: 'Home',
-    courseList: [],
-    number: LocalStorage.get.item('number')
+    courseList: LocalStorage.get.item('courseList'),
+    course: {}
   },
   getters: {
-    titleName: state => state.title,
+    title: state => state.title,
     courseList: state => state.courseList,
-    number: state => state.number
+    number: state => state.number,
+    course: state => state.course
   },
   mutations: {
     setTitle (state, payload) {
@@ -20,14 +21,14 @@ export const store = new Vuex.Store({
     },
     setCourseList (state, payload) {
       state.courseList = payload
+      LocalStorage.set('courseList', payload)
     },
-    increaseNumber (state) {
-      state.number++
-      LocalStorage.set('number', state.number)
-    },
-    decreaseNumber (state) {
-      state.number--
-      LocalStorage.set('number', state.number)
+    findCourse (state, payload) {
+      state.courseList.filter(res => {
+        if (res.key === payload) {
+          state.course = res
+        }
+      })
     }
   }
 })
