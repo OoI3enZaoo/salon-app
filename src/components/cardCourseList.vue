@@ -15,52 +15,51 @@
                   </div>
                   <p class="text-primary" style="margin-top:10px;">THB{{data.price}}</p>
                 </div>
-
               </div>
             </router-link>
             </template>
-
-
       </div>
       <br> <br>
-    </q-pull-to-refresh>   
-
-
-
+    </q-pull-to-refresh>
 </div>
 </template>
 
 <script>
+import { Toast } from 'quasar'
 export default {
   computed: {
     couseList () {
       return this.$store.getters.courseList
     }
   },
-  data () {
-    return {
-      newCourseList: []
-    }
-  },
   methods: {
     refresher (done) {
+      let newCourseList = []
       this.axios.get('https://salon-b177d.firebaseio.com/courses.json')
       .then(res => {
         let result = res.data
-        console.log('res: ' + Object.keys(result).length)
-        let fireLength = Object.keys(res.data).length
-        let storeLength = Object.keys(this.couseList).length
-        if (fireLength === storeLength) {
+        for (let key in result) {
+          newCourseList.push(result[key])
+        }
+        if (JSON.stringify(newCourseList) === JSON.stringify(this.couseList)) {
           console.log('old data')
+          Toast.create({
+            html: 'load data from store',
+            icon: 'alarm_add',
+            timeout: 2500
+          })
           done()
         }
         else {
           console.log('new data from firebase')
-          for (let key in result) {
-            this.newCourseList.push(result[key])
-          }
-          this.$store.commit('setCourseList', this.newCourseList)
+          Toast.create({
+            html: 'load data from firebase',
+            icon: 'alarm_add',
+            timeout: 2500
+          })
+          this.$store.commit('setCourseList', newCourseList)
           done()
+          newCourseList = []
         }
       })
     }
