@@ -1,10 +1,10 @@
 <template>
   <div>
-    <mToolbar title="โพรไฟล์"></mToolbar>
+    <mToolbar title="โปรไฟล์"></mToolbar>
       <div class="layout-padding">
         <button class="primary" @click="logout">ออกจากระบบ</button>
       </div>
-      <tabs></tabs>
+
   </div>
 </template>
 <script>

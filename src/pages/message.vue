@@ -181,7 +181,6 @@
 
         </div>
         <br><br><br>
-      <tabs></tabs>
   </div>
 </template>
 <script>

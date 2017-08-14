@@ -1,7 +1,12 @@
 <template>
 <div>
+
     <q-pull-to-refresh :handler="refresher" >
       <div class="layout-padding">
+        <div class="text-center">
+          <i></i><small class ="text-grey-6"><i>arrow_downward</i>&nbsp;เลื่อนลงเพื่ออัพเดทข้อมูลใหม่ๆ</small>
+        </div>
+        <br>
         <template v-for="data in couseList">
           <router-link :to="'/courseContent/'+data.key">
               <div class="card">
@@ -19,7 +24,6 @@
             </router-link>
             </template>
       </div>
-      <br> <br>
     </q-pull-to-refresh>
 </div>
 </template>

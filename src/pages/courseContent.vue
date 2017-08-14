@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mToolbar :title="data.name" icon= "arrow_back" goto="/"></mToolbar>
+    <mToolbar :title="data.name" icon= "arrow_back" goto="/home"></mToolbar>
       <div class="card">
         <q-video
           src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"

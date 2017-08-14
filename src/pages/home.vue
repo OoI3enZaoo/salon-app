@@ -1,9 +1,7 @@
 <template>
 <div >
       <mToolbar title="รายการ"></mToolbar>
-
         <cardCourse></cardCourse>
-          <tabs></tabs>
 </div>
 </template>
 <script>
