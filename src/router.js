@@ -7,6 +7,8 @@ import bookmark from './pages/bookmark.vue'
 import message from './pages/message.vue'
 import account from './pages/account.vue'
 import login from './pages/login.vue'
+import createAccount from './pages/createAccount.vue'
+import signin from './pages/signin.vue'
 Vue.use(VueRouter)
 
 function load (component) {
@@ -34,6 +36,8 @@ export default new VueRouter({
     { path: '/bookmark', component: bookmark },
     { path: '/message', component: message },
     { path: '/account', component: account },
+    { path: '/createAccount', component: createAccount },
+    { path: '/signin', component: signin },
     { path: '*', component: load('Error404') } // Not found
   ]
 })
