@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { LocalStorage } from 'quasar'
-import { dbAuth } from '../firebase'
+import { dbAuth, db } from '../firebase'
+import router from './router'
 
 Vue.use(Vuex)
 export const store = new Vuex.Store({
@@ -12,12 +13,12 @@ export const store = new Vuex.Store({
     isLogin: LocalStorage.get.item('isLogin'),
     user: {
       userId: LocalStorage.get.item('userId'),
-      firstName: LocalStorage.get.item('firstName'),
-      lastName: LocalStorage.get.item('lastName'),
+      name: LocalStorage.get.item('name'),
       email: LocalStorage.get.item('email'),
       image: LocalStorage.get.item('image'),
       phone: LocalStorage.get.item('phone'),
-      address: LocalStorage.get.item('address')
+      address: LocalStorage.get.item('address'),
+      key: LocalStorage.get.item('key')
     }
   },
   getters: {
@@ -25,7 +26,8 @@ export const store = new Vuex.Store({
     courseList: state => state.courseList,
     number: state => state.number,
     course: state => state.course,
-    isLogin: state => state.isLogin
+    isLogin: state => state.isLogin,
+    user: state => state.user
   },
   mutations: {
     setTitle (state, payload) {
@@ -45,21 +47,35 @@ export const store = new Vuex.Store({
     isLogin (state, payload) {
       state.isLogin = payload
       LocalStorage.set('isLogin', payload)
+    },
+    setUserOnline (state, payload) {
+      state.user = payload
+      LocalStorage.set('userId', payload.userId)
+      LocalStorage.set('name', payload.name)
+      LocalStorage.set('email', payload.email)
+      LocalStorage.set('key', payload.key)
     }
   },
   actions: {
-    setLogin ({commit, state}, payload) {
-
-    },
     signUserUp ({commit}, payload) {
-      dbAuth.createUserWithEmailAndPassword('teerapath@hotmail.com', '123456789')
+      dbAuth.createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
+          useraa => {
+            return useraa
+          }
+        ).then(
           user => {
             const newUser = {
-              id: user.uid,
-              registeredMeetups: []
+              userId: user.uid,
+              email: user.email,
+              name: payload.name
             }
-            console.log('user: ' + newUser)
+            console.log('newUser: ' + JSON.stringify(newUser))
+            const newRef = db.ref('users').push(newUser)
+            newUser.key = newRef.getKey()
+            commit('setUserOnline', newUser)
+            commit('isLogin', true)
+            router.push('/home')
           }
         )
         .catch(
@@ -69,7 +85,7 @@ export const store = new Vuex.Store({
         )
     },
     signUserIn ({commit}, payload) {
-      dbAuth.signInWithEmailAndPassword('teerapath@hotmail.com', '123456789')
+      dbAuth.signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
             const newUser = {
@@ -84,6 +100,17 @@ export const store = new Vuex.Store({
             console.log(error)
           }
         )
+    },
+    signout ({commit}, payload) {
+      dbAuth.signOut()
+      LocalStorage.clear('userId')
+      LocalStorage.clear('name')
+      LocalStorage.clear('email')
+      LocalStorage.clear('image')
+      LocalStorage.clear('phone')
+      LocalStorage.clear('address')
+      LocalStorage.clear('key')
+      commit('isLogin', false)
     }
   }
 })

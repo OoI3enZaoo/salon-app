@@ -8,23 +8,34 @@
               <i>{{icon}}</i>
           </button>
       </template>
-      <template v-else>
+      <template v-if="$store.getters.isLogin">
           <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
               <i>menu</i>
           </button>
       </template>
+      <template v-if="!$store.getters.isLogin">
+          <button @click="$router.push('/')">
+              <i>arrow_back</i>
+          </button>
+
+      </template>
       <q-toolbar-title :padding="1">
       {{title}}
         </q-toolbar-title>
+        <template v-if="!$store.getters.isLogin">
+          <button @click="$router.push('/login')" class ="faded">
+            ลงชื่อเข้าใช้
+          </button>
+        </template>
     </div>
-
+<template v-if="$store.getters.isLogin=true">
       <q-drawer ref="leftDrawer">
         <div class="toolbar light">
           <q-toolbar-title>
               <div class="text-center">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" width="80px"><br>
-                    <p class="text-primary" style="display:inline;">Blend Theerapat</p><br>
-                    <p class="text-black" style="display:inline;"><small>Teerapath-Ben@hotmail.com</small></p>
+                    <p class="text-primary" style="display:inline;">{{user.name}}</p><br>
+                    <p class="text-black" style="display:inline;"><small>{{user.email}}</small></p>
               </div>
           </q-toolbar-title>
         </div>
@@ -52,11 +63,14 @@
           <q-drawer-link  to="/setting">
             ตั้งค่า
           </q-drawer-link>
-          <q-drawer-link  to="/">
-            ออกจากระบบ
-          </q-drawer-link>
+          <div @click.capture="signout">
+              <q-drawer-link  :to="{exact: true}">
+                ออกจากระบบ
+              </q-drawer-link>
+          </div>
         </div>
       </q-drawer>
+    </template>
 
 <hr width="1" size="500">
 
@@ -64,13 +78,27 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: ['title', 'icon', 'goto'],
   methods: {
     linkTo (url) {
       console.log('linkto: ' + url)
       this.$router.push({path: url})
+    },
+    signout () {
+      this.$store.dispatch('signout')
+      this.$router.push('/')
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
+  },
+  mounted () {
+    console.log('toolbaruser: ' + JSON.stringify(this.user))
+    console.log('isLogin: ' + this.$store.getters.isLogin)
   }
 }
 </script>

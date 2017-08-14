@@ -4,17 +4,17 @@
           <h6>สร้างแอดเคาท์ใหม่</h6>
           <br><br>
           <div class="floating-label">
-             <input required class="full-width">
+             <input required class="full-width" v-model="user.name">
              <label>ชื่อ-นามสกุล</label>
          </div>
          <br>
          <div class="floating-label">
-            <input type="email" required class="full-width">
+            <input type="email" required class="full-width" v-model="user.email">
             <label>อีเมล</label>
         </div>
         <br>
         <div class="floating-label">
-           <input type="password" required class="full-width">
+           <input type="password" required class="full-width" v-model="user.password">
            <label>รหัสผ่าน</label>
        </div>
        <br> <br>
@@ -28,7 +28,7 @@
             </div>
             <div class="auto">
               <div class="text-right">
-                  <button class ="primary">สร้างแอดเคาท์</button>
+                  <button class ="primary" @click="signup">สร้างแอดเคาท์</button>
               </div>
             </div>
 
@@ -37,5 +37,20 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      user: {
+        name: '',
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    signup () {
+      console.log('user: ' + JSON.stringify(this.user))
+      this.$store.dispatch('signUserUp', this.user)
+    }
+  }
 }
 </script>
