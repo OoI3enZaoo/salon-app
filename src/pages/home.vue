@@ -1,13 +1,13 @@
 <template>
-<div>
+<div >
       <mToolbar title="รายการ"></mToolbar>
+
         <cardCourse></cardCourse>
           <tabs></tabs>
 </div>
-
 </template>
-
 <script>
+
 import cardCourse from '../components/cardCourseList.vue'
 export default {
   created () {
