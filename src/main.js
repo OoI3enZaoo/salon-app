@@ -5,7 +5,6 @@
 // 2. or, use next line to activate DEFAULT QUASAR STYLE
 require(`quasar/dist/quasar.${__THEME}.css`)
 // ==============================
-
 import Vue from 'vue'
 import Quasar from 'quasar'
 import router from './router'
@@ -14,6 +13,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import toolbar from './components/toolbar.vue'
 import tabs from './components/tabs.vue'
+import VueSocketio from 'vue-socket.io'
+Vue.use(VueSocketio, 'https://agile-citadel-43436.herokuapp.com/')
+
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(VueAxios, axios)
 
