@@ -34,5 +34,9 @@
 </template>
 <script>
 export default {
+  created () {
+    const a = this.$store.getters.isLogin === true ? this.$router.push('/home') : ''
+    console.log(a)
+  }
 }
 </script>

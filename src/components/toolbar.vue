@@ -12,13 +12,7 @@
           <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
               <i>menu</i>
           </button>
-      </template>
-      <template v-if="!$store.getters.isLogin">
-          <button @click="$router.push('/')">
-              <i>arrow_back</i>
-          </button>
-
-      </template>
+      </template>    
       <q-toolbar-title :padding="1">
       {{title}}
         </q-toolbar-title>
@@ -99,6 +93,7 @@ export default {
   mounted () {
     console.log('toolbaruser: ' + JSON.stringify(this.user))
     console.log('isLogin: ' + this.$store.getters.isLogin)
+    console.log('toolbar: ' + this.$store.getters.title)
   }
 }
 </script>

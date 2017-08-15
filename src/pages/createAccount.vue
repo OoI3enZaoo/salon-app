@@ -4,15 +4,15 @@
           <h6>สร้างแอดเคาท์ใหม่</h6>
           <br><br>
           <div class="floating-label">
-             <input required class="full-width" v-model="user.name">
+             <input required class="full-width" v-model="user.name" autofocus>
              <label>ชื่อ-นามสกุล</label>
          </div>
-         <br>
+         <br><br>
          <div class="floating-label">
             <input type="email" required class="full-width" v-model="user.email">
             <label>อีเมล</label>
         </div>
-        <br>
+        <br><br>
         <div class="floating-label">
            <input type="password" required class="full-width" v-model="user.password">
            <label>รหัสผ่าน</label>
