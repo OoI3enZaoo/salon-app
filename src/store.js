@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
       userId: LocalStorage.get.item('userId'),
       name: LocalStorage.get.item('name'),
       email: LocalStorage.get.item('email'),
-      image: LocalStorage.get.item('image'),
+      image: 'https://www.shareicon.net/download/2016/05/29/772558_user_512x512.png',
       phone: LocalStorage.get.item('phone'),
       address: LocalStorage.get.item('address'),
       key: LocalStorage.get.item('key')

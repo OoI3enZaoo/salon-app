@@ -15,7 +15,7 @@ import toolbar from './components/toolbar.vue'
 import tabs from './components/tabs.vue'
 import VueSocketio from 'vue-socket.io'
 Vue.use(VueSocketio, 'https://agile-citadel-43436.herokuapp.com/')
-
+// Vue.use(VueSocketio, 'http://localhost:3000/')
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(VueAxios, axios)
 
