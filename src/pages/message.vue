@@ -1,60 +1,76 @@
 <template>
   <div>
-    <mToolbar title="กล่องข้อความ"></mToolbar>
 
     <div class="layout-padding">
 
  <div class="layout-padding" style="max-width: 500px;">
-
+<q-scroll-area style="width: 100%; height: 500px;">
       <template v-for="data in messageMe">
-            <template v-if="data.type=='user'">
-                  <div class="chat-you">
-                    <div class="chat-user">
-                      <img :src="data.image">
-                    </div>
-                    <div class="chat-date">
-                      {{data.tstamp}}
-                    </div>
-                    <div class="chat-message">
-                      <p>
-                        {{data.message}}
-                      </p>
-                    </div>
-                  </div>
-            </template>
-            <template v-else>
-                  <div class="chat-other">
-                    <div class="chat-user">
-                      <img :src="'https://upload.wikimedia.org/wikipedia/commons/9/96/User_icon-cp.png'">
-                    </div>
-                    <div class="chat-date">
-                      7 minutes ago
-                    </div>
-                    <div class="chat-message">
-                      <p>
-                        {{data.message}}
-                      </p>
-                    </div>
-                  </div>
-            </template>
+          <template v-if="data.type=='user'">
+              <q-chat-message
+                :name="data.name"
+                :avatar="data.image"
+                :text="[data.message]"
+                :stamp="data.tstamp"
+                bg-color="grey-"
+                sent
+              />
+        </template>
+        <template v-else>
+            <q-chat-message
+              :name="data.name"
+              :avatar="data.image"
+              :text="[data.message]"
+              :stamp="data.tstamp"
+              bg-color="green"
+            />
       </template>
 
-
+      </template>
+</q-scroll-area>
     </div>
-    <div class="floating-label" ref="chat">
-  <input type = "text" required autofocus v-model="text">
-  <label>พิมพ์ข้อความที่นี่..</label>   <button class="primary" @click="sendMessage(text)">emit</button>
-</div>
+
+
+<q-field
+  count
+  helper="Some helper here"
+  :label-width="3"
+>
+  <q-input float-label="พิมพ์ข้อความของคุณที่นี่" v-model="text" />
+</q-field>
+<q-btn round icon="send" color="primary" small @click="sendMessage(text)">
+</q-btn>
 
         </div>
         <br><br><br>
   </div>
 </template>
 <script>
+const moment = require('moment')
+import Vue from 'vue'
+import {
+  QScrollArea,
+  QChatMessage,
+  QBtn,
+  QIcon,
+  QField,
+  QInput
+} from 'quasar'
+Vue.use(require('vue-moment'), {
+  moment
+})
 export default {
   created () {
     this.$socket.emit('subscribe', this.keyUser)
-    this.$refs.chat.focus()
+    this.$store.commit('setTitle','แชท')
+  },
+  components: {
+    QScrollArea,
+    QChatMessage,
+    QBtn,
+    QIcon,
+    QField,
+    QInput
   },
   data () {
     return {
@@ -71,11 +87,17 @@ export default {
     },
     nameUser () {
       return this.$store.getters.user.name
+    },
+    timeUser () {
+      return Vue.moment().format('DD/MM/YYYY HH:mm:ss')
     }
   },
   methods: {
     sendMessage (val) {
-      this.$socket.emit('private_message', {room: this.keyUser, message: val, tstamp: '2017-08-16 12:39', image: this.imageUser, name: this.nameUser, type: 'user'})
+      if(val !== ''){
+        this.$socket.emit('private_message', {room: this.keyUser, message: val, tstamp: Vue.moment().format('DD/MM/YYYY HH:mm:ss'), image: this.imageUser, name: this.nameUser, type: 'user'})
+        this.text = ''
+      }
     }
   },
   mounted () {
@@ -87,6 +109,7 @@ export default {
       console.log('admin: ' + data)
       this.messageMe.push(data)
     }
+
   }
 }
 </script>

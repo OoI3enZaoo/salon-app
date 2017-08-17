@@ -1,70 +1,85 @@
 <template>
   <div>
-  <br><br>
-<q-layout>
-    <div slot="header" class="toolbar">
+<q-layout ref="layout">
+    <q-toolbar slot="header" >
       <template v-if="icon!=null">
           <button @click="linkTo(goto)">
-              <i>{{icon}}</i>
+              <q-icon :name="icon"/>
           </button>
       </template>
       <template v-if="$store.getters.isLogin">
-          <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
-              <i>menu</i>
-          </button>
-      </template>    
-      <q-toolbar-title :padding="1">
-      {{title}}
-        </q-toolbar-title>
-        <template v-if="!$store.getters.isLogin">
-          <button @click="$router.push('/login')" class ="faded">
-            ลงชื่อเข้าใช้
-          </button>
+          <q-btn
+            flat
+            @click="$refs.layout.toggleLeft()"
+          >
+            <q-icon name="menu" />
+          </q-btn>
         </template>
-    </div>
+      <q-toolbar-title>
+        {{title}}
+      </q-toolbar-title>
+      <template v-if="!$store.getters.isLogin">
+        <q-btn @click="$router.push('/login')" flat>
+          ลงชื่อเข้าใช้
+        </q-btn>
+      </template>
+    </q-toolbar>
+
 <template v-if="$store.getters.isLogin=true">
-      <q-drawer ref="leftDrawer">
-        <div class="toolbar light">
-          <q-toolbar-title>
-              <div class="text-center">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" width="80px"><br>
-                    <p class="text-primary" style="display:inline;">{{user.name}}</p><br>
-                    <p class="text-black" style="display:inline;"><small>{{user.email}}</small></p>
-              </div>
-          </q-toolbar-title>
-        </div>
-        <div class="list no-border platform-delimiter">
-          <q-drawer-link icon="view_quilt" to="/home" exact>
-            หน้าหลัก
-          </q-drawer-link>
-          <q-drawer-link icon="bookmark" to="/bookmark">
-            คลัง
-          </q-drawer-link>
-          <q-drawer-link icon="message" to="/message">
-            กล่องข้อความ
-          </q-drawer-link>
-          <q-drawer-link icon="account_box" to="/account">
-            โปรไฟล์
-          </q-drawer-link>
-          <hr>
-          <div class="list-label">อื่นๆ</div>
-          <q-drawer-link  to="/setting">
-            ช่วยเหลือ
-          </q-drawer-link>
-          <q-drawer-link  to="/setting">
-            เกี่ยวกับเรา
-          </q-drawer-link>
-          <q-drawer-link  to="/setting">
-            ตั้งค่า
-          </q-drawer-link>
-          <div @click.capture="signout">
-              <q-drawer-link  :to="{exact: true}">
-                ออกจากระบบ
-              </q-drawer-link>
+    <div slot="left">
+      <!--
+        Use <q-side-link> component
+        instead of <q-item> for
+        internal vue-router navigation
+      -->
+
+      <q-list link inset-delimiter>
+        <q-list-header>
+
+          <div class="text-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" width="80px"><br>
+                <p class="text-primary" style="display:inline;">{{user.name}}</p><br>
+                <p class="text-black" style="display:inline;"><small>{{user.email}}</small></p>
           </div>
-        </div>
-      </q-drawer>
-    </template>
+        </q-list-header>
+        <q-item to="/home" exact>
+          <q-item-side icon="school" />
+          <q-item-main label="หน้าหลัก" />
+        </q-item>
+        <q-item to="/bookmark">
+          <q-item-side icon="bookmark" />
+          <q-item-main label="คลัง" />
+        </q-item>
+        <q-item to="/message">
+          <q-item-side icon="message" />
+          <q-item-main label="กล่องข้อความ"  />
+        </q-item>
+        <q-item to="/account">
+          <q-item-side icon="account_box" />
+          <q-item-main label="โปรไฟล์"  />
+        </q-item>
+        <hr>
+            <q-list-header>อื่นๆ</q-list-header>
+          <q-item  to="/setting">
+            ช่วยเหลือ
+          </q-item>
+          <q-item  to="/setting">
+            เกี่ยวกับเรา
+          </q-item>
+          <q-item  to="/setting">
+            ตั้งค่า
+          </q-item>
+          <div @click.capture="signout">
+              <q-item  >
+                ออกจากระบบ
+              </q-item>
+          </div>
+
+      </q-list>
+
+    </div>
+    <router-view />
+  </template>
 
 <hr width="1" size="500">
 
@@ -72,9 +87,36 @@
   </div>
 </template>
 <script>
+import {
+QLayout,
+QToolbar,
+openURL,
+QToolbarTitle,
+QIcon,
+QList,
+QListHeader,
+QBtn,
+QItem,
+QItemSide,
+QItemMain
+} from 'quasar'
+
 import { mapGetters } from 'vuex'
 export default {
   props: ['title', 'icon', 'goto'],
+  components: {
+    QLayout,
+    QToolbar,
+    openURL,
+    QToolbarTitle,
+    QIcon,
+    QItem,
+    QList,
+    QListHeader,
+    QBtn,
+    QItemSide,
+    QItemMain
+  },
   methods: {
     linkTo (url) {
       console.log('linkto: ' + url)

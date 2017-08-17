@@ -28,15 +28,45 @@
             </div>
     </div>
     <br><br><br>
-        <tabs :introduce= "true"></tabs>
-
+    <div class="fixed-bottom ">
+    <q-tabs class="shadow-2"
+    position= "bottom">
+      <q-route-tab
+          icon="visibility"
+          to="/home"
+          label="เยี่ยมชม"
+          exact
+          slot="title"
+          />
+          <q-route-tab
+          icon="supervisor_account"
+          to="/login"
+          label="สมัครสมาชิก"
+          exact
+          slot="title"
+          />
+     </q-tabs>
+  </div>
   </div>
 </template>
 <script>
+import {
+  QToolbar,
+  QTabs,
+  QBtn,
+  QRouteTab
+} from 'quasar'
 export default {
   created () {
+    this.$store.commit('setTitle','introduce')
     const a = this.$store.getters.isLogin === true ? this.$router.push('/home') : ''
     console.log(a)
+  },
+  components: {
+    QToolbar,
+    QTabs,
+    QBtn,
+    QRouteTab
   }
 }
 </script>

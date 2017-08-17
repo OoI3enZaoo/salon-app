@@ -9,10 +9,12 @@ import account from './pages/account.vue'
 import login from './pages/login.vue'
 import createAccount from './pages/createAccount.vue'
 import signin from './pages/signin.vue'
+
 Vue.use(VueRouter)
 
 function load (component) {
-  return () => System.import(`components/${component}.vue`)
+  // '@' is aliased to src/components
+  return () => import(`@/${component}.vue`)
 }
 
 export default new VueRouter({
@@ -38,6 +40,7 @@ export default new VueRouter({
     { path: '/account', component: account },
     { path: '/createAccount', component: createAccount },
     { path: '/signin', component: signin },
+    // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
   ]
 })

@@ -1,24 +1,14 @@
 <template>
   <div>
-    <mToolbar title="โปรไฟล์"></mToolbar>
-      <div class="layout-padding">
-        <div class="text-center">
-          <h3>Room: {{keyUser}}</h3>
-        </div>
-        <div class="floating-label">
-          <input type="text" v-model="text">
-          <label>text</label>
-        </div>      
-
-      </div>
-      <ul v-for="data in message">
-        <li>{{data}}</li>
-      </ul>
+    <h2>account</h2>
   </div>
 </template>
 
 <script>
 export default {
+  created () {
+    this.$store.commit('setTitle','โปรไฟล์')
+  },
   data () {
     return {
       text: ''

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     title: 'Home',
+    page2: false,
     courseList: LocalStorage.get.item('courseList'),
     course: {},
     isLogin: LocalStorage.get.item('isLogin'),
@@ -26,7 +27,8 @@ export const store = new Vuex.Store({
     number: state => state.number,
     course: state => state.course,
     isLogin: state => state.isLogin,
-    user: state => state.user
+    user: state => state.user,
+    page2: state => state.page2
   },
   mutations: {
     setTitle (state, payload) {
@@ -35,6 +37,25 @@ export const store = new Vuex.Store({
     setCourseList (state, payload) {
       state.courseList = payload
       LocalStorage.set('courseList', payload)
+    },
+    addCourseList (state, payload) {
+      let oldData = state.courseList
+      state.courseList.push(payload)
+       LocalStorage.set('courseList', state.courseList)
+    },
+    removeCouse (state, payload) {
+        state.courseList.map((data,index) => {
+          console.log('data.key: ' + data.key + ' payload: ' + payload);
+          if(data.key == payload){
+            console.log('true')
+            state.courseList.splice(index,1)
+          }else{
+             console.log('not ture')
+          }
+          console.log('index: ' + index);
+        })
+        console.log('data: ' + state.courseList + ' typeof: ' + typeof state.courseList);
+
     },
     findCourse (state, payload) {
       state.courseList.filter(res => {
@@ -56,6 +77,9 @@ export const store = new Vuex.Store({
       LocalStorage.set('phone', payload.phone)
       LocalStorage.set('image', payload.image)
       LocalStorage.set('address', payload.address)
+    },
+    setPage2 (state, payload) {
+      state.page2 = payload
     }
   },
   actions: {
