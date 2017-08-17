@@ -26,22 +26,16 @@
 
 <template v-if="$store.getters.isLogin=true">
     <div slot="left">
-      <!--
-        Use <q-side-link> component
-        instead of <q-item> for
-        internal vue-router navigation
-      -->
 
-      <!-- <q-list link inset-delimiter> -->
-        <q-list-header>
 
-          <div class="text-center">
+          <div class="text-center bg-grey-1"><br>
             <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" width="80px"><br>
                 <p class="text-primary" style="display:inline;">{{user.name}}</p><br>
-                <p class="text-black" style="display:inline;"><small>{{user.email}}</small></p>
+                <p class="text-black" style="display:inline;"><small>{{user.email}}</small></p><br><br>
+                <hr>
           </div>
-        </q-list-header>
 
+  <q-list-header>เมนูหลัก</q-list-header>
         <q-side-link item to="/home" exact>
           <q-item-side icon="school" />
           <q-item-main label="หน้าหลัก" />

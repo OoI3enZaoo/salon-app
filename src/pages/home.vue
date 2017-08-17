@@ -9,11 +9,10 @@
 import cardCourse from '../components/cardCourseList.vue'
 // const moment = require('moment')
 
-export default {
 
+export default {
   created () {
     this.$store.commit('setTitle', 'รายการคอร์ส')
-
     if (this.couseList == null) {
       this.axios.get('https://salon-b177d.firebaseio.com/courses.json')
       .then(res => {
@@ -31,6 +30,7 @@ export default {
     else {
       console.log('load from LocalStorage')
     }
+
   },
   mounted () {
       this.$options.sockets.newCardData = (res) => {

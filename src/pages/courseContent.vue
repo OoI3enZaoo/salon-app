@@ -36,6 +36,7 @@ import {
 } from 'quasar'
 export default {
   created () {
+    navigator.vibrate(50)
     this.$store.commit('findCourse', this.$route.params.id)
     this.data = this.$store.getters.course
     console.log('data: ' + JSON.stringify(this.data.name))

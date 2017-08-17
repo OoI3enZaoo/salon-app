@@ -1,10 +1,8 @@
 <template>
-  <div>
-
-    <div class="layout-padding">
-
- <div class="layout-padding" style="max-width: 500px;">
-<q-scroll-area style="width: 100%; height: 500px;">
+ <div class="layout-padding fixed-center">
+   <q-card class ="bg-grey-1">
+     <q-card-title>
+<q-scroll-area style="width: 100%; height: 500px; " >
       <template v-for="data in messageMe">
           <template v-if="data.type=='user'">
               <q-chat-message
@@ -25,25 +23,17 @@
               bg-color="green"
             />
       </template>
-
       </template>
-</q-scroll-area>
+    </q-scroll-area>
+    </q-card-title>
+  </q-card>
+<q-card class ="bg-grey-1">
+      <q-card-title>
+        <q-btn slot="right" name="more_vert" round icon="send" color="primary" small @click="sendMessage(text)"/>
+        <q-input  color="secondary" v-model="text" placeholder="กรอกข้อความ" />
+    </q-card-title>
+  </q-card>
     </div>
-
-
-<q-field
-  count
-  helper="Some helper here"
-  :label-width="3"
->
-  <q-input float-label="พิมพ์ข้อความของคุณที่นี่" v-model="text" />
-</q-field>
-<q-btn round icon="send" color="primary" small @click="sendMessage(text)">
-</q-btn>
-
-        </div>
-        <br><br><br>
-  </div>
 </template>
 <script>
 const moment = require('moment')
@@ -54,7 +44,11 @@ import {
   QBtn,
   QIcon,
   QField,
-  QInput
+  QInput,
+  QCard,
+  QCardMain,
+  QCardTitle,
+  QCardMedia
 } from 'quasar'
 Vue.use(require('vue-moment'), {
   moment
@@ -70,7 +64,11 @@ export default {
     QBtn,
     QIcon,
     QField,
-    QInput
+    QInput,
+    QCard,
+    QCardMain,
+    QCardTitle,
+    QCardMedia
   },
   data () {
     return {
