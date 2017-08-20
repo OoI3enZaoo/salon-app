@@ -19,10 +19,11 @@ import VueAxios from 'vue-axios'
 import VueSocketio from 'vue-socket.io'
 import toolbar from './components/toolbar.vue'
 import tabs from './components/tabs.vue'
+import vuefire from 'vuefire'
 Vue.use(VueSocketio, 'https://agile-citadel-43436.herokuapp.com/')
 // Vue.use(VueSocketio, 'http://localhost:3000/')
 Vue.use(VueAxios, axios)
-
+Vue.use(vuefire)
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 

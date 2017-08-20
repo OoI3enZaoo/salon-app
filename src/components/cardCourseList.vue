@@ -1,5 +1,5 @@
 <template>
-  <q-pull-to-refresh :handler="refresher" >
+  <!-- <q-pull-to-refresh :handler="refresher" > -->
       <div class="layout-padding">
 
           <!-- <ul v-for="data in couseList">
@@ -7,7 +7,7 @@
           </ul> -->
 
 <!-- <q-btn @click="vibrate">vibrate</q-btn> -->
-        <template v-for="data in couseList">
+        <template v-for="data in courseRef">
           <router-link :to="'/courseContent/'+data.key">
               <q-card>
                 <q-card-media>
@@ -31,7 +31,7 @@
             </template>
 
       </div>
-</q-pull-to-refresh>
+<!-- </q-pull-to-refresh> -->
 </template>
 
 
@@ -51,7 +51,11 @@ import { QLayout, Toast, QPullToRefresh,
   } from 'quasar'
 
   import {db} from '../../firebase'
+  let courseRef = db.ref('courses')
 export default {
+  firebase: {
+    courseRef
+  },
   created () {
     document.addEventListener("deviceready", this.onDeviceReady, false);
   },
@@ -71,40 +75,6 @@ export default {
     },
     vibrate () {
       navigator.vibrate(3000)
-    },
-    refresher (done) {
-      let newCourseList = []
-      this.axios.get('https://salon-b177d.firebaseio.com/courses.json')
-      .then(res => {
-        let result = res.data
-        for (let key in result) {
-          newCourseList.push(result[key])
-        }
-        if (JSON.stringify(newCourseList) === JSON.stringify(this.couseList)) {
-          console.log('old data')
-          Toast.create({
-            html: 'load data from store',
-            icon: 'alarm_add',
-            timeout: 2500
-          })
-          done()
-        }
-        else {
-          console.log('new data from firebase')
-          Toast.create({
-            html: 'load data from firebase',
-            icon: 'alarm_add',
-            timeout: 2500
-          })
-          this.$store.commit('setCourseList', newCourseList)
-          done()
-          newCourseList = []
-        }
-        navigator.vibrate(3000);
-      })
-    },
-    alertDismissed () {
-      console.log('dismissed')
     }
   },
   components: {
