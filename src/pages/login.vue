@@ -14,5 +14,8 @@
 </template>
 <script>
 export default {
+  beforeCreate () {  
+    this.$store.commit('setTitle','login')
+  }
 }
 </script>

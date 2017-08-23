@@ -18,8 +18,9 @@ export const store = new Vuex.Store({
       image: 'https://www.shareicon.net/download/2016/05/29/772558_user_512x512.png',
       phone: LocalStorage.get.item('phone'),
       address: LocalStorage.get.item('address'),
-      key: LocalStorage.get.item('key')
-    }
+      key: LocalStorage.get.item('key'),
+    },
+    myCourse: LocalStorage.get.item('myCourse')
   },
   getters: {
     title: state => state.title,
@@ -28,7 +29,8 @@ export const store = new Vuex.Store({
     course: state => state.course,
     isLogin: state => state.isLogin,
     user: state => state.user,
-    page2: state => state.page2
+    page2: state => state.page2,
+    myCourse: state => state.myCourse
   },
   mutations: {
     setTitle (state, payload) {
@@ -39,9 +41,23 @@ export const store = new Vuex.Store({
       LocalStorage.set('courseList', payload)
     },
     addCourseList (state, payload) {
-      let oldData = state.courseList
-      state.courseList.push(payload)
-       LocalStorage.set('courseList', state.courseList)
+      if(state.courseList != null) {
+            let oldData = state.courseList
+            state.courseList.push(payload)
+             LocalStorage.set('courseList', state.courseList)
+      } else {
+        state.courseList = payload
+         LocalStorage.set('courseList', state.courseList)
+      }
+    },
+    addMyCourse (state, payload) {
+          let myOldCourse = state.myCourse
+          if(myOldCourse != null) {
+            myOldCourse.push(payload)
+            LocalStorage.set('myCourse', myOldCourse)
+          } else {
+            myOldCourse = payload
+          }
     },
     removeCouse (state, payload) {
         state.courseList.map((data,index) => {

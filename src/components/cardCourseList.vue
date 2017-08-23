@@ -55,10 +55,7 @@ import { QLayout, Toast, QPullToRefresh,
 export default {
   firebase: {
     courseRef
-  },
-  created () {
-    document.addEventListener("deviceready", this.onDeviceReady, false);
-  },
+  },  
   data () {
     return {
       courseList: []

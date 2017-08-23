@@ -30,7 +30,6 @@ export default {
     else {
       console.log('load from LocalStorage')
     }
-
   },
   mounted () {
       this.$options.sockets.newCardData = (res) => {

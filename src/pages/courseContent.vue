@@ -17,7 +17,7 @@
         <div class="text-grey-9" >{{content.name}}</div>
           <span slot="subtitle">{{content.author}}</span>
           <span slot="right" class="row items-center">
-              <q-btn class="bg-primary text-white">ซื้อตอนนี้</q-btn>
+              <q-btn class="bg-primary text-white" @click="buyCourse(content['.key'],content.name)">ซื้อตอนนี้</q-btn>
           </span>
       </q-card-title>
     </q-card>
@@ -40,11 +40,17 @@ import {
   QCardMain,
   QCardMedia,
   QVideo,
-  QBtn
+  QBtn,
+  Dialog
 } from 'quasar'
 
 import { db } from '../../firebase'
 export default {
+  firebase() {
+    return {
+        userDB: db.ref('users/'+this.$store.getters.user.key+'/course')
+    }
+  },
   beforeCreate() {
     navigator.vibrate(50)
   },
@@ -94,6 +100,7 @@ export default {
     QCardMedia,
     QVideo,
     QBtn
+
   },
   data () {
     return {
@@ -106,6 +113,31 @@ export default {
     doSomething(data) {
         console.log(JSON.stringify(data))
         this.$firebaseRefs.courseRef.child(data['.key']).remove()
+    },
+    buyCourse(key,name) {
+      // console.log(  this.$firebaseRefs.userDB.child('course').child(key));
+      db.ref('users').child(this.$store.getters.user.key).child('course').push({courseId: key})
+      this.$store.commit('addMyCourse',key)
+
+      // Dialog.create({
+      //   title: name,
+      //   message: 'คุณแน่ใจใช่หรือไม่ที่ต้องการจะซื้อคอร์สดังกล่าว',
+      //   buttons: [
+      //     {
+      //       label: 'ไม่แน่ใจ',
+      //       handler () {
+      //
+      //       }
+      //     },
+      //     {
+      //       label: 'แน่ใจ',
+      //       handler () {
+      //         console.log('ahree');
+      //         db.ref('users/'+this.$store.getters.user.key+'/course').push({courseId: key})
+      //       }
+      //     }
+      //   ]
+      // })
     }
   }
 }

@@ -9,7 +9,7 @@
 <script>
 export default {
   created () {
-    this.$store.commit('setTitle','โปรไฟล์')
+    this.$store.commit('setTitle','รายการโปรด')
   }
 }
 </script>

@@ -1,8 +1,6 @@
 <template>
  <div class="layout-padding fixed-center">
-   <q-card class ="bg-grey-1">
-     <q-card-title>
-<q-scroll-area style="width: 100%; height: 500px; " >
+<q-scroll-area style="width: 100%; " >
       <template v-for="data in messageMe">
           <template v-if="data.type=='user'">
               <q-chat-message
@@ -24,15 +22,22 @@
             />
       </template>
       </template>
+      <br><br>
     </q-scroll-area>
-    </q-card-title>
-  </q-card>
-<q-card class ="bg-grey-1">
+
+    <div class="fixed-bottom bg-grey-2" style="margin-bottom:80px" >
+      <q-card>
+
+        <q-input v-model="text" placeholder="พิมพ์ข้อความ..."  class="bg-white" color="white" :after="[{icon: 'arrow_forward', content: true, handler () {sendMessage(text)}}]" />
+
+    </q-card>
+    </div>
+<!-- <q-card class ="bg-grey-1">
       <q-card-title>
         <q-btn slot="right" name="more_vert" round icon="send" color="primary" small @click="sendMessage(text)"/>
         <q-input  color="secondary" v-model="text" placeholder="กรอกข้อความ" />
     </q-card-title>
-  </q-card>
+  </q-card> -->
     </div>
 </template>
 <script>
@@ -48,7 +53,8 @@ import {
   QCard,
   QCardMain,
   QCardTitle,
-  QCardMedia
+  QCardMedia,
+  QToolbar
 } from 'quasar'
 Vue.use(require('vue-moment'), {
   moment
@@ -68,7 +74,8 @@ export default {
     QCard,
     QCardMain,
     QCardTitle,
-    QCardMedia
+    QCardMedia,
+    QToolbar
   },
   data () {
     return {

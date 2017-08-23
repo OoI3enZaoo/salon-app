@@ -20,6 +20,10 @@ import VueSocketio from 'vue-socket.io'
 import toolbar from './components/toolbar.vue'
 import tabs from './components/tabs.vue'
 import vuefire from 'vuefire'
+import vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+Vue.use(vuetify)
+
 Vue.use(VueSocketio, 'https://agile-citadel-43436.herokuapp.com/')
 // Vue.use(VueSocketio, 'http://localhost:3000/')
 Vue.use(VueAxios, axios)

@@ -25,6 +25,10 @@
 </template>
 <script>
 export default {
+  beforeCreate() {
+    //do something before creating vue instance
+    this.$store.commit('setTitle',',')
+  },
   data () {
     return {
       user: {
