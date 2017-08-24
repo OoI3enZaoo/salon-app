@@ -1,50 +1,28 @@
 <template>
   <div>
-
-
-    <!-- <ul  v-for="item in courseRef">
-       <li>{{ item.name }}</li>
-     </ul> -->
-
-
-
-  <!-- {{courseRef}} -->
-    <q-card>
-      <q-card-media>
-        <q-video src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0" style="height:250px;" />
-      </q-card-media>
-      <q-card-title>
-        <div class="text-grey-9" >{{content.name}}</div>
-          <span slot="subtitle">{{content.author}}</span>
-          <span slot="right" class="row items-center">
-              <q-btn class="bg-primary text-white" @click="buyCourse(content['.key'],content.name)">ซื้อตอนนี้</q-btn>
-          </span>
-      </q-card-title>
-    </q-card>
-    <q-card>
-      <q-card-title>
-        <p>เนื้อหาของคอร์ส</p>
-      </q-card-title>
-      <q-card-main>
-            <p v-html="content.description"></p>
-      </q-card-main>
-    </q-card>
+            <v-card>
+              <q-video src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0" style="height:250px;" />
+                  <v-card-title>
+                    <div class="headline">{{content.name}}</div>
+                      <div class="grey--text">{{content.author }}</div>
+                  </v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn primary>ซื้อตอนนี้</v-btn>
+                  </v-card-actions>
+                  <hr>
+                  <v-card-text>
+                     <div class="headline">รายละเอียดคอร์ส</div>
+                       <p v-html="content.description"></p>
+                  </v-card-text>
+            </v-card>
 
 
   </div>
 </template>
 <script>
-import {
-  QCard,
-  QCardTitle,
-  QCardMain,
-  QCardMedia,
-  QVideo,
-  QBtn,
-  Dialog
-} from 'quasar'
-
 import { db } from '../../firebase'
+import { QVideo } from 'quasar'
 export default {
   firebase() {
     return {
@@ -94,13 +72,7 @@ export default {
     }
   },
   components: {
-    QCard,
-    QCardTitle,
-    QCardMain,
-    QCardMedia,
-    QVideo,
-    QBtn
-
+    QVideo
   },
   data () {
     return {

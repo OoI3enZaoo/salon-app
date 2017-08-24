@@ -17,8 +17,6 @@ import {store} from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSocketio from 'vue-socket.io'
-import toolbar from './components/toolbar.vue'
-import tabs from './components/tabs.vue'
 import vuefire from 'vuefire'
 import vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -31,8 +29,6 @@ Vue.use(vuefire)
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 
-Vue.component('mToolbar', toolbar)
-Vue.component('tabs', tabs)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')

@@ -1,5 +1,5 @@
 <template>
-
+<v-app class="grey lighten-4"  style="margin: auto;" standalone>
 <!-- <q-layout ref="layout" :reveal="true">
     <q-toolbar slot="header" v-if="$store.getters.title!='introduce'">
       <template v-if="parrentPage">
@@ -89,8 +89,7 @@
 </q-layout> -->
 
 <div>
-
-  <v-toolbar dark class="primary" >
+  <v-toolbar dark class="primary" dense>
     <v-btn class="white--text" icon v-if="!parrentPage" @click.native="$router.push('/home')">
       <v-icon>arrow_back</v-icon>
     </v-btn>
@@ -145,7 +144,7 @@
 
 </div>
 
-
+</v-app>
 
 </template>
 <script>

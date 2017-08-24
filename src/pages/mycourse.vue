@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-card>
+      <q-card class="white black--text">
         <div class="row">
             <div class="col-3">
                 <q-card-media >
@@ -15,8 +15,7 @@
 
         </div>
       </q-card>
-
-      <q-card>
+      <q-card class="white black--text">
         <div class="row">
             <div class="col-3">
                 <q-card-media >
@@ -30,7 +29,7 @@
             </div>
         </div>
       </q-card>
-      <q-card>
+      <q-card class="white black--text">
         <div class="row">
             <div class="col-3">
                 <q-card-media>
@@ -42,7 +41,6 @@
                     <span>คอร์สบลาๆๆๆ</span>
                 </q-card-title>
             </div>
-
         </div>
       </q-card>
   </div>
