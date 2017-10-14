@@ -1,8 +1,10 @@
 <template>
   <div>
+    <toolbar title="รายการโปรด"></toolbar>
       <div class="layout-padding">
           <h4 class="text-grey-8" style="text-align:center;">คุณยังไม่ได้บันทึกอะไรไว้เลยนะ</h4>
       </div>
+      <bottomNav></bottomNav>
 
   </div>
 </template>

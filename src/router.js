@@ -9,6 +9,7 @@ import account from './pages/account.vue'
 import login from './pages/login.vue'
 import createAccount from './pages/createAccount.vue'
 import signin from './pages/signin.vue'
+import lessonList from './pages/lessonList.vue'
 
 import mycourse from './pages/mycourse.vue'
 import profile from './pages/profile.vue'
@@ -39,12 +40,13 @@ export default new VueRouter({
     { path: '/home', component: homePage }, // Default
     { path: '/courseContent/:id', component: courseContent },
     { path: '/bookmark', component: bookmark },
-    { path: '/message', component: message },  
+    { path: '/message', component: message },
     { path: '/account', component: account },
     { path: '/mycourse', component: mycourse},
     { path: '/createAccount', component: createAccount },
     { path: '/profile', component: profile },
     { path: '/signin', component: signin },
+    { path: '/lessonlist/:id', component: lessonList },
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
   ]

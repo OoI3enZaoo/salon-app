@@ -2,73 +2,39 @@
 <div>
 
   <!-- <mToolbar title="รายการ"></mToolbar>       -->
-  <div class="text-xs-center"  v-show="prog" >
-    <br>
-    <v-progress-circular indeterminate class="primary--text" ></v-progress-circular>
-  </div>
-  <v-container fluid grid-list-md>
-    <v-layout row wrap>
-      <v-flex v-for="(data,index) in courseRef" :key="index">
-          <template>
+
+  <toolbar title="รายการคอร์ส"></toolbar>
+  <div v-show="$store.state.isLogin !== true">
+  <v-alert
+      warning
+      dismissible
+      hide-icon
+      v-bind:value="true"
+  >
+      คุณยังไม่ได้ลงทะเบียนเลยนะ <v-btn primary @click.native="$router.push('/login')">ลงทะเบียน</v-btn>
+  </v-alert>
+</div>
+
+    <div column v-for="(data,index) in $store.state.course" :key="index">
               <cardCourse
                 @progress="checkProgress"
-                :index="index"
-                :length="courseRef.length"
-                :id="data.key"
+                :courseId="data.course_id"
                 :cover="data.cover"
-                :name ="data.name"
+                :title ="data.title"
                 :price="data.price"
-                :snippet="data.snippet"
+                :lname="data.lname"
+                :fname="data.fname"
+                :description="data.description"
             ></cardCourse>
-          </template>
-
-      </v-flex>
-
-  </v-layout>
-
-  </v-container>
-      <br><br><br>
+        </div>
+      <bottomNav></bottomNav>
 </div>
 </template>
 <script>
 import cardCourse from '../components/cardCourse.vue'
-// const moment = require('moment')
-import {db} from '../../firebase'
-let courseRef = db.ref('courses')
 export default {
-  firebase: {
-    courseRef
-  },
-  created() {
-    console.log("courseRef.length: " + Object.keys(courseRef).length);
-    this.$store.commit('setTitle', 'รายการคอร์ส')
-
-    // if (this.couseList == null) {
-    //   this.axios.get('https://salon-b177d.firebaseio.com/courses.json')
-    //     .then(res => {
-    //       let result = res.data
-    //       for (let key in result) {
-    //         result[key].key = key
-    //         console.log('result: ' + JSON.stringify(result[key].name))
-    //         this.courseList.push(result[key])
-    //       }
-    //       this.$store.commit('setCourseList', this.courseList)
-    //       console.log('course: ' + this.$store.getters.courseList)
-    //     })
-    //   console.log('load from Firebase')
-    // } else {
-    //   console.log('load from LocalStorage')
-    // }
-  },
-  mounted() {
-    // this.$options.sockets.newCardData = (res) => {
-    //   console.log(JSON.stringify(res))
-    //   this.$store.commit('addCourseList', res)
-    // }
-    // this.$options.sockets.removeCourse = (key) => {
-    //   console.log('removeCourse: ' + key)
-    //   this.$store.commit('removeCouse', key)
-    // }
+  beforeCreate () {
+    this.$store.dispatch('pullCourse')
   },
   components: {
     cardCourse
@@ -82,6 +48,11 @@ export default {
   data() {
     return {
       prog: true
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.state.loading
     }
   }
 }

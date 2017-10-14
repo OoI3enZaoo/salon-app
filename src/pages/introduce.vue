@@ -60,7 +60,7 @@ import {
 export default {
   created () {
     this.$store.commit('setTitle','introduce')
-    const a = this.$store.getters.isLogin === true ? this.$router.push('/home') : ''    
+    const a = this.$store.getters.isLogin === true ? this.$router.push('/home') : ''
   },
   components: {
     QToolbar,

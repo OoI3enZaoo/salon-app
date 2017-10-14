@@ -1,48 +1,21 @@
 <template>
   <div>
-      <q-card class="white black--text">
-        <div class="row">
-            <div class="col-3">
-                <q-card-media >
-                    <img src="http://goo.gl/bkgA9d" alt="">
-                </q-card-media>
-            </div>
-            <div class="col-9">
-                <q-card-title>
-                    <span>คอร์สบลาๆๆๆ</span>
-                </q-card-title>
-            </div>
-
-        </div>
-      </q-card>
-      <q-card class="white black--text">
-        <div class="row">
-            <div class="col-3">
-                <q-card-media >
-                    <img src="http://goo.gl/bkgA9d" alt="">
-                </q-card-media>
-            </div>
-            <div class="col-9">
-                <q-card-title>
-                    <span>คอร์สบลาๆๆๆ</span>
-                </q-card-title>
-            </div>
-        </div>
-      </q-card>
-      <q-card class="white black--text">
-        <div class="row">
-            <div class="col-3">
-                <q-card-media>
-                    <img src="http://goo.gl/bkgA9d" alt="">
-                </q-card-media>
-            </div>
-            <div class="col-9">
-                <q-card-title>
-                    <span>คอร์สบลาๆๆๆ</span>
-                </q-card-title>
-            </div>
-        </div>
-      </q-card>
+      <toolbar title="คอร์สของฉัน"></toolbar>
+      <template v-for="data2 in course">
+          <template v-for="data in $store.getters.course_from_course_id(data2.course_id)">
+            <q-card inline>
+               <router-link :to="'/lessonList/' + data.course_id">
+              <q-card-media>
+                <img :src="data.cover">
+              </q-card-media>
+              <q-card-title>
+                {{data.title}}
+              </q-card-title>
+                </router-link>
+            </q-card>
+          </template>
+      </template>
+      <bottomNav></bottomNav>
   </div>
 </template>
 <script>
@@ -52,13 +25,10 @@ import {
   QCardMedia
 } from 'quasar'
 export default {
-  beforeCreate() {
-    //do something before creating vue instance
-    this.$store.commit('setTitle',"คอร์สของฉัน")
-  },
-  mounted() {
-    //do something after creating vue instance
-    console.log("course: " +this.$store.getters.user.key);
+  computed: {
+    course () {
+      return this.$store.state.purchaseCourse
+    }
   },
   components: {
     QCard,

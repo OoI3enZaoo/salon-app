@@ -1,31 +1,44 @@
 <template>
-             <v-card>
-               <router-link :to="'/courseContent/'+id">
-                  <div class="row">
-                    <div class="col-8">
-                         <v-card-title>
-                            <div>
-                                <h6><b>{{name}}</b></h6>
-                                <span>{{snippet}}</span>
-                            </div>
-                         </v-card-title>
-                    </div>
-                    <div class="col-4">
-                      <v-card-media :src="cover" height="100px"></v-card-media>
-                    </div>
-                  </div>
-                </router-link>
-             </v-card>
-           </template>
+    <q-card inline>
+       <router-link :to="'/courseContent/' + courseId">
+      <q-card-media>
+        <img :src="cover">
+      </q-card-media>
+      <q-card-title>
+        {{title}}
+        <div slot="right" class="row items-center">
+          {{price}} บาท
+        </div>
+      </q-card-title>
+      <q-card-main>
+        <p class="text-faded" v-html="description_short"></p>
+      </q-card-main>
+        </router-link>
+    </q-card>
+    </template>
 <script>
-
+import {
+  QCardTitle,
+  QCard,
+  QCardActions,
+  QCardMedia,
+  QCardMain,
+  QIcon
+} from 'quasar'
 export default {
-  props: ['id','cover','name','price','snippet','index','length'],
-  created () {
-    let srIndex = this.index+1
-    console.log('index: ' + srIndex + ' length: ' + this.length)
-    srIndex === this.length ? this.$emit('progress',false) : ''
-
+  components: {
+    QCardTitle,
+    QCard,
+    QCardActions,
+    QCardMedia,
+    QCardMain,
+    QIcon
+  },
+  props: ['courseId','cover','title','price','snippet','fname','lname','description'],
+  computed: {
+    description_short () {
+      return this.description.substring(0, 120) + '...'
+    }
   }
 }
 </script>

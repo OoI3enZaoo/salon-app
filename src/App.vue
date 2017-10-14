@@ -89,54 +89,14 @@
 </q-layout> -->
 
 <div>
-  <v-toolbar dark class="primary" dense>
-    <v-btn class="white--text" icon v-if="!parrentPage" @click.native="$router.push('/home')">
-      <v-icon>arrow_back</v-icon>
-    </v-btn>
-    <v-toolbar-title class="white--text">{{$store.getters.title}}</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-btn icon class="white--text" @click.native="$router.push('/profile')">
-      <v-icon>person_outline</v-icon>
-    </v-btn>
-    <v-btn icon class="white--text">
-      <v-icon>more_vert</v-icon>
-    </v-btn>
-  </v-toolbar>
-
-<v-alert
-    warning
-    hide-icon
-    dismissible
-    v-model="alertLogin"
-    v-if="isAlertVisible"
->
-
-    คุณยังไม่ได้ลงทะเบียนเลยนะ <v-btn primary @click.native="$router.push('/login')">ลงทะเบียน</v-btn>
 
 
-</v-alert>
+
 
   <router-view></router-view>
 
 
- <v-bottom-nav value="true" class="white elevation-11 "v-if="parrentPage" >
-   <v-btn flat light class="primary--text" @click.native="linkTo(1,'/home')" :value="e1 === 1">
-     <span>บ้าน</span>
-     <v-icon>home</v-icon>
-   </v-btn>
-   <v-btn flat light class="primary--text" @click.native="linkTo(2,'/mycourse')" :value="e1 === 2">
-     <span>คอร์สของฉัน</span>
-     <v-icon>bookmark</v-icon>
-   </v-btn>
-   <v-btn flat light class="primary--text" @click.native="linkTo(3,'/bookmark')" :value="e1 === 3">
-     <span>รายการโปรด</span>
-     <v-icon>favorite</v-icon>
-   </v-btn>
-   <v-btn flat light class="primary--text" @click.native="linkTo(4,'/message')" :value="e1 === 4">
-     <span>ข้อความ</span>
-     <v-icon>message</v-icon>
-   </v-btn>
- </v-bottom-nav>
+
 
 
 
@@ -188,8 +148,7 @@ export default {
     QRouteTab
   },
   created() {
-    //do something after creating vue instance
-    this.$store.getters.isLogin == false ? this.alertLogin = false : this.alertLogin = true;
+    this.$store.state.isLogin == false ? this.alertLogin = false : this.alertLogin = true;
 
     console.log("router: " + this.$router);
   },
@@ -200,10 +159,6 @@ export default {
     }
   },
   methods: {
-    // linkTo (url) {
-    //   console.log('linkto: ' + url)
-    //   this.$router.push({path: url})
-    // },
     linkTo (el,link) {
       console.log('linkto: el: ' + el + " link: " + link);
        this.e1 = el
@@ -217,26 +172,10 @@ export default {
   computed: {
     ...mapGetters([
       'user'
-    ]),
-    parrentPage (){
-      if(this.$store.getters.title == 'รายการคอร์ส' || this.$store.getters.title == 'คอร์สของฉัน' || this.$store.getters.title == 'รายการโปรด' || this.$store.getters.title == 'แชท'|| this.$store.getters.title == 'โปรไฟล์' ) {
-        return true
-      }else{
-        return false
-      }
-    },
-    isAlertVisible () {
-      if(this.parrentPage == true && this.$store.getters.isLogin == false ) {
-        return true
-      } else {
-        return false
-      }
-    }
+    ])
   },
   mounted () {
-    console.log('toolbaruser: ' + JSON.stringify(this.user))
-    console.log('isLogin: ' + this.$store.getters.isLogin)
-    console.log('toolbar: ' + this.$store.getters.title)
+    console.log('isLogin: ' + this.$store.state.isLogin)
   }
 }
 </script>
