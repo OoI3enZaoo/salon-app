@@ -41,7 +41,7 @@
           <q-route-tab
           icon="supervisor_account"
           to="/login"
-          label="สมัครสมาชิก"
+          label="เข้าสู่ระบบ"
           exact
           slot="title"
           />

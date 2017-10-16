@@ -1,6 +1,6 @@
 <template>
   <div>
-    <toolbar :title="course.title" page="content"></toolbar>
+    <toolbar :title="course.title" link="/home"></toolbar>
             <q-card>
               <q-video :src="course.youtube" style="height:300px;" />
                   <q-card-title>

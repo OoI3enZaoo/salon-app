@@ -1,83 +1,113 @@
 <template >
+  <div>
 
-<v-app>
-      <div class="text-xs-center">
-        <h5>สร้างแอดเคาท์ใหม่</h5>
-        <p>สร้างแอดเคาท์ของคุณ แล้วไปเลือกคอร์สกันเลย</p>
 
-        <v-text-field
-             name="input-2-3"
-             label="Hint Text"
-             class="input-group--focused"
-             dark
-             single-line
-           ></v-text-field>
-           <v-text-field
-                name="input-2-3"
-                label="Hint Text"
-                class="input-group--focused"
-                dark
-                single-line
-              ></v-text-field>
+    <toolbar  title="สมัครสมาชิก" link="/login"></toolbar>
+    <v-container grid-list-lg>
+      <div class="row md-gutter">
+        <div class="col-12">
+          <div class="text-xs-center">
+            <br>
+            <h5>สร้างแอดเคาท์ใหม่</h5>
+            <h6>สร้างแอดเคาท์ของคุณ แล้วไปเลือกคอร์สกันเลย</h6>
+            <br>
+            <v-text-field
+                label="อีเมล"
+                  v-model="email"
+            ></v-text-field>
+            <v-text-field
+                label="รหัสผ่าน"
+                v-model="user.password"
+            ></v-text-field>
+            <div class="row md-gutter">
+              <div class="col-6">
+                <v-text-field
+                    label="ชื่อจริง"
+                    v-model="user.fname"
+                ></v-text-field>
+              </div>
+              <div class="col-6">
+                <v-text-field
+                    label="นามสกุล"
+                    v-model="user.lname"
+                ></v-text-field>
+              </div>
+            </div>
+            <div class="row md-gutter">
+              <div class="col-6">
+                <v-text-field
+                  type="number"
+                  label="เบอร์มือถือ"
+                  v-model="user.phone"
+                ></v-text-field>
+              </div>
+              <div class="col-6">
+                  <base64upload imageSrc="http://findicons.com/files/icons/1580/devine_icons_part_2/256/account_and_control.png" @change="onChangeImage" style="width:70px; ">
+                    <slot name="name">sds</slot>
+                  </base64upload>
+              </div>
+            </div>
 
-              <br><br>
-              <v-btn primary>สร้างแอดเคาท์</v-btn>
-              <br><br>
-              <v-icon>person</v-icon>&nbsp;<router-link to="/signin">ฉันมีแอดเคาท์อยู่แล้ว</router-link>
-      </div>
-      </v-app>
+            <v-slider
+                  color="orange"
+                  label="อายุ"
+                  hint="ไม่หลอกกันนะ"
+                  min="1"
+                  max="100"
+                  thumb-label
+                  v-model="user.age"
+                ></v-slider>
 
-  <!-- <div class ="layout-padding">
-      <div class="text-center">
-          <h6>สร้างแอดเคาท์ใหม่</h6>
-          <br><br>
-          <div class="floating-label">
-             <input required class="full-width" v-model="user.name" autofocus>
-             <label>ชื่อ-นามสกุล</label>
-         </div>
-         <br><br>
-         <div class="floating-label">
-            <input type="email" required class="full-width" v-model="user.email">
-            <label>อีเมล</label>
+<br>
+
+            <v-btn block primary round large @click.native="signup">ลงทะเบียน</v-btn>
+          </div>
         </div>
-        <br><br>
-        <div class="floating-label">
-           <input type="password" required class="full-width" v-model="user.password">
-           <label>รหัสผ่าน</label>
-       </div>
-       <br> <br>
       </div>
-      <div class="row">
-            <div class="auto">
-              <div class="text-left">
-                  <p>คุณมีแอดเคาท์อยู่แล้วหรือเปล่า?</p>
-                  <router-link to="/signin">เข้าสู่ระบบ</router-link>
-              </div>
-            </div>
-            <div class="auto">
-              <div class="text-right">
-                  <button class ="primary" @click="signup">สร้างแอดเคาท์</button>
-              </div>
-            </div>
-
-     </div>
-  </div> -->
+    </v-container>
+  </div>
 </template>
 <script>
+import toolbar from '../components/toolbar.vue'
+import base64upload from '../components/base64upload.vue'
+import Vue from 'vue'
+import axios from 'axios'
+const moment = require('moment')
+Vue.use(require('vue-moment'), {
+    moment
+})
 export default {
+  components: {
+    toolbar,
+    base64upload
+  },
   data () {
     return {
+      email: '',
       user: {
-        name: '',
-        email: '',
-        password: ''
+        password: '',
+        fname: '',
+        lname: '',
+        avatar: '',
+        age: '',
+        phone: '',
+        tstamp: ''
       }
     }
   },
   methods: {
     signup () {
+      this.user.email = this.email
       console.log('user: ' + JSON.stringify(this.user))
-      this.$store.dispatch('signUserUp', this.user)
+        this.user.user_id = (new Date().getTime())
+        this.user.tstamp = Vue.moment().format('YYYY-MM-DD HH:mm:ss')
+        axios.post('http://localhost:4000/api/insertuser', this.user)
+        this.$store.commit('addUserProfile', this.user)
+        this.$store.commit('isLogin', true)
+        this.$router.push('/home')
+    },
+    onChangeImage (data) {
+      this.user.avatar =  'data:image/jpeg;base64,' + data.base64
     }
   }
 }

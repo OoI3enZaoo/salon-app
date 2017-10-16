@@ -19,7 +19,7 @@ export default {
   },
   pullCourse ({commit, state}) {
     if (state.course == undefined) {
-      axios.get('http://localhost:4000/api/getcourse')
+      axios.get('http://172.104.189.169:4000/api/getcourse')
       .then (res => {
         let result = res.data
         console.log('pullCourse: ' + JSON.stringify(result))
@@ -32,10 +32,10 @@ export default {
     payload.user_id = state.profile.user_id
     console.log('payload ' + JSON.stringify(payload))
     commit('addPurchaseCourse', [payload])
-    axios.post('http://localhost:4000/api/purchase', payload)
+    axios.post('http://172.104.189.169:4000/api/purchase', payload)
   },
   pullLesson ({commit, state}, courseId) {
-    axios.get('http://localhost:4000/api/getlesson/' + courseId)
+    axios.get('http://172.104.189.169:4000/api/getlesson/' + courseId)
     .then (res => {
       let result = res.data
       commit('addLesson', result)

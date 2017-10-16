@@ -1,9 +1,7 @@
 <template>
 <div>
-
-
-  <toolbar title="ข้อความ"></toolbar>
-
+  <toolbar v-if="$store.state.isLogin == true" title="ข้อความ" :back="false"></toolbar>
+  <toolbar v-else title="ข้อความ" :back="true" link="/"></toolbar>
   <div class="layout-padding fixed-center">
     <q-scroll-area style="width: 100%; ">
       <template v-for="data in messageMe">

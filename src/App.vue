@@ -1,111 +1,14 @@
 <template>
+
 <v-app class="grey lighten-4"  style="margin: auto;" standalone>
-<!-- <q-layout ref="layout" :reveal="true">
-    <q-toolbar slot="header" v-if="$store.getters.title!='introduce'">
-      <template v-if="parrentPage">
-          <q-btn @click="$router.push('/home')" icon='arrow_back' flat>
-          </q-btn>
-      </template>
-      <template v-if="isLogin">
-          <q-btn
-            flat
-            @click="$refs.layout.toggleLeft()"
-          >
-            <q-icon name="menu" />
-          </q-btn>
-        </template>
-      <q-toolbar-title>
-        {{$store.getters.title}}
-      </q-toolbar-title>
-      <template v-if="!$store.getters.isLogin">
-        <q-btn @click="$router.push('/login')" flat>
-          ลงชื่อเข้าใช้
-        </q-btn>
-      </template>
-    </q-toolbar>
-
-
-
-
-
-
-<template v-if="$store.getters.isLogin=true">
-    <div slot="left">
-          <div class="text-center bg-grey-1"><br>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" width="80px"><br>
-                <p class="text-primary" style="display:inline;">{{user.name}}</p><br>
-                <p class="text-black" style="display:inline;"><small>{{user.email}}</small></p><br><br>
-                <hr>
-          </div>
-
-  <q-list-header>เมนูหลัก</q-list-header>
-        <q-side-link item to="/home" exact>
-          <q-item-side icon="school" />
-          <q-item-main label="หน้าหลัก" />
-        </q-side-link>
-        <q-side-link item to="/bookmark">
-          <q-item-side icon="bookmark" />
-          <q-item-main label="คอร์สของฉัน" />
-        </q-side-link>
-        <q-side-link item to="/bookmark">
-          <q-item-side icon="bookmark" />
-          <q-item-main label="คลัง" />
-        </q-side-link>
-        <q-side-link item to="/message">
-          <q-item-side icon="message" />
-          <q-item-main label="กล่องข้อความ"  />
-        </q-side-link>
-        <q-side-link item to="/card">
-          <q-item-side icon="payment" />
-          <q-item-main label="บัตรเครดิต"  />
-        </q-side-link>
-        <hr>
-            <q-list-header>อื่นๆ</q-list-header>
-          <q-side-link item to="/setting">
-            ช่วยเหลือ
-          </q-side-link>
-          <q-side-link item to="/setting">
-            เกี่ยวกับเรา
-          </q-side-link>
-          <q-side-link item to="/setting">
-            ตั้งค่า
-          </q-side-link>
-          <q-side-link item to="/signout">
-              ออกจากระบบ
-          </q-side-link>
-
-
-    </div>
-    <router-view />
-
-
-  </template>
-
-
-
-
-
-
-</q-layout> -->
-
-<div>
-
-
-
-
-  <router-view></router-view>
-
-
-
-
-
-
-
-
-</div>
-
+  <div id="q-app">
+    <router-view></router-view>
+  </div>
 </v-app>
-
+<!--
+  <div id="q-app">
+    <router-view />
+  </div> -->
 </template>
 <script>
 
@@ -128,6 +31,7 @@ QRouteTab,
 } from 'quasar'
 
 import { mapGetters } from 'vuex'
+import Vue from 'vue'
 export default {
   props: ['title', 'icon', 'goto'],
   components: {
@@ -148,14 +52,21 @@ export default {
     QRouteTab
   },
   created() {
+    document.addEventListener('deviceready', function () {
+      this.cordova.plugins.backgroundMode.setEnabled(true);
+      window.alert('status: ' + this.cordova.plugins.backgroundMode.isActive())
+    }, false);
     this.$store.state.isLogin == false ? this.alertLogin = false : this.alertLogin = true;
-
     console.log("router: " + this.$router);
+      console.log(Vue.cordova)
+      // window.alert('status: ' + Vue.cordova.plugins.backgroundMode.isActive())
+    // console.log(Vue.cordova.plugins.backgroundMode.isActive())
   },
   data () {
     return {
       e1: 1,
-      alertLogin: true
+      alertLogin: true,
+      cordova: Vue.cordova
     }
   },
   methods: {
@@ -179,3 +90,83 @@ export default {
   }
 }
 </script>
+<style>
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+#app {
+  color: #2c3e50;
+  margin: 40px auto;
+  max-width: 640px;
+  font-family: Source Sans Pro, Helvetica, sans-serif;
+  text-align: center;
+}
+.logo {
+  padding-bottom: 30px;
+}
+.logo span {
+  position: relative;
+  top: -30px;
+  font-size: 36px;
+  margin: 0 20px;
+}
+.logo img {
+  width: 90px;
+  height: 90px;
+}
+div.dump {
+  background: #eee;
+  text-align: left;
+  border: solid 1px #ccc;
+  padding: 20px;
+  max-width: 600px;
+  box-sizing: border-box;
+  font-family: monospace;
+  white-space: pre;
+}
+div.alert {
+  color: #c00;
+  font-weight: bold;
+  font-size: .9em;
+  padding-bottom: 30px;
+  line-height: 1.6;
+}
+div.alert a {
+  color: inherit;
+}
+div.indicators {
+  width: 340px;
+  margin: 0 auto 40px;
+  text-align: left;
+  font-family: Courier, Courier New, sans-serif;
+}
+div.indicators div {
+  padding-bottom: 15px;
+  opacity: .6;
+}
+div.indicators div.ok {
+  opacity: 1;
+  cursor: pointer;
+}
+div.indicators div.ok span {
+  background: #0c0;
+}
+div.indicators div span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #c00;
+  border-radius: 20px;
+  position: relative;
+  top: 3px;
+  margin-right: 15px;
+}
+div.indicators p {
+  font-size: .8em;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+</style>

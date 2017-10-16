@@ -4,16 +4,6 @@ export default {
     state.isLogin = payload
     LocalStorage.set('isLogin', payload)
   },
-  setUserOnline (state, payload) {
-    state.user = payload
-    LocalStorage.set('userId', payload.userId)
-    LocalStorage.set('name', payload.name)
-    LocalStorage.set('email', payload.email)
-    LocalStorage.set('key', payload.key)
-    LocalStorage.set('phone', payload.phone)
-    LocalStorage.set('image', payload.image)
-    LocalStorage.set('address', payload.address)
-  },
   addCourse: (state,data) => {
     console.log('addCourse')
     state.course == undefined ? state.course = [] : ''
@@ -25,5 +15,15 @@ export default {
     state.purchaseCourse.push(...data)
     LocalStorage.set('purchaseCourse', state.purchaseCourse)
   },
-  addLesson: (state, data) => state.lesson.unshift(...data)
+  addLesson: (state, data) => state.lesson.unshift(...data),
+  addUserProfile: (state, data) =>  {
+    state.profile = data
+    LocalStorage.set('user_id', data.user_id)
+    LocalStorage.set('fname', data.fname)
+    LocalStorage.set('lname', data.fname)
+    LocalStorage.set('email', data.email)
+    LocalStorage.set('phone', data.phone)
+    LocalStorage.set('avatar', data.avatar)
+    LocalStorage.set('age', data.age)
+  }
 }

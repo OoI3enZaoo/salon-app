@@ -1,22 +1,78 @@
 <template>
   <div>
-    <v-toolbar dark class="primary" dense>
-      <v-btn class="white--text" icon v-if="page == 'content'" @click.native="$router.push('/home')">
+    <v-navigation-drawer v-model="drawer" app floating>
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="https://randomuser.me/api/portraits/men/85.jpg" />
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>John Leider</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+        <v-list-tile v-for="item in items" :key="item.title" @click="" router :to="item.link">
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider></v-divider>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>reply</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title @click="logout">ลงชื่อออก</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar dark class="primary">
+      <v-toolbar-side-icon v-if="$store.state.isLogin == true && $route.path == '/home' || $route.path == '/mycourse' || $route.path == '/bookmark'  || $route.path == '/message'"dark @click.native.stop="drawer = !drawer" ></v-toolbar-side-icon>
+      <v-btn class="white--text" icon v-if="back" router :to="link">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title class="white--text">{{title}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon class="white--text" @click.native="$router.push('/profile')">
-        <v-icon>person_outline</v-icon>
-      </v-btn>
-      <v-btn icon class="white--text">
-        <v-icon>more_vert</v-icon>
-      </v-btn>
+
     </v-toolbar>
   </div>
 </template>
 <script>
 export default {
-  props: ['page','title']
+  data () {
+    return {
+      drawer: false,
+      items: [
+        { title: 'โปรไฟล์', icon: 'account_circle', link: "/account"},
+        { title: 'การตั้งค่า', icon: 'settings', link: '/setting'},
+        { title: 'ความช่วยเหลือและความคิดเห็น', icon: 'help', link: '/help'}
+      ]
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.commit('isLogin', false)
+      this.$router.push('/')
+    }
+  },
+  props: {
+    back: {
+      default: true,
+      type: Boolean
+    },
+    title: {
+      type: String
+    },
+    link: {
+      type: String
+    }
+  }
 }
 </script>

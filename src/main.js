@@ -21,19 +21,32 @@ import vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import toolbar from './components/toolbar.vue'
 import bottomNav from './components/bottomNav.vue'
-Vue.use(vuetify)
+import VueCordova from 'vue-cordova'
+Vue.use(VueCordova, {
+  optionTestKey: 'optionTestValue'
+})
 
-Vue.use(VueSocketio, 'https://agile-citadel-43436.herokuapp.com/')
+// // add cordova.js only if serving the app through file://
+// if (window.location.protocol === 'file:' || window.location.port === '8080') {
+//   var cordovaScript = document.createElement('script')
+//   cordovaScript.setAttribute('src', 'cordova.js')
+//   document.body.appendChild(cordovaScript)
+// }
+
+Vue.use(vuetify)
+Vue.use(VueSocketio, 'http://172.104.189.169:4000')
 // Vue.use(VueSocketio, 'http://localhost:3000/')
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
-Vue.component('toolbar',toolbar)
-Vue.component('bottomNav',bottomNav)
+
+Vue.component('toolbar', toolbar)
+Vue.component('bottomNav', bottomNav)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
 }
+
 import 'quasar-extras/material-icons'
 Quasar.start(() => {
   /* eslint-disable no-new */
@@ -41,6 +54,11 @@ Quasar.start(() => {
     el: '#q-app',
     store,
     router,
-    render: h => h(require('./App'))
+    render: h => h(require('./App').default),
+    data: function () {
+      return {
+        cordova: Vue.cordova
+      }
+    }
   })
 })
