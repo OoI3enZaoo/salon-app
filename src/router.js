@@ -3,16 +3,17 @@ import VueRouter from 'vue-router'
 import introduce from './pages/introduce.vue'
 import homePage from './pages/home.vue'
 import courseContent from './pages/courseContent.vue'
-import bookmark from './pages/bookmark.vue'
+import favorite from './pages/favorite.vue'
 import message from './pages/message.vue'
 import account from './pages/account.vue'
 import login from './pages/login.vue'
-import createAccount from './pages/createAccount.vue'
+import register from './pages/register.vue'
 import lessonList from './pages/lessonList.vue'
 
-import mycourse from './pages/mycourse.vue'
+import coursePurchase from './pages/coursePurchase.vue'
 import profile from './pages/profile.vue'
-
+import lessonContent from './pages/lessonContent.vue'
+import payment from './pages/payment.vue'
 Vue.use(VueRouter)
 
 function load (component) {
@@ -38,14 +39,15 @@ export default new VueRouter({
     { path: '/login', component: login },
     { path: '/home', component: homePage }, // Default
     { path: '/courseContent/:id', component: courseContent },
-    { path: '/bookmark', component: bookmark },
+    { path: '/favorite', component: favorite },
     { path: '/message', component: message },
     { path: '/account', component: account },
-    { path: '/mycourse', component: mycourse},
-    { path: '/createAccount', component: createAccount },
+    { path: '/coursePurchase', component: coursePurchase},
+    { path: '/register', component: register },
     { path: '/profile', component: profile },
     { path: '/lessonlist/:id', component: lessonList },
-    // Always leave this last one
+    { path: '/lessonContent/:id', component: lessonContent },
+    { path: '/payment/', component: payment },
     { path: '*', component: load('Error404') } // Not found
   ]
 })

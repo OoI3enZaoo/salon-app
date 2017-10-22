@@ -13,7 +13,38 @@
   </v-alert>
 </div>
 
-    <div column v-for="(data,index) in $store.state.course" :key="index">
+
+
+<v-tabs dark fixed centered>
+    <v-tabs-bar class="primary">
+      <v-tabs-slider color="yellow"></v-tabs-slider>
+     <v-tabs-item
+       v-for="(data,i) in menuItems"
+       :key="i"
+       :href="'#tab-' + i"
+     >
+       {{data.title}}
+     </v-tabs-item>
+   </v-tabs-bar>
+
+   <v-tabs-items>
+     <!-- นิยม -->
+     <v-tabs-content id='tab-0'>
+        <popular></popular>
+     </v-tabs-content>
+     <!-- ล่าสุด -->
+     <v-tabs-content id='tab-1'>
+        <last></last>
+     </v-tabs-content>
+
+     <!-- ราคา -->
+     <v-tabs-content id='tab-2'>
+        <price></price>
+     </v-tabs-content>
+     </v-tabs-items>
+   </v-tabs>
+
+    <!-- <div column v-for="(data,index) in $store.state.course" :key="index">
               <cardCourse
                 @progress="checkProgress"
                 :courseId="data.course_id"
@@ -24,12 +55,19 @@
                 :fname="data.fname"
                 :description="data.description"
             ></cardCourse>
-        </div>
+        </div> -->
       <bottomNav></bottomNav>
 </div>
 </template>
 <script>
+import {
+  QPullToRefresh,
+  Toast
+} from 'quasar'
 import cardCourse from '../components/cardCourse.vue'
+import last from '../components/course/last.vue'
+import popular from '../components/course/popular.vue'
+import price from '../components/course/price.vue'
 import Vue from 'vue'
 export default {
   beforeCreate () {
@@ -72,7 +110,12 @@ export default {
     // console.log('backgroundMode: ' + Vue.cordova.plugins.backgroundMode.isActive())
   },
   components: {
-    cardCourse
+    cardCourse,
+    QPullToRefresh,
+    Toast,
+    last,
+    popular,
+    price
   },
   methods: {
     checkProgress(select) {
@@ -82,7 +125,12 @@ export default {
   },
   data() {
     return {
-      prog: true
+      prog: true,
+      menuItems: [
+        { title: 'ความนิยม' },
+        { title: 'ล่าสุด' },
+        { title: 'ราคา' },
+      ]
     }
   },
   computed: {

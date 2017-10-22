@@ -13,5 +13,15 @@ export default {
     return courseId => state.lesson.filter(item => {
       return courseId == item.course_id
     })
+  },
+  lesson_from_lesson_id (state) {
+    return lessonId => state.lesson.filter(item => {
+      return lessonId == item.lesson_id
+    })
+  },
+  favorite_from_lesson_id (state) {
+    return lessonId => state.favorite.filter(item => {
+      return lessonId == item.lesson_id
+    })
   }
 }

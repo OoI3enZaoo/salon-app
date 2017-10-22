@@ -20,8 +20,12 @@ export const store = new Vuex.Store({
         age: LocalStorage.get.item('age')
       },
       purchaseCourse: LocalStorage.get.item('purchaseCourse') == undefined ? [] : LocalStorage.get.item('purchaseCourse'),
-      course: LocalStorage.get.item('course'),
-      lesson: LocalStorage.get.item('lesson') == undefined ? [] : LocalStorage.get.item('lesson')
+      coursepopular: LocalStorage.get.item('coursepopular'),
+      courselast: LocalStorage.get.item('courselast'),
+      courseprice: LocalStorage.get.item('courseprice'),
+      lesson: LocalStorage.get.item('lesson') == undefined ? [] : LocalStorage.get.item('lesson'),
+      favorite: LocalStorage.get.item('favorite') == undefined ? [] : LocalStorage.get.item('favorite'),
+      creditCard: LocalStorage.get.item('creditCard'),
     },
     getters,
     mutations,

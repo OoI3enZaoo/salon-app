@@ -4,14 +4,20 @@
             <q-card>
               <q-video :src="course.youtube" style="height:300px;" />
                   <q-card-title>
-                    <div class="headline">{{course.title}}</div>
-                      <p class="text-faded">{{course.fname}} {{course.lname}}</p>
-                      <template v-if="purchaseCourse">
-                        <v-btn primary slot="right" >ดูรายละเอียดคอร์ส</v-btn>
-                      </template>
-                      <template v-else>
-                        <v-btn primary slot="right" @click.native="buyCourse">ซื้อตอนนี้</v-btn>
-                      </template>
+                    <div class="row">
+                      <div class="col-8">
+                        <div class="headline">{{course.title}}</div>
+                          <p class="text-faded">{{course.fname}} {{course.lname}}</p>
+                      </div>
+                      <div class="col-2">
+                        <template v-if="purchaseCourse">
+                          <v-btn primary slot="right" @click.native="CourseInfo(course.course_id)">รายละเอียด</v-btn>
+                        </template>
+                        <template v-else>
+                          <v-btn primary slot="right" @click.native="buyCourse">ซื้อตอนนี้</v-btn>
+                        </template>
+                      </div>
+                    </div>
                   </q-card-title>
                   <q-card-actions>
                     <v-spacer></v-spacer>
@@ -55,14 +61,41 @@ export default {
       lesson: []
     }
   },
+  mounted() {
+    //do something after mounting vue instance
+    document.addEventListener("deviceready", this.onDeviceReady, false);
+  },
   methods: {
     buyCourse () {
-      const data = {
-        course_id: this.course.course_id,
-        price: this.course.price
+      if (!this.CreditCard) {
+        this.showAlert()
+      } else {
+        const data = {
+          course_id: this.course.course_id,
+          price: this.course.price
+        }
+        this.$store.dispatch('purchaseCourse', data)
+        this.$store.dispatch('pullLesson', this.course.course_id)
       }
-      this.$store.dispatch('purchaseCourse', data)
-      this.$store.dispatch('pullLesson', this.course.course_id)
+    },
+    showAlert () {
+      navigator.notification.confirm(
+          'คุณยังไม่มีบัตรเดบิต/เครดิต ในระบบ', // message
+           this.onConfirm,            // callback to invoke with index of button pressed
+          'Game Over',           // title
+          ['เพิ่มบัตร','ปิด']     // buttonLabels
+      );
+    },
+    onConfirm (buttonIndex) {
+      if (buttonIndex == 1) {
+        this.$router.push('/payment')
+      }
+    },
+    onDeviceReady () {
+    },
+    CourseInfo (course_id) {
+      console.log('course_id: ' + course_id)
+      this.$router.push('/lessonList/' + course_id)
     }
   },
   computed: {
@@ -71,6 +104,9 @@ export default {
     },
     purchaseCourse () {
       return this.$store.getters.course_purchase_from_course_id(this.$route.params.id)[0] !== undefined ? true : false
+    },
+    CreditCard () {
+      return this.$store.state.creditCard
     }
   }
 }

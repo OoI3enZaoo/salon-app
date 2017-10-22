@@ -51,6 +51,7 @@ export default {
       drawer: false,
       items: [
         { title: 'โปรไฟล์', icon: 'account_circle', link: "/account"},
+        { title: 'เพิ่มบัตรเดบิต/เครดิต', icon: 'payment', link: "/payment"},
         { title: 'การตั้งค่า', icon: 'settings', link: '/setting'},
         { title: 'ความช่วยเหลือและความคิดเห็น', icon: 'help', link: '/help'}
       ]

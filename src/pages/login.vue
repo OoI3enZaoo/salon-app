@@ -24,7 +24,7 @@
 <br>
 
             <v-btn block primary round large @click.native="login">เข้าสู่ระบบ</v-btn>
-            <p color="blue">ยังไม่ได้เป็นสมาชิก? <router-link to="/createAccount">สมัครสมาชิก</router-link></p>
+            <p color="blue">ยังไม่ได้เป็นสมาชิก? <router-link to="/register">สมัครสมาชิก</router-link></p>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default {
   methods: {
     async login () {
       let user_id = null
-      await axios.get('http://localhost:4000/api/checkloginuser/'+ this.email + '/' + this.password)
+      await axios.get('http://172.104.189.169:4000/api/checkloginuser/'+ this.email + '/' + this.password)
       .then (res => {
         let result = res.data[0]
         if (result.check_user == 1) {
@@ -59,7 +59,7 @@ export default {
         }
       })
       if (user_id !== null) {
-        axios.get('http://localhost:4000/api/getuserdata/' + user_id)
+        axios.get('http://172.104.189.169:4000/api/getuserdata/' + user_id)
         .then (res => {
           let result = res.data
           this.$store.commit('isLogin', true)

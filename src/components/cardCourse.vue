@@ -1,20 +1,40 @@
 <template>
-    <q-card inline>
-       <router-link :to="'/courseContent/' + courseId">
+    <!-- <q-card inline>
+       <router-link :to="'/courseContent/' + data.course_id">
       <q-card-media>
-        <img :src="cover">
+        <img :src="data.cover">
       </q-card-media>
       <q-card-title>
-        {{title}}
+        {{data.title}}
         <div slot="right" class="row items-center">
-          {{price}} บาท
+          {{data.price}} บาท
         </div>
       </q-card-title>
       <q-card-main>
-        <p class="text-faded" v-html="description_short"></p>
+        <p class="text-faded" v-html="data.description_short"></p>
       </q-card-main>
         </router-link>
-    </q-card>
+    </q-card> -->
+    <v-card class="elevation-0">
+    <router-link :to="'/courseContent/' + data.course_id" tag="span">
+      <br>
+      <q-video :src="data.youtube" style="height:300px;" />
+      <v-card-title>
+        <div class="text-xs-left">
+          <p class="headline" v-text="data.title"></p>
+          <div>Located two hours south of Sydney in the</div>
+        </div>
+      </v-card-title>
+
+      <v-card-actions>
+        <v-icon>remove_red_eye</v-icon> <span>555</span> &nbsp;&nbsp;
+        <v-icon>shopping_cart</v-icon> <span>555</span> &nbsp;&nbsp;
+        <v-icon>fa-money</v-icon> <span>1200</span>
+        <v-spacer></v-spacer>
+        <p>เพิ่มเติม...</p>
+      </v-card-actions>
+      </router-link>
+    </v-card>
     </template>
 <script>
 import {
@@ -23,7 +43,8 @@ import {
   QCardActions,
   QCardMedia,
   QCardMain,
-  QIcon
+  QIcon,
+  QVideo
 } from 'quasar'
 export default {
   components: {
@@ -32,9 +53,10 @@ export default {
     QCardActions,
     QCardMedia,
     QCardMain,
-    QIcon
+    QIcon,
+    QVideo
   },
-  props: ['courseId','cover','title','price','snippet','fname','lname','description'],
+  props: ['data'],
   computed: {
     description_short () {
       return this.description.substring(0, 120) + '...'

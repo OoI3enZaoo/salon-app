@@ -6,11 +6,11 @@
         <span>บ้าน</span>
         <v-icon>home</v-icon>
       </v-btn>
-      <v-btn flat color="primary" value="mycourse" router to="/mycourse">
+      <v-btn flat color="primary" value="coursePurchase" router to="/coursePurchase">
         <span>คอร์สของฉัน</span>
         <v-icon>bookmark</v-icon>
       </v-btn>
-      <v-btn flat color="primary" value="favorite" router to="/bookmark">
+      <v-btn flat color="primary" value="favorite" router to="/favorite">
         <span>รายการโปรด</span>
         <v-icon>favorite</v-icon>
       </v-btn>
