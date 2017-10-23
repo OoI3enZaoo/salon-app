@@ -15,7 +15,7 @@
 
 
 
-<v-tabs dark fixed centered>
+<!-- <v-tabs dark fixed centered>
     <v-tabs-bar class="primary">
       <v-tabs-slider color="yellow"></v-tabs-slider>
      <v-tabs-item
@@ -28,34 +28,35 @@
    </v-tabs-bar>
 
    <v-tabs-items>
-     <!-- ล่าสุด -->
+
      <v-tabs-content id='tab-0'>
         <last></last>
      </v-tabs-content>
-     <!-- นิยม -->
+
      <v-tabs-content id='tab-1'>
         <popular></popular>
      </v-tabs-content>
 
-     <!-- ราคา -->
+
      <v-tabs-content id='tab-2'>
         <price></price>
      </v-tabs-content>
      </v-tabs-items>
-   </v-tabs>
+   </v-tabs> -->
 
-    <!-- <div column v-for="(data,index) in $store.state.course" :key="index">
-              <cardCourse
-                @progress="checkProgress"
-                :courseId="data.course_id"
-                :cover="data.cover"
-                :title ="data.title"
-                :price="data.price"
-                :lname="data.lname"
-                :fname="data.fname"
-                :description="data.description"
-            ></cardCourse>
-        </div> -->
+<br><br><br>
+<q-pull-to-refresh :handler="refresher">
+   <div class="text-xs-center">
+     <br>
+     <p class="grey--text">-- รายการคอร์สที่ถูกสร้างล่าสุด --</p>
+   </div>
+   <div column v-for="(data,index) in course" :key="index">
+             <cardCourse
+               :data="data"
+           ></cardCourse>
+   </div>
+</q-pull-to-refresh>
+
       <bottomNav></bottomNav>
 </div>
 </template>
@@ -72,6 +73,7 @@ import Vue from 'vue'
 export default {
   beforeCreate () {
     this.$store.dispatch('pullCourse')
+    this.$store.dispatch('loadMyCourse')
   },
   components: {
     cardCourse,
@@ -85,6 +87,10 @@ export default {
     checkProgress(select) {
       console.log('select');
       this.prog = select
+    },
+    refresher (done) {
+      this.$store.dispatch('refreshCourse')
+      done()
     }
   },
   data() {
@@ -100,6 +106,9 @@ export default {
   computed: {
     loading () {
       return this.$store.state.loading
+    },
+    course () {
+      return this.$store.state.course
     }
   }
 }

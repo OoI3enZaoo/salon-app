@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.commit('isLogin', false)
+      this.$store.commit('Logout')
       this.$router.push('/')
     }
   },

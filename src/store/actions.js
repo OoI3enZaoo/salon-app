@@ -18,54 +18,54 @@ export default {
     router.push('/')
   },
   pullCourse ({commit, state}) {
-    if (state.coursepopular == undefined) {
-      axios.get('http://172.104.189.169:4000/api/getcourse/popular')
-      .then (res => {
-        let result = res.data
-        commit('addCoursePopular', result)
-        commit('addCourse', result)
-      })
+    if (state.course.length == 0) {
+      // axios.get('http://172.104.189.169:4000/api/getcourse/popular')
+      // .then (res => {
+      //   let result = res.data
+      //   commit('addCoursePopular', result)
+      //   commit('addCourse', result)
+      // })
       axios.get('http://172.104.189.169:4000/api/getcourse/last')
       .then (res => {
         let result = res.data
-        commit('addCourseLast', result)
+        // commit('addCourseLast', result)
         commit('addCourse', result)
       })
-      axios.get('http://172.104.189.169:4000/api/getcourse/price')
-      .then (res => {
-        let result = res.data
-        commit('addCoursePrice', result)
-        commit('addCourse', result)
-      })
+      // axios.get('http://172.104.189.169:4000/api/getcourse/price')
+      // .then (res => {
+      //   let result = res.data
+      //   commit('addCoursePrice', result)
+      //   commit('addCourse', result)
+      // })
     }
   },
   refreshCourse ({commit, state}) {
     state.course = []
-    axios.get('http://172.104.189.169:4000/api/getcourse/popular')
-    .then (res => {
-      let result = res.data
-      commit('addCoursePopular', result)
-      commit('addCourse', result)
-    })
+    // axios.get('http://172.104.189.169:4000/api/getcourse/popular')
+    // .then (res => {
+    //   let result = res.data
+    //   commit('addCoursePopular', result)
+    //   commit('addCourse', result)
+    // })
     axios.get('http://172.104.189.169:4000/api/getcourse/last')
     .then (res => {
       let result = res.data
-      commit('addCourseLast', result)
+      // commit('addCourseLast', result)
       commit('addCourse', result)
     })
-    axios.get('http://172.104.189.169:4000/api/getcourse/price')
-    .then (res => {
-      let result = res.data
-      commit('addCoursePrice', result)
-      commit('addCourse', result)
-    })
+    // axios.get('http://172.104.189.169:4000/api/getcourse/price')
+    // .then (res => {
+    //   let result = res.data
+    //   commit('addCoursePrice', result)
+    //   commit('addCourse', result)
+    // })
 
   },
-  purchaseCourse ({commit, state}, payload) {
+  purchaseCourse ({commit, state, getters}, payload) {
     payload.tstamp = Vue.moment().format('YYYY-MM-DD HH:mm:ss')
     payload.user_id = state.profile.user_id
     console.log('payload ' + JSON.stringify(payload))
-    commit('addPurchaseCourse', [payload])
+    commit('addPurchaseCourse', getters.course_from_course_id(payload.course_id))
     axios.post('http://172.104.189.169:4000/api/purchase', payload)
   },
   pullLesson ({commit, state}, courseId) {
@@ -89,14 +89,15 @@ export default {
       user_id: state.profile.user_id,
       lesson_id: lesson.lesson_id
     }
-    console.log(data)
-    // axios.post('http://172.104.189.169:4000/api/insertfavorite', data)
+    state.favorite.map(c => c.lesson_id == lesson.lesson_id ? c.love += 1 : '')
+    axios.post('http://172.104.189.169:4000/api/insertfavorite', data)
   },
   removeFavorite ({commit}, lessonId) {
     commit('removeFavorite', lessonId)
     let data = {
       lesson_id: lessonId
     }
+    state.favorite.map(c => c.lesson_id == lesson.lesson_id ? c.love -= 1 : '')
     axios.post('http://172.104.189.169:4000/api/removeFavorite', data)
   },
   loadFavorite ({commit, state}) {
@@ -109,7 +110,7 @@ export default {
     }
   },
   loadMyCourse ({commit, state}) {
-    if (state.purchaseCourse.length == 0 || state.purchaseCourse == undefined) {
+    if (state.purchaseCourse.length == 0) {
       console.log('loadMyCourse2')
       axios.get('http://172.104.189.169:4000/api/getuserpurchase/' + state.profile.user_id)
       .then(res => {
@@ -137,7 +138,7 @@ export default {
   },
   LoadCreditCard ({commit, state}, user_id) {
     if (state.creditCard == undefined) {
-      axios.get('http://localhost:4000/api/loadcreditcard/' + user_id)
+      axios.get('http://172.104.189.169:4000/api/loadcreditcard/' + user_id)
       .then (res => {
         let result = res.data
         if (result.length !== 0) {
@@ -145,5 +146,21 @@ export default {
         }
       })
     }
+  },
+  addCourseView ({commit, state}, course_id) {
+    console.log('course_id : ' + course_id)
+    let data = {
+      course_id: course_id
+    }
+    axios.post('http://172.104.189.169:4000/api/addCourseview', data)
+    state.course.map(c => c.course_id == course_id ? c.view += 1 : '')
+  },
+  addLessonView ({commit, state}, lesson_id) {
+    console.log('lesson_id : ' + lesson_id)
+    let data = {
+      lesson_id: lesson_id
+    }
+    axios.post('http://172.104.189.169:4000/api/addlessonview', data)
+    state.lesson.map(c => c.lesson_id == lesson_id ? c.view += 1 : '')
   }
 }

@@ -25,11 +25,10 @@
           <div>Located two hours south of Sydney in the</div>
         </div>
       </v-card-title>
-
       <v-card-actions>
-        <v-icon>remove_red_eye</v-icon> <span>555</span> &nbsp;&nbsp;
-        <v-icon>shopping_cart</v-icon> <span>555</span> &nbsp;&nbsp;
-        <v-icon>fa-money</v-icon> <span>1200</span>
+        <v-icon>remove_red_eye</v-icon> <span>{{data.view}}</span> &nbsp;&nbsp;
+        <v-icon>shopping_cart</v-icon> <span>{{data.purchase}}</span> &nbsp;&nbsp;
+        <v-icon>fa-money</v-icon> <span>{{data.price}}</span>
         <v-spacer></v-spacer>
         <p>เพิ่มเติม...</p>
       </v-card-actions>

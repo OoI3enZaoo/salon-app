@@ -59,8 +59,8 @@
         <q-card-title>
           <b><p class="pull-left" v-text="data.title"></p></b>
           <div slot="right" class="row items-center">
-            <v-icon class="pull-right">remove_red_eye</v-icon> &nbsp;<span>500</span>&nbsp;&nbsp;
-              <v-icon class="pull-right">favorite</v-icon> &nbsp;<span>40</span>
+            <v-icon class="pull-right">remove_red_eye</v-icon> &nbsp;<span>{{data.view}}</span>&nbsp;&nbsp;
+              <v-icon class="pull-right">favorite</v-icon> &nbsp;<span>{{data.love}}</span>
           </div>
         </q-card-title>
       </router-link>

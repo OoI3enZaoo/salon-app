@@ -6,26 +6,24 @@ export default {
   },
   addCourse: (state,data) => {
     console.log('addCourse')
-    state.course == undefined ? state.course = [] : state.course
     state.course.push(...data)
     LocalStorage.set('course', state.course)
-    console.log(state.course)
   },
-  addCoursePopular: (state, data) => {
-    state.coursepopular == undefined ? state.coursepopular = [] : state.coursepopular
-    state.coursepopular = data
-    LocalStorage.set('coursepopular', state.coursepopular)
-  },
-  addCourseLast: (state, data) => {
-    state.courselast == undefined ? state.courselast = [] : state.courselast
-    state.courselast = data
-    LocalStorage.set('courselast', state.courselast)
-  },
-  addCoursePrice: (state, data) => {
-    state.courseprice == undefined ? state.courseprice = [] : state.courseprice
-    state.courseprice = data
-    LocalStorage.set('courseprice', state.courseprice)
-  },
+  // addCoursePopular: (state, data) => {
+  //   state.coursepopular == undefined ? state.coursepopular = [] : state.coursepopular
+  //   state.coursepopular = data
+  //   LocalStorage.set('coursepopular', state.coursepopular)
+  // },
+  // addCourseLast: (state, data) => {
+  //   state.courselast == undefined ? state.courselast = [] : state.courselast
+  //   state.courselast = data
+  //   LocalStorage.set('courselast', state.courselast)
+  // },
+  // addCoursePrice: (state, data) => {
+  //   state.courseprice == undefined ? state.courseprice = [] : state.courseprice
+  //   state.courseprice = data
+  //   LocalStorage.set('courseprice', state.courseprice)
+  // },
   addPurchaseCourse: (state, data) => {
     state.purchaseCourse == undefined ? state.purchaseCourse = [] : state.purchaseCourse
     state.purchaseCourse.push(...data)
@@ -66,5 +64,9 @@ export default {
     console.log('addCreditCard')
     state.creditCard = data
     LocalStorage.set('creditCard', data)
+  },
+  Logout: (state) => {
+    state.isLogin = false
+    LocalStorage.clear()
   }
 }

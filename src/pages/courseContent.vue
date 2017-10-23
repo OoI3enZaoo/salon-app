@@ -28,8 +28,6 @@
                        <p v-html="course.description"></p>
                   </q-card-main>
             </q-card>
-
-
   </div>
 </template>
 <script>
@@ -45,6 +43,7 @@ import {
 export default {
   beforeCreate() {
     navigator.vibrate(50)
+    this.$store.dispatch('addCourseView', this.$route.params.id)
   },
   components: {
     QCardTitle,
@@ -62,7 +61,6 @@ export default {
     }
   },
   mounted() {
-    //do something after mounting vue instance
     document.addEventListener("deviceready", this.onDeviceReady, false);
   },
   methods: {
