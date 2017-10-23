@@ -3,48 +3,13 @@
 
     <toolbar v-if="$store.state.isLogin == true" title="รายการคอร์ส" :back="false"></toolbar>
     <toolbar v-else title="รายการคอร์ส" :back="true" link="/"></toolbar>
-  <div v-show="$store.state.isLogin !== true">
-  <v-alert
 
-
-      v-bind:value="true"
-  >
-      คุณยังไม่ได้ลงทะเบียนเลยนะ <v-btn primary @click.native="$router.push('/login')">ลงทะเบียน</v-btn>
-  </v-alert>
-</div>
-
-
-
-<!-- <v-tabs dark fixed centered>
-    <v-tabs-bar class="primary">
-      <v-tabs-slider color="yellow"></v-tabs-slider>
-     <v-tabs-item
-       v-for="(data,i) in menuItems"
-       :key="i"
-       :href="'#tab-' + i"
-     >
-       {{data.title}}
-     </v-tabs-item>
-   </v-tabs-bar>
-
-   <v-tabs-items>
-
-     <v-tabs-content id='tab-0'>
-        <last></last>
-     </v-tabs-content>
-
-     <v-tabs-content id='tab-1'>
-        <popular></popular>
-     </v-tabs-content>
-
-
-     <v-tabs-content id='tab-2'>
-        <price></price>
-     </v-tabs-content>
-     </v-tabs-items>
-   </v-tabs> -->
-
-<br><br><br>
+    <div v-show="$store.state.isLogin !== true">
+      <v-alert v-bind:value="true">
+          คุณยังไม่ได้ลงทะเบียนเลยนะ <v-btn primary @click.native="$router.push('/login')">ลงทะเบียน</v-btn>
+      </v-alert>
+  </div>
+<br><br>
 <q-pull-to-refresh :handler="refresher">
    <div class="text-xs-center">
      <br>

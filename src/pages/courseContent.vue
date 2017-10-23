@@ -1,33 +1,38 @@
 <template>
   <div>
     <toolbar :title="course.title" link="/home"></toolbar>
-            <q-card>
+            <v-card class="elevation-0">
               <q-video :src="course.youtube" style="height:300px;" />
-                  <q-card-title>
-                    <div class="row">
-                      <div class="col-8">
-                        <div class="headline">{{course.title}}</div>
-                          <p class="text-faded">{{course.fname}} {{course.lname}}</p>
-                      </div>
-                      <div class="col-2">
-                        <template v-if="purchaseCourse">
-                          <v-btn primary slot="right" @click.native="CourseInfo(course.course_id)">รายละเอียด</v-btn>
-                        </template>
-                        <template v-else>
-                          <v-btn primary slot="right" @click.native="buyCourse">ซื้อตอนนี้</v-btn>
-                        </template>
-                      </div>
-                    </div>
-                  </q-card-title>
-                  <q-card-actions>
-                    <v-spacer></v-spacer>
-                  </q-card-actions>
-                  <hr>
-                  <q-card-main>
-                     <div class="headline">รายละเอียดคอร์ส</div>
-                       <p v-html="course.description"></p>
-                  </q-card-main>
-            </q-card>
+              <v-card-actions>
+                <v-icon>remove_red_eye</v-icon>&nbsp; <span>{{course.view}}</span> &nbsp;&nbsp;
+                <v-icon>shopping_cart</v-icon>&nbsp; <span>{{course.purchase}}</span> &nbsp;&nbsp;
+                <v-icon>fa-money</v-icon> <span><b>THB{{course.price}}</b></span>
+                <v-spacer></v-spacer>
+                <span>
+                  <v-avatar size="25px">
+                    <img :src="course.avatar">
+                  </v-avatar>
+                  {{course.fname}} {{course.lname}}
+                </span>
+              </v-card-actions>
+              <q-card-separator />
+              <v-card-title>
+                <span class="headline">{{course.title}}</span>
+              </v-card-title>
+              <v-card-main>
+                 <p v-html="course.description"></p>
+              </v-card-main>
+            </v-card>
+            <v-card class="elevation-0" style="background-color:#EEEEEE;">
+                <v-card-text>
+                  <template v-if="purchaseCourse">
+                    <v-btn primary block @click.native="CourseInfo(course.course_id)">รายละเอียด</v-btn>
+                  </template>
+                  <template v-else>
+                    <v-btn primary block @click.native="buyCourse"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
+                  </template>
+              </v-card-text>
+            </v-card>
   </div>
 </template>
 <script>
@@ -38,7 +43,8 @@ import {
   QCardActions,
   QCardMedia,
   QCardMain,
-  QIcon
+  QIcon,
+  QCardSeparator
 } from 'quasar'
 export default {
   beforeCreate() {
@@ -52,7 +58,8 @@ export default {
     QCardActions,
     QCardMedia,
     QCardMain,
-    QIcon
+    QIcon,
+    QCardSeparator
   },
   data () {
     return {

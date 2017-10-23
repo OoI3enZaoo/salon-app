@@ -15,26 +15,28 @@
       </q-card-main>
         </router-link>
     </q-card> -->
-    <v-card class="elevation-0">
-    <router-link :to="'/courseContent/' + data.course_id" tag="span">
+    <div>
+      <v-card class="elevation-1">
+      <router-link :to="'/courseContent/' + data.course_id" tag="span">
+        <q-video :src="data.youtube" style="height:300px;" />
+        <v-card-title>
+          <div class="text-xs-left">
+            <span class="headline" style="display:inline;"v-text="data.title"></span>
+            <span>{{data.ts | moment('from','now', true)}} ที่ผ่านมา</span>
+            <br>
+            <span>โดย {{data.fname}} {{data.lname}}</span>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-icon>remove_red_eye</v-icon> <span>{{data.view}}</span> &nbsp;&nbsp;
+          <v-icon>shopping_cart</v-icon> <span>{{data.purchase}}</span> &nbsp;&nbsp;
+          <v-icon>fa-money</v-icon> <span>{{data.price}}</span>
+        </v-card-actions>
+        </router-link>
+      </v-card>
       <br>
-      <q-video :src="data.youtube" style="height:300px;" />
-      <v-card-title>
-        <div class="text-xs-left">
-          <p class="headline" v-text="data.title"></p>
-          <div>Located two hours south of Sydney in the</div>
-        </div>
-      </v-card-title>
-      <v-card-actions>
-        <v-icon>remove_red_eye</v-icon> <span>{{data.view}}</span> &nbsp;&nbsp;
-        <v-icon>shopping_cart</v-icon> <span>{{data.purchase}}</span> &nbsp;&nbsp;
-        <v-icon>fa-money</v-icon> <span>{{data.price}}</span>
-        <v-spacer></v-spacer>
-        <p>เพิ่มเติม...</p>
-      </v-card-actions>
-      </router-link>
-    </v-card>
-    </template>
+    </div>
+</template>
 <script>
 import {
   QCardTitle,

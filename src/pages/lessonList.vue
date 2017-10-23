@@ -44,7 +44,7 @@
 
   <toolbar :title="course.title" :back="true" link="/coursePurchase"></toolbar>
   <template v-for="data in lesson">
-    <q-card inline>
+    <q-card>
       <router-link :to="'/lessonContent/' + data.lesson_id" tag="span">
         <q-item>
           <q-item-side :avatar="data.avatar" />

@@ -153,7 +153,7 @@ export default {
       course_id: course_id
     }
     axios.post('http://172.104.189.169:4000/api/addCourseview', data)
-    state.course.map(c => c.course_id == course_id ? c.view += 1 : '')
+    state.course.map(c => c.course_id == course_id ? c.view == null ? c.view = 1 : c.view += 1 : '')
   },
   addLessonView ({commit, state}, lesson_id) {
     console.log('lesson_id : ' + lesson_id)
@@ -161,6 +161,6 @@ export default {
       lesson_id: lesson_id
     }
     axios.post('http://172.104.189.169:4000/api/addlessonview', data)
-    state.lesson.map(c => c.lesson_id == lesson_id ? c.view += 1 : '')
+    state.lesson.map(c => c.lesson_id == lesson_id ? c.view == null ? c.view = 1 : c.view += 1 : '')
   }
 }
