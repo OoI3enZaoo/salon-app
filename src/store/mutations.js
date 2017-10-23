@@ -63,6 +63,7 @@ export default {
     LocalStorage.set('favorite', state.favorite)
   },
   addCreditCard: (state, data) => {
+    console.log('addCreditCard')
     state.creditCard = data
     LocalStorage.set('creditCard', data)
   }

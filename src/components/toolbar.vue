@@ -35,7 +35,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dark class="primary">
-      <v-toolbar-side-icon v-if="$store.state.isLogin == true && $route.path == '/home' || $route.path == '/mycourse' || $route.path == '/bookmark'  || $route.path == '/message'"dark @click.native.stop="drawer = !drawer" ></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="$store.state.isLogin == true && $route.path == '/home' || $route.path == '/coursePurchase' || $route.path == '/favorite'  || $route.path == '/message'"dark @click.native.stop="drawer = !drawer" ></v-toolbar-side-icon>
       <v-btn class="white--text" icon v-if="back" router :to="link">
         <v-icon>arrow_back</v-icon>
       </v-btn>

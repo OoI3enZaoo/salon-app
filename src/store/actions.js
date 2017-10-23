@@ -109,7 +109,6 @@ export default {
     }
   },
   loadMyCourse ({commit, state}) {
-    console.log('loadMyCourse: '  + state.purchaseCourse)
     if (state.purchaseCourse.length == 0 || state.purchaseCourse == undefined) {
       console.log('loadMyCourse2')
       axios.get('http://172.104.189.169:4000/api/getuserpurchase/' + state.profile.user_id)
@@ -125,6 +124,7 @@ export default {
     .then(res => {
       let result = res.data
       commit('addLesson', result)
+      console.log('loadLessonFromLessonId')
     })
   },
   SaveCreditCard ({commit}, payload) {
@@ -134,5 +134,16 @@ export default {
   UpdateCreditCard ({commit}, payload) {
     commit('addCreditCard', payload)
     axios.post('http://172.104.189.169:4000/api/updatecreditcard', payload)
+  },
+  LoadCreditCard ({commit, state}, user_id) {
+    if (state.creditCard == undefined) {
+      axios.get('http://localhost:4000/api/loadcreditcard/' + user_id)
+      .then (res => {
+        let result = res.data
+        if (result.length !== 0) {
+          commit('addCreditCard', result[0])
+        }
+      })
+    }
   }
 }

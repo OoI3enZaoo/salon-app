@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <!-- <v-card>
         <v-card-media :src="course.cover" height="300px">
           <v-layout column class="media">
             <v-card-title>
@@ -39,17 +39,68 @@
         </template>
 
     </v-list>
-  </v-card>
+  </v-card> -->
+
+
+  <toolbar :title="course.title" :back="true" link="/coursePurchase"></toolbar>
+  <template v-for="data in lesson">
+    <q-card inline>
+      <router-link :to="'/lessonContent/' + data.lesson_id" tag="span">
+        <q-item>
+          <q-item-side :avatar="data.avatar" />
+          <q-item-main>
+            <q-item-tile label>{{data.fname}} {{data.lname}}</q-item-tile>
+            <q-item-tile sublabel>{{data.tstamp | moment('from','now',true)}}</q-item-tile>
+          </q-item-main>
+        </q-item>
+        <q-card-media>
+          <img :src="data.cover">
+        </q-card-media>
+        <q-card-title>
+          <b><p class="pull-left" v-text="data.title"></p></b>
+          <div slot="right" class="row items-center">
+            <v-icon class="pull-right">remove_red_eye</v-icon> &nbsp;<span>500</span>&nbsp;&nbsp;
+              <v-icon class="pull-right">favorite</v-icon> &nbsp;<span>40</span>
+          </div>
+        </q-card-title>
+      </router-link>
+    </q-card>
+  </template>
   </div>
 </template>
 <script>
+import {
+  QCard,
+  QItemMain,
+  QItem,
+  QItemTile,
+  QCardMedia,
+  QCardTitle,
+  QCardActions,
+  QItemSide
+} from 'quasar'
 export default {
+  beforeCreate() {
+    if (this.$store.getters.lesson_from_course_id(this.$route.params.id) == '') {
+      this.$store.dispatch('pullLesson', this.$route.params.id)
+    }
+  },
+  components: {
+    QCard,
+    QItemMain,
+    QItem,
+    QItemTile,
+    QCardMedia,
+    QCardTitle,
+    QCardActions,
+    QItemSide
+  },
   computed: {
     lesson () {
       return this.$store.getters.lesson_from_course_id(this.$route.params.id)
     },
     course () {
-      return this.$store.getters.course_from_course_id(this.$route.params.id)[0]
+      return this.$store.getters.course_purchase_from_course_id(this.$route.params.id)[0]
     }
   }
 }

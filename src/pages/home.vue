@@ -28,13 +28,13 @@
    </v-tabs-bar>
 
    <v-tabs-items>
-     <!-- นิยม -->
-     <v-tabs-content id='tab-0'>
-        <popular></popular>
-     </v-tabs-content>
      <!-- ล่าสุด -->
-     <v-tabs-content id='tab-1'>
+     <v-tabs-content id='tab-0'>
         <last></last>
+     </v-tabs-content>
+     <!-- นิยม -->
+     <v-tabs-content id='tab-1'>
+        <popular></popular>
      </v-tabs-content>
 
      <!-- ราคา -->
@@ -73,42 +73,6 @@ export default {
   beforeCreate () {
     this.$store.dispatch('pullCourse')
   },
-  mounted () {
-    // console.log(Vue.cordova.plugins)
-    // Vue.cordova.plugins.backgroundMode.enable()
-    // this.$options.sockets.course = (data) => {
-    //     this.$store.commit('addCourseContent', data)
-    //     console.log('socket1')
-    // }
-    // Vue.cordova.on('deviceready', () => {
-    //   Vue.cordova.plugins.backgroundMode.enable();
-    //   console.log('dfdf');
-    // });
-
-    // Vue.cordova.plugins.backgroundMode.on('EVENT', function(){
-    //   this.$options.sockets.course = (data) => {
-    //     console.log('socket2')
-    //       Vue.cordova.plugins.backgroundMode.setDefaults({
-    //         title: 'testtest',
-    //         text: 'socket2',
-    //         icon: 'cancel', // this will look for icon.png in platforms/android/res/drawable|mipmap
-    //         color: 'F14F4D', // hex format like 'F14F4D'
-    //         resume: true,
-    //         hidden: true,
-    //         bigText: true
-    //     })
-    //     this.$store.commit('addCourse', [data])
-    //   }
-    // })
-
-    //
-    // document.addEventListener('deviceready', function () {
-    //   Vue.cordova.plugins.backgroundMode.enable();
-    //   console.log('backgroundMode: ' + Vue.cordova.plugins.backgroundMode.isActive())
-    //
-    // }, false);
-    // console.log('backgroundMode: ' + Vue.cordova.plugins.backgroundMode.isActive())
-  },
   components: {
     cardCourse,
     QPullToRefresh,
@@ -127,8 +91,8 @@ export default {
     return {
       prog: true,
       menuItems: [
-        { title: 'ความนิยม' },
         { title: 'ล่าสุด' },
+        { title: 'ความนิยม' },
         { title: 'ราคา' },
       ]
     }
