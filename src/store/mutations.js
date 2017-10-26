@@ -68,5 +68,9 @@ export default {
   Logout: (state) => {
     state.isLogin = false
     LocalStorage.clear()
+  },
+  addMessage: (state, data) => {
+    state.message.push(...data)
+    // LocalStorage.set('message', state.message)
   }
 }

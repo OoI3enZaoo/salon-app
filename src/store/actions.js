@@ -162,5 +162,16 @@ export default {
     }
     axios.post('http://172.104.189.169:4000/api/addlessonview', data)
     state.lesson.map(c => c.lesson_id == lesson_id ? c.view == null ? c.view = 1 : c.view += 1 : '')
+  },
+  sendMessage ({commit}, payload) {
+    console.log('payload: ' + JSON.stringify(payload))
+    axios.post('http://172.104.189.169:4000/api/addchat', payload)
+  },
+  getLastChat ({commit}, user_id) {
+    axios.get('http://172.104.189.169:4000/api/getlastuserchat/' + user_id)
+    .then(res => {
+      let result = res.data
+      commit('addMessage', result)
+    })
   }
 }

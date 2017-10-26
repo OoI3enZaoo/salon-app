@@ -62,6 +62,11 @@ export default {
       // window.alert('status: ' + Vue.cordova.plugins.backgroundMode.isActive())
     // console.log(Vue.cordova.plugins.backgroundMode.isActive())
   },
+  mounted() {
+    this.$options.sockets.fromAdmin = (data) => {
+      console.log('admin111: ' + data)
+    }
+  },
   data () {
     return {
       e1: 1,

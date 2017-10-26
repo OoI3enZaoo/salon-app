@@ -39,6 +39,8 @@ export default {
   beforeCreate () {
     this.$store.dispatch('pullCourse')
     this.$store.dispatch('loadMyCourse')
+    this.$socket.emit('subscribe', this.$store.state.profile.user_id)
+    this.$store.dispatch('getLastChat', this.$store.state.profile.user_id)
   },
   components: {
     cardCourse,

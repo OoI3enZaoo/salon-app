@@ -4,22 +4,22 @@
   <toolbar v-else title="ข้อความ" :back="true" link="/"></toolbar>
   <div class="layout-padding fixed-center">
     <q-scroll-area style="width: 100%; ">
-      <template v-for="data in messageMe">
+      <template v-for="data in $store.state.message">
           <template v-if="data.type=='user'">
               <q-chat-message
-                :name="data.name"
-                :avatar="data.image"
-                :text="[data.message]"
+                :name="data.ufname + ' ' + data.ulname"
+                :avatar="data.uavatar"
+                :text="[data.text]"
                 :stamp="data.tstamp"
-                bg-color="grey-"
+                bg-color="grey"
                 sent
               />
         </template>
       <template v-else>
             <q-chat-message
-              :name="data.name"
-              :avatar="data.image"
-              :text="[data.message]"
+              :name="data.afname + ' ' + data.alname"
+              :avatar="data.aavatar"
+              :text="[data.text]"
               :stamp="data.tstamp"
               bg-color="green"
             />
@@ -66,10 +66,6 @@ Vue.use(require('vue-moment'), {
   moment
 })
 export default {
-  created() {
-    this.$socket.emit('subscribe', this.keyUser)
-    this.$store.commit('setTitle', 'แชท')
-  },
   components: {
     QScrollArea,
     QChatMessage,
@@ -89,45 +85,54 @@ export default {
       messageMe: []
     }
   },
+  mounted() {
+    this.$options.sockets.fromAdmin = (data) => {
+      let mes = {
+        admin_id: data.admin_id,
+        user_id: data.user_id,
+        text: data.text,
+        aavatar: data.avatar,
+        afname: data.fname,
+        alname: data.lname,
+        tstamp: data.tstamp,
+        type: 'admin'
+      }
+      this.$store.commit('addMessage', [mes])
+    }
+  },
   computed: {
-    keyUser() {
-      return this.$store.getters.user.key
-    },
-    imageUser() {
-      return this.$store.getters.user.image
-    },
-    nameUser() {
-      return this.$store.getters.user.name
-    },
-    timeUser() {
-      return Vue.moment().format('DD/MM/YYYY HH:mm:ss')
+    user() {
+      return this.$store.state.profile
     }
   },
   methods: {
     sendMessage(val) {
       if (val !== '') {
-        this.$socket.emit('private_message', {
-          room: this.keyUser,
-          message: val,
-          tstamp: Vue.moment().format('DD/MM/YYYY HH:mm:ss'),
-          image: this.imageUser,
-          name: this.nameUser,
+        let message = {
+          user_id: this.user.user_id,
+          text: val,
+          tstamp: Vue.moment().format('YYYY-MM-DD HH:mm:ss'),
+          avatar: this.user.avatar,
+          fname: this.user.fname,
+          lname: this.user.lname,
           type: 'user'
-        })
+        }
+        let mes = {
+          user_id: this.user.user_id,
+          text: val,
+          tstamp: Vue.moment().format('YYYY-MM-DD HH:mm:ss'),
+          uavatar: this.user.avatar,
+          ufname: this.user.fname,
+          ulname: this.user.lname,
+          type: 'user'
+        }
+        this.$store.commit('addMessage', [mes])
+        this.$socket.emit('private_message', message)
+        let {user_id, text, tstamp, type} = message
+        this.$store.dispatch('sendMessage', {user_id, text, tstamp, type})
         this.text = ''
       }
     }
-  },
-  mounted() {
-    this.$options.sockets.conversation_private = (data) => {
-      console.log(data)
-      this.messageMe.push(data)
-    }
-    this.$options.sockets.fromAdmin = (data) => {
-      console.log('admin: ' + data)
-      this.messageMe.push(data)
-    }
-
   }
 }
 </script>

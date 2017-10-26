@@ -27,6 +27,7 @@ export const store = new Vuex.Store({
       favorite: [],
       creditCard: LocalStorage.get.item('creditCard'),
       course: [],
+      message: LocalStorage.get.item('message') == undefined ? [] : LocalStorage.get.item('message')
     },
     getters,
     mutations,
