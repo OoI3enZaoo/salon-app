@@ -2,7 +2,11 @@
   <div>
     <toolbar :title="course.title" link="/home"></toolbar>
             <v-card class="elevation-0">
-              <q-video :src="course.youtube" style="height:300px;" />
+              <d-player :video="{url : 'http://172.104.189.169:4000/api/getfile/' + course.video, pic: course.cover}"
+                            :contextmenu="contextmenu"
+                            screenshot="true"
+                            ref="player">
+                  </d-player>
               <v-card-actions>
                 <v-icon>remove_red_eye</v-icon>&nbsp; <span>{{course.view}}</span> &nbsp;&nbsp;
                 <v-icon>shopping_cart</v-icon>&nbsp; <span>{{course.purchase}}</span> &nbsp;&nbsp;
@@ -64,7 +68,13 @@ export default {
   data () {
     return {
       data: {},
-      lesson: []
+      lesson: [],
+      contextmenu: [
+          {
+              text: 'GitHub',
+              link: 'https://github.com/MoePlayer/vue-dplayer'
+          }
+      ]
     }
   },
   mounted() {

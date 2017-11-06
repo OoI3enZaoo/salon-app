@@ -10,12 +10,15 @@
       </v-alert>
   </div>
 <br><br>
+
+
 <q-pull-to-refresh :handler="refresher">
    <div class="text-xs-center">
      <br>
      <p class="grey--text">-- รายการคอร์สที่ถูกสร้างล่าสุด --</p>
    </div>
-   <div column v-for="(data,index) in course" :key="index">
+
+   <div column v-for="(data, index) in course" :key="index">
              <cardCourse
                :data="data"
            ></cardCourse>
@@ -66,7 +69,7 @@ export default {
       menuItems: [
         { title: 'ล่าสุด' },
         { title: 'ความนิยม' },
-        { title: 'ราคา' },
+        { title: 'ราคา' }
       ]
     }
   },

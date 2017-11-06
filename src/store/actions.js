@@ -25,7 +25,7 @@ export default {
       //   commit('addCoursePopular', result)
       //   commit('addCourse', result)
       // })
-      axios.get('http://172.104.189.169:4000/api/getcourse/last')
+      axios.get('http://localhost:4000/api/getcourse/last')
       .then (res => {
         let result = res.data
         // commit('addCourseLast', result)

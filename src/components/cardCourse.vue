@@ -15,10 +15,17 @@
       </q-card-main>
         </router-link>
     </q-card> -->
+
+
+
     <div>
       <v-card class="elevation-1">
-      <router-link :to="'/courseContent/' + data.course_id" tag="span">
-        <q-video :src="data.youtube" style="height:300px;" />
+        <d-player :video="{url : 'http://172.104.189.169:4000/api/getfile/' + data.video, pic: data.cover}"
+                      :contextmenu="contextmenu"
+                      screenshot="true"
+                      ref="player">
+            </d-player>
+
         <v-card-title>
           <div class="text-xs-left">
             <span class="headline" style="display:inline;"v-text="data.title"></span>
@@ -31,36 +38,36 @@
           <v-icon>remove_red_eye</v-icon> <span>{{data.view}}</span> &nbsp;&nbsp;
           <v-icon>shopping_cart</v-icon> <span>{{data.purchase}}</span> &nbsp;&nbsp;
           <v-icon>fa-money</v-icon> <span>{{data.price}}</span>
+            <router-link :to="'/courseContent/' + data.course_id" tag="span" style="cursor:pointer;">
+              <v-btn color="primary" style="position: absolute; bottom:3%; right:2%;">ดูรายละเอียด</v-btn>
+            </router-link>
         </v-card-actions>
-        </router-link>
       </v-card>
       <br>
     </div>
 </template>
 <script>
-import {
-  QCardTitle,
-  QCard,
-  QCardActions,
-  QCardMedia,
-  QCardMain,
-  QIcon,
-  QVideo
-} from 'quasar'
+
 export default {
-  components: {
-    QCardTitle,
-    QCard,
-    QCardActions,
-    QCardMedia,
-    QCardMain,
-    QIcon,
-    QVideo
-  },
   props: ['data'],
   computed: {
     description_short () {
       return this.description.substring(0, 120) + '...'
+    }
+  },
+  data () {
+    return {
+      contextmenu: [
+          {
+              text: 'GitHub',
+              link: 'https://github.com/MoePlayer/vue-dplayer'
+          }
+      ]
+    }
+  },
+  methods: {
+    play () {
+      console.log('play callback')
     }
   }
 }

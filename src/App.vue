@@ -52,10 +52,6 @@ export default {
     QRouteTab
   },
   created() {
-    document.addEventListener('deviceready', function () {
-      this.cordova.plugins.backgroundMode.setEnabled(true);
-      window.alert('status: ' + this.cordova.plugins.backgroundMode.isActive())
-    }, false);
     this.$store.state.isLogin == false ? this.alertLogin = false : this.alertLogin = true;
     console.log("router: " + this.$router);
       console.log(Vue.cordova)

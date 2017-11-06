@@ -22,6 +22,7 @@ import 'vuetify/dist/vuetify.min.css'
 import toolbar from './components/toolbar.vue'
 import bottomNav from './components/bottomNav.vue'
 import VueCordova from 'vue-cordova'
+import VueDPlayer from 'vue-dplayer'
 Vue.use(VueCordova, {
   optionTestKey: 'optionTestValue'
 })
@@ -34,14 +35,15 @@ Vue.use(VueCordova, {
 // }
 
 Vue.use(vuetify)
-// Vue.use(VueSocketio, 'http://172.104.189.169:4000')
-Vue.use(VueSocketio, 'http://localhost:4000/')
+Vue.use(VueSocketio, 'http://172.104.189.169:4000')
+// Vue.use(VueSocketio, 'http://localhost:4000/')
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 
 Vue.component('toolbar', toolbar)
 Vue.component('bottomNav', bottomNav)
+Vue.component('d-player', VueDPlayer)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
