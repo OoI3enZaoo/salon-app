@@ -2,7 +2,7 @@
   <div>
 
 
-    <toolbar  title="เข้าสู่ระบบ" link="/"></toolbar>
+    <toolbar  title="เข้าสู่ระบบ" :link="'/' + this.$route.params.link"></toolbar>
     <v-container grid-list-lg>
       <div class="row md-gutter">
         <div class="col-12">
@@ -22,7 +22,6 @@
             ></v-text-field>
 
 <br>
-
             <v-btn block primary round large @click.native="login">เข้าสู่ระบบ</v-btn>
             <p color="blue">ยังไม่ได้เป็นสมาชิก? <router-link to="/register">สมัครสมาชิก</router-link></p>
           </div>
@@ -64,6 +63,13 @@ export default {
           let result = res.data
           this.$store.commit('isLogin', true)
           this.$store.commit('addUserProfile', result[0])
+
+          this.$store.dispatch('loadFavorite', user_id)
+          this.$store.dispatch('loadMyCourse', user_id)
+          this.$socket.emit('subscribe', user_id)
+          this.$store.dispatch('getLastChat', user_id)
+          this.$store.dispatch('LoadCreditCard', user_id)
+
           this.$router.push('/home')
         })
       }

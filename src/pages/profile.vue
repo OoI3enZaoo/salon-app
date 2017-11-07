@@ -1,22 +1,23 @@
 <template>
   <div>
+    <toolbar v-if="$store.state.isLogin == true" title="บัญชีของฉัน" :back="false"></toolbar>
+    <toolbar v-else title="รายการคอร์ส" :back="true" link="/"></toolbar>
+    <v-card color="blue white--text"v-if="$store.state.isLogin !== true">
+      <v-card-text>
+        สมัครสมาชิก เพื่อทำการซื้อคอร์สได้เลย <br>
+        <v-btn color="white" @click.native="$router.push('/login/profile')">เข้าสู่ระบบ</v-btn>
+        <v-btn color="primary" @click.native="$router.push('/register/profile')" >สมัครสมาชิก</v-btn>
+      </v-card-text>
+    </v-card>
       <v-container>
-        <div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" width="80px"><br>
-              <p class="text-primary" style="display:inline;">{{$store.getters.user.name}}</p><br>
-              <p class="text-black" style="display:inline;"><small>{{$store.getters.user.email}}</small></p><br><br>
-              <hr>
-        </div>
+        <h3>hello</h3>
         <v-btn error @click.native="logout">ลงชื่อออก</v-btn>
       </v-container>
-        <bottomNav></bottomNav> 
+        <bottomNav></bottomNav>
   </div>
 </template>
 <script>
 export default {
-    beforeCreate () {
-      this.$store.commit('setTitle','โปรไฟล์')
-    },
     methods: {
       logout () {
         this.$store.commit('isLogin',false)

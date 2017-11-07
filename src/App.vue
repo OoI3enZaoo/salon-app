@@ -34,6 +34,14 @@ import { mapGetters } from 'vuex'
 import Vue from 'vue'
 export default {
   props: ['title', 'icon', 'goto'],
+  beforeCreate () {
+    this.$store.dispatch('pullCourse')
+    this.$store.dispatch('loadFavorite', this.$store.state.profile.user_id)
+    this.$store.dispatch('loadMyCourse', this.$store.state.profile.user_id)
+    this.$socket.emit('subscribe', this.$store.state.profile.user_id)
+    this.$store.dispatch('getLastChat', this.$store.state.profile.user_id)
+    this.$store.dispatch('LoadCreditCard', this.$store.state.profile.user_id)
+  },
   components: {
     QLayout,
     QToolbar,

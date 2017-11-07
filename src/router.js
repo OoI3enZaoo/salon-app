@@ -36,14 +36,14 @@ export default new VueRouter({
 
   routes: [
     { path: '/', component: introduce },
-    { path: '/login', component: login },
+    { path: '/login/:link', component: login },
     { path: '/home', component: homePage }, // Default
     { path: '/courseContent/:id', component: courseContent },
     { path: '/favorite', component: favorite },
     { path: '/message', component: message },
     { path: '/account', component: account },
     { path: '/coursePurchase', component: coursePurchase},
-    { path: '/register', component: register },
+    { path: '/register/:link', component: register },
     { path: '/profile', component: profile },
     { path: '/lessonlist/:id', component: lessonList },
     { path: '/lessonContent/:id', component: lessonContent },

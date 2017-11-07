@@ -35,7 +35,9 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dark class="primary">
-      <v-toolbar-side-icon v-if="$store.state.isLogin == true && $route.path == '/home' || $route.path == '/coursePurchase' || $route.path == '/favorite'  || $route.path == '/message'"dark @click.native.stop="drawer = !drawer" ></v-toolbar-side-icon>
+      <span v-if="$store.state.isLogin == true">
+        <v-toolbar-side-icon v-if="$route.path == '/home' || $route.path == '/coursePurchase' || $route.path == '/favorite'  || $route.path == '/profile'"dark @click.native.stop="drawer = !drawer" ></v-toolbar-side-icon>
+      </span>
       <v-btn class="white--text" icon v-if="back" router :to="link">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -50,7 +52,7 @@ export default {
     return {
       drawer: false,
       items: [
-        { title: 'โปรไฟล์', icon: 'account_circle', link: "/account"},
+        { title: 'ส่งข้อความ', icon: 'message', link: "/message"},
         { title: 'เพิ่มบัตรเดบิต/เครดิต', icon: 'payment', link: "/payment"},
         { title: 'การตั้งค่า', icon: 'settings', link: '/setting'},
         { title: 'ความช่วยเหลือและความคิดเห็น', icon: 'help', link: '/help'}
@@ -60,7 +62,6 @@ export default {
   methods: {
     logout () {
       this.$store.commit('Logout')
-      this.$router.push('/')
     }
   },
   props: {

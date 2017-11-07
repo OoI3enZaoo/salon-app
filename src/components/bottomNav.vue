@@ -14,9 +14,9 @@
         <span>รายการโปรด</span>
         <v-icon>favorite</v-icon>
       </v-btn>
-      <v-btn flat color="primary" value="message" router to="/message">
-        <span>ข้อความ</span>
-        <v-icon>message</v-icon>
+      <v-btn flat color="primary" value="profile" router to="/profile">
+        <span>บัญชีของฉัน</span>
+        <v-icon>person</v-icon>
       </v-btn>
     </v-bottom-nav>
   </div>

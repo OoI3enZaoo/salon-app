@@ -81,7 +81,7 @@ import {
 } from 'quasar'
 export default {
   beforeCreate() {
-    if (this.$store.getters.lesson_from_course_id(this.$route.params.id) == '') {
+    if (this.$store.getters.lesson_from_course_id(this.$route.params.id) == []) {
       this.$store.dispatch('pullLesson', this.$route.params.id)
     }
   },

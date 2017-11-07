@@ -67,6 +67,12 @@ export default {
   },
   Logout: (state) => {
     state.isLogin = false
+    state.purchaseCourse = []
+    state.lesson = []
+    state.favorite = []
+    state.creditCard = []
+    state.course = []
+    state.message = []
     LocalStorage.clear()
   },
   addMessage: (state, data) => {

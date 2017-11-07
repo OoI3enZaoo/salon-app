@@ -1,34 +1,37 @@
 <template>
-  <div>
-    <div class="layout-padding">
-        <div class="text-center">
-            <h5 class ="text-primary">Salon Academy</h5> <br>
-        </div>
-          <q-carousel  autoplay  dots class="text-black" style="height:300px;">
-              <div slot="slide" >
-                <div class="card shadow-2">
-                  <div class="card-content text-center">
-                    <p>อาจารย์</p>
-                    <img src="http://cliparts.co/cliparts/8cE/jrg/8cEjrgXni.png" height="90px">
-                    <p>อาจารย์สมชาย น มงคล</p>
-                    <p class ="text-grey-8">ผู้เชี่ยวชาญด้านเสริมสวยอันดับโลก</p>
+  <div style="background-color:#0288D1;">
+
+          <q-carousel dots class="text-black" style="height:100vh;" ref="carou">
+              <div slot="slide"class="centered">
+                <img :src="intro1" height="200vh">
+                  <div class="mt-5 white--text">
+                    <h6>เรียนรู้ได้ตลอดเวลา</h6>
+                    <small>รวบรวมความรู้เกี่ยวกับช่างเสริมสวยไว้ที่นี่หมดแล้ว</small>
                   </div>
+                  <!-- <a href="www.google.co.th"><v-btn flat color="white" style="position:fixed; bottom:0; left:0; z-index: 1;" @click.native="test">ข้าม</v-btn></a>
+                  <v-btn flat color="white" style="position:fixed; bottom:0; right:0;">ถัดไป</v-btn> -->
+              </div>
+            <div slot="slide" class="centered">
+              <img :src="intro2" height="200vh">
+                <div class="mt-5 white--text">
+                  <h6>เติบโต</h6>
+                  <small>เพราะการใฝ่รู้เป็นสิ่งจำเป็นที่จะทำให้เราก้าวรุดหน้าจากผู้อื่น</small>
                 </div>
             </div>
-            <div slot="slide" class="bg-secondary centered">
-              Slide 2
-            </div>
-            <div slot="slide"class="bg-tertiary centered">
-              Slide 3
+            <div slot="slide"class="centered">
+              <img :src="intro3" height="200vh">
+                <div class="mt-5 white--text">
+                  <h6>กับอาจารย์สมชาย</h6>
+                  <small>ผู้เชี่ยวชาญด้านเสริมสวย ประสบการณ์กว่า 30 ปี</small><br><br>
+                  <router-link tag="span" to="/home"><v-btn round class="primary--text">ฉันพร้อมแล้ว</v-btn></router-link>
+                </div>
             </div>
           </q-carousel>
-          <br>
+          <!-- <br>
             <div class="text-center">
               <h6>เรียนรู้กับผู้เชี่ยวชาญ</h6>
-            </div>
-    </div>
-    <br><br><br>
-    <div class="fixed-bottom">
+            </div> -->
+    <!-- <div class="fixed-bottom">
     <q-tabs class="shadow-2"
     position= "bottom">
       <q-route-tab
@@ -46,7 +49,7 @@
           slot="title"
           />
      </q-tabs>
-  </div>
+  </div> -->
   </div>
 </template>
 <script>
@@ -61,6 +64,18 @@ export default {
   created () {
     this.$store.commit('setTitle','introduce')
     const a = this.$store.getters.isLogin === true ? this.$router.push('/home') : ''
+  },
+  data () {
+    return {
+      intro1: require('../statics/intro1.png'),
+      intro2: require('../statics/intro2.png'),
+      intro3: require('../statics/intro3.png')
+    }
+  },
+  methods: {
+    test() {
+      console.log(this.$refs.carou.slide)
+    }
   },
   components: {
     QToolbar,

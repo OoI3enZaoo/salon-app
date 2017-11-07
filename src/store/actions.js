@@ -7,7 +7,6 @@ Vue.use(require('vue-moment'), {
 export default {
   signout ({commit}, payload) {
     commit('isLogin', false)
-    dbAuth.signOut()
     LocalStorage.clear('userId')
     LocalStorage.clear('name')
     LocalStorage.clear('email')
@@ -25,7 +24,7 @@ export default {
       //   commit('addCoursePopular', result)
       //   commit('addCourse', result)
       // })
-      axios.get('http://localhost:4000/api/getcourse/last')
+      axios.get('http://172.104.189.169:4000/api/getcourse/last')
       .then (res => {
         let result = res.data
         // commit('addCourseLast', result)
@@ -69,9 +68,11 @@ export default {
     axios.post('http://172.104.189.169:4000/api/purchase', payload)
   },
   pullLesson ({commit, state}, courseId) {
+    console.log('pullLesson')
     axios.get('http://172.104.189.169:4000/api/getlesson/' + courseId)
     .then (res => {
       let result = res.data
+      console.log('pullLesson: ' + JSON.stringify(result))
       commit('addLesson', result)
     })
   },
@@ -100,19 +101,19 @@ export default {
     state.favorite.map(c => c.lesson_id == lesson.lesson_id ? c.love -= 1 : '')
     axios.post('http://172.104.189.169:4000/api/removeFavorite', data)
   },
-  loadFavorite ({commit, state}) {
+  loadFavorite ({commit, state}, user_id) {
     if (state.favorite.length == 0 || state.favorite == undefined) {
-      axios.get('http://172.104.189.169:4000/api/getfavorite/' + state.profile.user_id)
+      axios.get('http://172.104.189.169:4000/api/getfavorite/' + user_id)
       .then(res => {
         let result = res.data
         commit('addFavorite', result)
       })
     }
   },
-  loadMyCourse ({commit, state}) {
+  loadMyCourse ({commit, state}, user_id) {
     if (state.purchaseCourse.length == 0) {
-      console.log('loadMyCourse2')
-      axios.get('http://172.104.189.169:4000/api/getuserpurchase/' + state.profile.user_id)
+      console.log('loadMyCourse2: ' + user_id)
+      axios.get('http://172.104.189.169:4000/api/getuserpurchase/' + user_id)
       .then(res => {
         let result = res.data
         commit('addPurchaseCourse', result)

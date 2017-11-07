@@ -1,6 +1,6 @@
 <template>
 <div>
-  <toolbar v-if="$store.state.isLogin == true" title="ข้อความ" :back="false"></toolbar>
+  <toolbar v-if="$store.state.isLogin == true" title="ข้อความ" link="/home" :back="true"></toolbar>
   <toolbar v-else title="ข้อความ" :back="true" link="/"></toolbar>
   <div class="layout-padding fixed-center">
     <q-scroll-area style="width: 100%; ">
@@ -41,9 +41,7 @@
         <q-input  color="secondary" v-model="text" placeholder="กรอกข้อความ" />
     </q-card-title>
   </q-card> -->
-
   </div>
-  <bottomNav></bottomNav>
 </div>
 </template>
 <script>
