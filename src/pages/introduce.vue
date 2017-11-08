@@ -62,8 +62,7 @@ import {
 } from 'quasar'
 export default {
   created () {
-    this.$store.commit('setTitle','introduce')
-    const a = this.$store.getters.isLogin === true ? this.$router.push('/home') : ''
+    const a = this.$store.state.isLogin == true ? this.$router.push('/home') : ''
   },
   data () {
     return {

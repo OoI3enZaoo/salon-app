@@ -26,6 +26,7 @@ import VueDPlayer from 'vue-dplayer'
 Vue.use(VueCordova, {
   optionTestKey: 'optionTestValue'
 })
+import myVideo from './components/myvideo.vue'
 
 // // add cordova.js only if serving the app through file://
 // if (window.location.protocol === 'file:' || window.location.port === '8080') {
@@ -44,6 +45,7 @@ Vue.use(Quasar) // Install Quasar Framework
 Vue.component('toolbar', toolbar)
 Vue.component('bottomNav', bottomNav)
 Vue.component('d-player', VueDPlayer)
+Vue.component('my-video', myVideo)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')

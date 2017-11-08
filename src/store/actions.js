@@ -93,12 +93,13 @@ export default {
     state.favorite.map(c => c.lesson_id == lesson.lesson_id ? c.love += 1 : '')
     axios.post('http://172.104.189.169:4000/api/insertfavorite', data)
   },
-  removeFavorite ({commit}, lessonId) {
+  removeFavorite ({commit, state}, lessonId) {
     commit('removeFavorite', lessonId)
     let data = {
+      user_id: state.profile.user_id,
       lesson_id: lessonId
     }
-    state.favorite.map(c => c.lesson_id == lesson.lesson_id ? c.love -= 1 : '')
+    state.favorite.map(c => c.lesson_id == lessonId ? c.love -= 1 : '')
     axios.post('http://172.104.189.169:4000/api/removeFavorite', data)
   },
   loadFavorite ({commit, state}, user_id) {
