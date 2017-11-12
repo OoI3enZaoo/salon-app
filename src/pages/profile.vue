@@ -13,11 +13,21 @@
         <h3>hello</h3>
         <v-btn error @click.native="logout">ลงชื่อออก</v-btn>
       </v-container>
+
+
+
+
+
+
         <bottomNav></bottomNav>
+
   </div>
 </template>
 <script>
 export default {
+    created() {
+      console.log('params: ' + JSON.stringify(this.$route.params));
+    },
     methods: {
       logout () {
         this.$store.commit('isLogin',false)

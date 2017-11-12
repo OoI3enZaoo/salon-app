@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     async login () {
+      console.log('login');
       let user_id = null
       await axios.get('http://172.104.189.169:4000/api/checkloginuser/'+ this.email + '/' + this.password)
       .then (res => {

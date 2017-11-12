@@ -25,6 +25,8 @@ export default {
   //   LocalStorage.set('courseprice', state.courseprice)
   // },
   addPurchaseCourse: (state, data) => {
+    console.log('addPurchaseCourse: ' + JSON.stringify(data))
+    console.log('state.purchaseCourse: ' + state.purchaseCourse)
     state.purchaseCourse == undefined ? state.purchaseCourse = [] : state.purchaseCourse
     state.purchaseCourse.push(...data)
     LocalStorage.set('purchaseCourse', state.purchaseCourse)

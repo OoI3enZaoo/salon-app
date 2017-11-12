@@ -24,7 +24,7 @@
   </v-card>
 </router-link>
 <br><br>
-<q-pull-to-refresh :handler="refresher" pull-message = "" release-message="ปล่อยมือเพื่อโหลด" refresh-message="โหลดข้อมูล" distance="20">
+<q-pull-to-refresh :handler="refresher" pull-message = "" release-message="ปล่อยมือเพื่อโหลด" refresh-message="โหลดข้อมูล" >
    <div column v-for="(data, index) in course" :key="index">
              <cardCourse
                :data="data"
@@ -45,7 +45,7 @@ import last from '../components/course/last.vue'
 import popular from '../components/course/popular.vue'
 import price from '../components/course/price.vue'
 import Vue from 'vue'
-export default {  
+export default {
   components: {
     cardCourse,
     QPullToRefresh,
