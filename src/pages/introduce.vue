@@ -62,7 +62,7 @@ import {
 } from 'quasar'
 export default {
   created () {
-    const a = this.$store.state.isLogin == true ? this.$router.push('/home') : ''
+    const a = this.$store.state.isLogin !== false ? this.$router.push('/home') : ''
   },
   data () {
     return {

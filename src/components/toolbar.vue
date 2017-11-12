@@ -53,7 +53,6 @@ export default {
       drawer: false,
       items: [
         { title: 'ส่งข้อความ', icon: 'message', link: "/message"},
-        { title: 'เพิ่มบัตรเดบิต/เครดิต', icon: 'payment', link: "/payment"},
         { title: 'การตั้งค่า', icon: 'settings', link: '/setting'},
         { title: 'ความช่วยเหลือและความคิดเห็น', icon: 'help', link: '/help'}
       ]

@@ -62,10 +62,9 @@ export default {
   },
   purchaseCourse ({commit, state, getters}, payload) {
     payload.tstamp = Vue.moment().format('YYYY-MM-DD HH:mm:ss')
-    payload.user_id = state.profile.user_id
     console.log('payload ' + JSON.stringify(payload))
-    commit('addPurchaseCourse', getters.course_from_course_id(payload.course_id))
     axios.post('http://172.104.189.169:4000/api/purchase', payload)
+    commit('addPurchaseCourse', getters.course_from_course_id(payload.course_id))
   },
   pullLesson ({commit, state}, courseId) {
     console.log('pullLesson')
@@ -129,25 +128,6 @@ export default {
       commit('addLesson', result)
       console.log('loadLessonFromLessonId')
     })
-  },
-  SaveCreditCard ({commit}, payload) {
-    commit('addCreditCard', payload)
-    axios.post('http://172.104.189.169:4000/api/addcreditcard', payload)
-  },
-  UpdateCreditCard ({commit}, payload) {
-    commit('addCreditCard', payload)
-    axios.post('http://172.104.189.169:4000/api/updatecreditcard', payload)
-  },
-  LoadCreditCard ({commit, state}, user_id) {
-    if (state.creditCard == undefined) {
-      axios.get('http://172.104.189.169:4000/api/loadcreditcard/' + user_id)
-      .then (res => {
-        let result = res.data
-        if (result.length !== 0) {
-          commit('addCreditCard', result[0])
-        }
-      })
-    }
   },
   addCourseView ({commit, state}, course_id) {
     console.log('course_id : ' + course_id)

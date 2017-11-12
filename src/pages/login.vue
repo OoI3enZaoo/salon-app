@@ -64,13 +64,11 @@ export default {
           let result = res.data
           this.$store.commit('isLogin', true)
           this.$store.commit('addUserProfile', result[0])
-
           this.$store.dispatch('loadFavorite', user_id)
           this.$store.dispatch('loadMyCourse', user_id)
           this.$socket.emit('subscribe', user_id)
           this.$store.dispatch('getLastChat', user_id)
           this.$store.dispatch('LoadCreditCard', user_id)
-
           this.$router.push('/home')
         })
       }

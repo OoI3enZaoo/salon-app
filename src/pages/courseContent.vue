@@ -34,7 +34,7 @@
                   </template>
                   <template v-else-if="!purchaseCourse && $store.state.isLogin == true">
                     <div class="form">
-                        <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://localhost:4000/api/checkout/' + course.course_id +'/' + $store.state.profile.user_id">
+                        <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://172.104.189.169:4000/checkout/' + course.course_id +'/' + $store.state.profile.user_id">
                          <!-- <v-btn type="submit">submitsubmit</v-btn> -->
                         <v-btn primary block class="checkout-button-1" type="submit" id="checkout-button-1" ref="cbutton1"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
                       </form>
@@ -45,6 +45,7 @@
                       <v-card-text>เฉพาะสมาชิกเท่านั้น</v-card-text>
                     </v-card>
                   </template>
+                  <v-btn @click.native="testUrl">test2</v-btn>
               </v-card-text>
             </v-card>
 
@@ -85,47 +86,22 @@ export default {
               text: 'GitHub',
               link: 'https://github.com/MoePlayer/vue-dplayer'
           }
-      ]
-    }
-  },
-  watch: {
-    allcourse: function (val) {
-      console.log("COURSE: " + val );
-      let user_id = this.$route.params.user_id
-      let course_id = this.$route.params.id
-      if (user_id !== '0') {
-        console.log('user_id ' + user_id)
-        let data = {
-          course_id: course_id,
-          price: 200
-        }
-
-        this.$store.dispatch('purchaseCourse', data)
-        this.$store.dispatch('pullLesson', course_id)
-
-        //this.$router.push('/home')
-        // console.log(this.$store.getters.course_from_course_id(this.$route.params.id)[0])
-        //   this.$store.dispatch('loadFavorite', user_id)
-        //   this.$store.dispatch('loadMyCourse', user_id)
-        //   this.$socket.emit('subscribe', user_id)
-        //   this.$store.dispatch('getLastChat', user_id)
-        //   this.$store.dispatch('LoadCreditCard', user_id)
-
-      } else {
-        console.log('status == 0')
-      }
-
+      ],
+      url: window.location.href
     }
   },
   mounted () {
+    console.log('url: ' + this.url);
     document.addEventListener("deviceready", this.onDeviceReady, false);
-
-
-
-
+    this.$options.sockets.purchase = (data) => {
+      data.price = this.course.price
+      console.log('data: ' + JSON.stringify(data))
+      this.$store.dispatch('purchaseCourse', data)
+      // this.$store.dispatch('pullLesson', data.course_id)
+    }
     OmiseCard.configure({
       publicKey:        'pkey_test_59wttviu3e8b5dzulzp',
-      amount:           500,
+      amount:           this.course.price,
       currency:         'thb',
       image:           'https://cdn.omise.co/assets/dashboard/images/omise-logo.png',
       frameLabel:       'Merchant name',
@@ -164,6 +140,10 @@ export default {
     CourseInfo (course_id) {
       console.log('course_id: ' + course_id)
       this.$router.push('/coursePurchase/')
+    },
+    testUrl () {
+      window.alert(window.location.href)
+
     }
   },
   computed: {

@@ -9,11 +9,9 @@ import account from './pages/account.vue'
 import login from './pages/login.vue'
 import register from './pages/register.vue'
 import lessonList from './pages/lessonList.vue'
-
 import coursePurchase from './pages/coursePurchase.vue'
 import profile from './pages/profile.vue'
 import lessonContent from './pages/lessonContent.vue'
-import payment from './pages/payment.vue'
 Vue.use(VueRouter)
 
 function load (component) {
@@ -47,7 +45,6 @@ export default new VueRouter({
     { path: '/profile/', component: profile },
     { path: '/lessonlist/:id', component: lessonList },
     { path: '/lessonContent/:id', component: lessonContent },
-    { path: '/payment/', component: payment },
     { path: '*', component: load('Error404') } // Not found
   ]
 })
