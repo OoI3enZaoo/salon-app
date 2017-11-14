@@ -155,5 +155,13 @@ export default {
       let result = res.data
       commit('addMessage', result)
     })
+  },
+  addUserRecommend ({commit}, user_id) {
+    const data = {
+      user_id: user_id,
+      tstamp: Vue.moment().format('YYYY-MM-DD HH:mm:ss')
+    }
+    console.log(data);
+    axios.post('http://localhost:4000/api/addrecommend', data)
   }
 }

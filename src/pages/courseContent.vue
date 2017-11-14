@@ -24,7 +24,7 @@
                 <span class="headline">{{course.title}}</span>
               </v-card-title>
               <v-card-text>
-                 <p v-html="course.description"></p>
+                 <p class="text-xs-left"v-html="course.description"></p>
               </v-card-text>
             </v-card>
             <v-card class="elevation-0" style="background-color:#EEEEEE;">
@@ -39,13 +39,13 @@
                         <v-btn primary block class="checkout-button-1" type="submit" id="checkout-button-1" ref="cbutton1"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
                       </form>
                     </div>
+                    <v-text-field solo v-model="userRecommened" label="ไอดีของผู้แนะนำ">ไอดีผู้แนะนำ</v-text-field>
                   </template>
                   <template v-else-if="$store.state.isLogin == false">
                     <v-card>
                       <v-card-text>เฉพาะสมาชิกเท่านั้น</v-card-text>
                     </v-card>
                   </template>
-                  <v-btn @click.native="testUrl">test2</v-btn>
               </v-card-text>
             </v-card>
 
@@ -87,17 +87,18 @@ export default {
               link: 'https://github.com/MoePlayer/vue-dplayer'
           }
       ],
-      url: window.location.href
+      userRecommened: ''
     }
   },
   mounted () {
-    console.log('url: ' + this.url);
-    document.addEventListener("deviceready", this.onDeviceReady, false);
     this.$options.sockets.purchase = (data) => {
       data.price = this.course.price
       console.log('data: ' + JSON.stringify(data))
       this.$store.dispatch('purchaseCourse', data)
-      // this.$store.dispatch('pullLesson', data.course_id)
+      this.$store.dispatch('pullLesson', data.course_id)
+      if (this.userRecommened !== '') {
+        this.$store.dispatch('addUserRecommend', data.user_id)
+      }
     }
     OmiseCard.configure({
       publicKey:        'pkey_test_59wttviu3e8b5dzulzp',
@@ -122,28 +123,9 @@ export default {
       OmiseCard.attach();
   },
   methods: {
-    showAlert () {
-      navigator.notification.confirm(
-          'คุณยังไม่มีบัตรเดบิต/เครดิต ในระบบ', // message
-           this.onConfirm,            // callback to invoke with index of button pressed
-          'Game Over',           // title
-          ['เพิ่มบัตร','ปิด']     // buttonLabels
-      );
-    },
-    onConfirm (buttonIndex) {
-      if (buttonIndex == 1) {
-        this.$router.push('/payment')
-      }
-    },
-    onDeviceReady () {
-    },
     CourseInfo (course_id) {
       console.log('course_id: ' + course_id)
       this.$router.push('/coursePurchase/')
-    },
-    testUrl () {
-      window.alert(window.location.href)
-
     }
   },
   computed: {
