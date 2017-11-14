@@ -25,14 +25,14 @@
         <v-card-text>
           <div class="row">
               <div class="col-6">
-                <h5 class="primary--text">12000</h5>
+                <h5 class="primary--text">{{purchaseCourseLength}}  </h5>
                 <span class="grey--text"><b>คอร์สที่มี</b></span>
               </div>
               <!-- <div class="col-2">
                 <hr style="width:0px; height:100%; border: 1px inset;">
               </div> -->
               <div class="col-6">
-                <h5 class="primary--text">12000</h5>
+                <h5 class="primary--text">{{coursePrice}}</h5>
                 <span class="grey--text"><b>จำนวนเงินที่จ่ายค่าคอร์ส</b></span>
               </div>
             </div>
@@ -92,7 +92,6 @@
 
 
 
-
         <bottomNav></bottomNav>
 
   </div>
@@ -100,7 +99,12 @@
 <script>
 export default {
     created() {
-      console.log('params: ' + JSON.stringify(this.$route.params));
+      this.$store.state.purchaseCourse.map(pc => this.coursePrice =+ pc.price)
+    },
+    data () {
+      return {
+        coursePrice: 0
+      }
     },
     methods: {
       logout () {
@@ -111,6 +115,9 @@ export default {
     computed: {
       user () {
         return this.$store.state.profile
+      },
+      purchaseCourseLength () {
+        return this.$store.state.purchaseCourse.length
       }
     }
 }
