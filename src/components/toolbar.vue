@@ -23,7 +23,7 @@
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
         <v-list-tile @click="">
           <v-list-tile-action>
             <v-icon>reply</v-icon>
