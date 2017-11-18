@@ -2,7 +2,7 @@
   <div>
     <toolbar :title="course.title" link="/home"></toolbar>
             <v-card class="elevation-0">
-              <d-player :video="{url : 'http://172.104.189.169:4300/api/getfile/' + course.video, pic: course.cover}"
+              <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + course.video, pic: course.cover}"
                             :contextmenu="contextmenu"
                             :screenshot="true"
                             ref="player">
@@ -41,7 +41,8 @@
                     </div>
                     <v-text-field solo v-model="userRecommened" label="ไอดีของผู้แนะนำ">ไอดีผู้แนะนำ</v-text-field>
                   </template>
-                  <template v-else-if="$store.state.isLogin == false">
+
+                  <template v-else-if="$store.state.isLogin == false || $store.state.isLogin == undefined">
                     <v-card>
                       <v-card-text>เฉพาะสมาชิกเท่านั้น</v-card-text>
                     </v-card>
@@ -102,13 +103,12 @@ export default {
     }
     OmiseCard.configure({
       publicKey:        'pkey_test_59wttviu3e8b5dzulzp',
-      amount:           this.course.price,
+      amount:           this.course.price + '00',
       currency:         'thb',
-      image:           'https://cdn.omise.co/assets/dashboard/images/omise-logo.png',
-      frameLabel:       'Merchant name',
-      frameDescription: 'Merchant description',
-      submitLabel:      'Pay',
-      buttonLabel:      'Pay with Omise',
+      image:           'https://image.ibb.co/hS77sm/logo.png',
+      frameLabel:       'Salon Academy',
+      frameDescription: 'สำหรับบัตร เดบิต/เครดิต',
+      buttonLabel:      'จ่ายตอนนี้',
       location:         'no',
       billingName:      '',
       billingAddress:   '',
@@ -116,8 +116,8 @@ export default {
     });
       // Configuring your own custom button
       OmiseCard.configureButton('#checkout-button-1', {
-        frameLabel: 'Merchant name',
-        submitLabel: 'PAY RIGHT NOW !',
+        frameLabel: 'ชำระเงินซื้อคอร์ส ' + this.course.title ,
+        submitLabel: 'จ่ายตอนนี้',
       });
       // Then, attach all of the config and initiate it by 'OmiseCard.attach();' method
       OmiseCard.attach();

@@ -10,11 +10,11 @@
       <v-layout column class="media">
         <v-card-title>
           <v-btn dark icon router to="/coursePurchase">
-            <v-icon>chevron_left</v-icon>
+            <v-icon class="black--text">chevron_left</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn dark icon>
-            <v-icon>more_vert</v-icon>
+            <v-icon class="black--text">more_vert</v-icon>
           </v-btn>
         </v-card-title>
         <div style="padding-top:60px;">

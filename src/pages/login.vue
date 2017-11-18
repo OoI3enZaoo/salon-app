@@ -23,7 +23,7 @@
 
 <br>
             <v-btn block primary round large @click.native="login">เข้าสู่ระบบ</v-btn>
-            <p color="blue">ยังไม่ได้เป็นสมาชิก? <router-link to="/register">สมัครสมาชิก</router-link></p>
+            <!-- <p color="blue">ยังไม่ได้เป็นสมาชิก? <router-link to="/register/login/home">สมัครสมาชิก</router-link></p> -->
           </div>
         </div>
       </div>

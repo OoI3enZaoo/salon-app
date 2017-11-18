@@ -20,7 +20,7 @@
 
     <div>
       <v-card class="elevation-1">
-        <d-player :video="{url : 'http://172.104.189.169:4300/api/getfile/' + data.video, pic: data.cover}"
+        <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + data.video, pic: data.cover}"
                       :contextmenu="contextmenu"
                       :screenshot="true"
                       ref="player">
@@ -29,7 +29,7 @@
         <v-card-title>
           <div class="text-xs-left">
             <span class="headline" style="display:inline;"v-text="data.title"></span>
-            <span>{{data.ts | moment('from','now', true)}} ที่ผ่านมา</span>
+              <!-- <span class="text-xs-right" style="position:fixed; right:0;">{{data.ts | moment('from','now', true)}} ที่ผ่านมา</span> -->
             <br>
             <span>โดย {{data.fname}} {{data.lname}}</span>
           </div>
