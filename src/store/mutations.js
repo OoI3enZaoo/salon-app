@@ -63,9 +63,11 @@ export default {
         data[0].lname = l.lname
         console.log('data[0]: ' + JSON.stringify(data[0]));
         state.favorite.unshift(...data)
-        LocalStorage.set('favorite', state.favorite)
       }
     })
+  },
+  addFavoriteFirst: (state, data) => {
+    state.favorite.unshift(...data)
   },
   removeFavorite: (state, data) => {
     var index = state.favorite.indexOf(data);
@@ -83,7 +85,7 @@ export default {
     state.lesson = []
     state.favorite = []
     state.creditCard = []
-    state.course = []
+    // state.course = []
     state.message = []
     LocalStorage.clear()
   },

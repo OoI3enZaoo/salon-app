@@ -22,7 +22,7 @@
             ></v-text-field>
 
 <br>
-            <v-btn block primary round large @click.native="login">เข้าสู่ระบบ</v-btn>
+            <v-btn block primary round large :disabled ="!isValid" @click.native="login">เข้าสู่ระบบ</v-btn>
             <!-- <p color="blue">ยังไม่ได้เป็นสมาชิก? <router-link to="/register/login/home">สมัครสมาชิก</router-link></p> -->
           </div>
         </div>
@@ -63,15 +63,20 @@ export default {
         .then (res => {
           let result = res.data
           this.$store.commit('isLogin', true)
+          this.$store.dispatch('pullCourse')
           this.$store.commit('addUserProfile', result[0])
           this.$store.dispatch('loadFavorite', user_id)
-          this.$store.dispatch('loadMyCourse', user_id)
+          this.$store.dispatch('loadLessonFromUserId', user_id)
           this.$socket.emit('subscribe', user_id)
           this.$store.dispatch('getLastChat', user_id)
-          this.$store.dispatch('LoadCreditCard', user_id)
           this.$router.push('/home')
         })
       }
+    }
+  },
+  computed: {
+    isValid () {
+      return this.email !== '' && this.password !== ''
     }
   }
 }

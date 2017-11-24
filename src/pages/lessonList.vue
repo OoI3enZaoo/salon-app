@@ -34,7 +34,7 @@
     </v-list>
   </v-card>
 
-  <v-dialog v-model="dialog" fullscreen>
+  <v-dialog v-model="dialog">
         <v-card>
           <v-toolbar dark color="primary">
          <v-btn icon @click.native="dialog = false" dark>

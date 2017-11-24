@@ -130,11 +130,12 @@ export default {
     axios.post('http://172.104.189.169:4100/api/removeFavorite', data)
   },
   loadFavorite ({commit, state}, user_id) {
-    if (state.favorite.length == 0 || state.favorite == undefined) {
-      axios.get('http://172.104.189.169:4100/api/getfavorite/' + user_id)
+    if (state.favorite.length == 0) {
+      console.log('loadFavorite: ' + user_id);
+      axios.get('http://localhost:4100/api/getfavorite/' + user_id)
       .then(res => {
         let result = res.data
-        commit('addFavorite', result)
+        commit('addFavoriteFirst', result)
       })
     }
   },

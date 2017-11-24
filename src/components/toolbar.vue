@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     logout () {
+      this.$socket.emit('leaveRoom', this.$store.state.profile.user_id)
       this.$store.commit('Logout')
     }
   },

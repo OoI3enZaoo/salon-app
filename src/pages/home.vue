@@ -4,25 +4,15 @@
     <toolbar v-if="$store.state.isLogin == true" title="รายการคอร์ส" :back="false"></toolbar>
     <toolbar v-else title="รายการคอร์ส":back="false" ></toolbar>
 
-<router-link to="/login/home" tag="span" v-if="$store.state.isLogin !== true">
-  <v-card>
-    <v-list>
-      <v-list-tile>
-        <v-list-tile-avatar>
-          <v-icon primary>home</v-icon>
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-content>
-            เข้าสู่ระบบ/สมัครสมาชิก
-          </v-list-tile-content>
-        </v-list-tile-content>
-        <v-list-tile-action>
-          <v-icon primary>keyboard_arrow_right</v-icon>
-        </v-list-tile-action>
-      </v-list-tile>
-    </v-list>
-  </v-card>
-</router-link>
+
+<v-card color="blue white--text"v-if="$store.state.isLogin !== true">
+  <v-card-text>
+    สมัครสมาชิก เพื่อเลือกซื้อคอร์สเลย <br>
+    <v-btn color="white" @click.native="$router.push('/login/home')">เข้าสู่ระบบ</v-btn>
+    <v-btn color="primary" @click.native="$router.push('/register/home')" >สมัครสมาชิก</v-btn>
+  </v-card-text>
+</v-card>
+
 <br><br>
 <q-pull-to-refresh :handler="refresher" pull-message = "" release-message="ปล่อยมือเพื่อโหลด" refresh-message="โหลดข้อมูล" >
    <div column v-for="(data, index) in course" :key="index">
