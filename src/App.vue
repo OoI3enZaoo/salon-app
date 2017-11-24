@@ -37,7 +37,7 @@ export default {
   beforeCreate () {
     this.$store.dispatch('pullCourse')
     this.$store.dispatch('loadFavorite', this.$store.state.profile.user_id)
-    this.$store.dispatch('loadMyCourse', this.$store.state.profile.user_id)
+    this.$store.dispatch('loadLessonFromUserId', this.$store.state.profile.user_id)
     this.$socket.emit('subscribe', this.$store.state.profile.user_id)
     this.$store.dispatch('getLastChat', this.$store.state.profile.user_id)
     this.$store.dispatch('LoadCreditCard', this.$store.state.profile.user_id)

@@ -34,7 +34,7 @@
                   </template>
                   <template v-else-if="!purchaseCourse && $store.state.isLogin == true">
                     <div class="form">
-                        <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://172.104.189.169:4000/checkout/' + course.course_id +'/' + $store.state.profile.user_id">
+                        <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://localhost:4200/checkout/' + course.course_id +'/' + $store.state.profile.user_id">
                          <!-- <v-btn type="submit">submitsubmit</v-btn> -->
                         <v-btn primary block class="checkout-button-1" type="submit" id="checkout-button-1" ref="cbutton1"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
                       </form>
@@ -66,7 +66,7 @@ import {
 export default {
   beforeCreate() {
     navigator.vibrate(50)
-    this.$store.dispatch('addCourseView', this.$route.params.id)
+    // this.$store.dispatch('addCourseView', this.$route.params.id)
   },
   components: {
     QCardTitle,

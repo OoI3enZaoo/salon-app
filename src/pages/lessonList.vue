@@ -1,12 +1,7 @@
 <template>
   <div>
-
-
-
-  <!-- <toolbar :title="course.title" :back="true" link="/coursePurchase"></toolbar> -->
-
   <v-card>
-    <v-card-media :src="course.cover" height="300px">
+    <v-card-media :src="lesson.cover" height="300px">
       <v-layout column class="media">
         <v-card-title>
           <v-btn dark icon router to="/coursePurchase">
@@ -24,21 +19,18 @@
         </div>
       </v-layout>
     </v-card-media>
+
     <v-list subheader two-line>
-      <v-subheader>วีดีโอของคอร์ส {{course.title}}</v-subheader>
-        <v-list-tile v-for="(data, i) in lesson" :key="i"@click="" @click.native="[currentLesson = data, dialog = true]">
-          <v-list-tile-avatar>
-            <img :src="data.avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="data.title"></v-list-tile-title>
-            <v-list-tile-sub-title>{{data.tstamp | moment('from','now',true)}}</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <!-- <v-icon>remove_red_eye</v-icon> &nbsp;<span>{{data.view}}</span>&nbsp;&nbsp; -->
-              <!-- <v-icon class="pull-right">favorite</v-icon> &nbsp;<span>{{data.love}}</span> -->
-          </v-list-tile-action>
-        </v-list-tile>
+      <v-subheader>วีดีโอของคอร์ส {{lesson.title}}</v-subheader>
+          <template v-for="(data, i) in videoInLesson">
+            <v-list-tile :key="i" @click="" @click.native="[currentVideo = data, dialog = true]">
+              <v-list-tile-content>
+                <v-list-tile-title v-html="data.title"></v-list-tile-title>
+                <v-list-tile-sub-title>{{data.tstamp | moment('from','now',true)}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-divider></v-divider>
+        </template>
     </v-list>
   </v-card>
 
@@ -48,7 +40,7 @@
          <v-btn icon @click.native="dialog = false" dark>
            <v-icon>close</v-icon>
          </v-btn>
-         <v-toolbar-title>{{currentLesson.title}}</v-toolbar-title>
+         <v-toolbar-title>{{currentVideo.title}}</v-toolbar-title>
          <v-spacer></v-spacer>
          <v-toolbar-items>
            <template v-if="favorite">
@@ -63,7 +55,7 @@
            </template>
          </v-toolbar-items>
        </v-toolbar>
-           <my-video ref="myvideo"  :videoname="currentLesson.video" :options="video.options" ></my-video>
+           <my-video ref="myvideo"  :videoname="currentVideo.video" :options="video.options" ></my-video>
         </v-card>
       </v-dialog>
     </v-layout>
@@ -73,15 +65,12 @@
 
 export default {
   beforeCreate() {
-    if (this.$store.getters.lesson_from_course_id(this.$route.params.id).length == 0) {
-      this.$store.dispatch('pullLesson', this.$route.params.id)
-    }
+    this.$store.dispatch('pullVideo', this.$route.params.id)
   },
-
   data () {
     return {
       dialog: false,
-      currentLesson: {},
+      currentVideo: {},
       video: {
         options: {
             autoplay: false,
@@ -93,27 +82,27 @@ export default {
   },
   methods: {
     addFavorite () {
-      this.$store.dispatch('addFavorite', this.currentLesson)
+      this.$store.dispatch('addFavorite', this.currentVideo)
     },
     RemoveFavorite () {
-      this.$store.dispatch('removeFavorite', this.currentLesson.lesson_id)
+      this.$store.dispatch('removeFavorite', this.currentVideo.lesson_id)
     },
     play () {
       // console.log(this.$refs.player);
-      // let myVideo = 'http://172.104.189.169:4000/api/getfile/' + this.currentLesson.video
+      // let myVideo = 'http://172.104.189.169:4000/api/getfile/' + this.currentVideo.video
       // console.log(myVideo)
       // this.video.src = myVideo
     }
   },
   computed: {
-    lesson () {
-      return this.$store.getters.lesson_from_course_id(this.$route.params.id)
+    videoInLesson () {
+      return this.$store.getters.video_from_lesson_id(this.$route.params.id)
     },
-    course () {
-      return this.$store.getters.course_purchase_from_course_id(this.$route.params.id)[0]
+    lesson () {
+      return this.$store.getters.lesson_from_lesson_id(this.$route.params.id)[0]
     },
     favorite () {
-      return this.$store.getters.favorite_from_lesson_id(this.currentLesson.lesson_id)[0]
+      return this.$store.getters.favorite_from_video_id(this.currentVideo.video_id)[0]
     }
   }
 }

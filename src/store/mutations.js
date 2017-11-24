@@ -32,6 +32,7 @@ export default {
     LocalStorage.set('purchaseCourse', state.purchaseCourse)
   },
   addLesson: (state, data) => state.lesson.unshift(...data),
+  addVideo: (state, data) => state.video.unshift(...data),
   updateLesson: (state, data) => {
     console.log(state.lesson);
     state.lesson.map((l,index) => {
@@ -54,8 +55,17 @@ export default {
     LocalStorage.set('age', data.age)
   },
   addFavorite: (state, data) => {
-    state.favorite.unshift(...data)
-    LocalStorage.set('favorite', state.favorite)
+    state.lesson.find(l => {
+      if (l.lesson_id == data[0].lesson_id) {
+        data[0].course_id = l.course_id
+        data[0].avatar = l.avatar
+        data[0].fname = l.fname
+        data[0].lname = l.lname
+        console.log('data[0]: ' + JSON.stringify(data[0]));
+        state.favorite.unshift(...data)
+        LocalStorage.set('favorite', state.favorite)
+      }
+    })
   },
   removeFavorite: (state, data) => {
     var index = state.favorite.indexOf(data);

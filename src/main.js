@@ -36,8 +36,8 @@ import myVideo from './components/myvideo.vue'
 // }
 
 Vue.use(vuetify)
-Vue.use(VueSocketio, 'http://172.104.189.169:4000')
-// Vue.use(VueSocketio, 'http://localhost:4000/')
+// Vue.use(VueSocketio, 'http://172.104.189.169:4200')
+Vue.use(VueSocketio, 'http://localhost:4200/')
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework

@@ -49,7 +49,7 @@ export default {
     async login () {
       console.log('login');
       let user_id = null
-      await axios.get('http://172.104.189.169:4000/api/checkloginuser/'+ this.email + '/' + this.password)
+      await axios.get('http://172.104.189.169:4100/api/checkloginuser/'+ this.email + '/' + this.password)
       .then (res => {
         let result = res.data[0]
         if (result.check_user == 1) {
@@ -59,7 +59,7 @@ export default {
         }
       })
       if (user_id !== null) {
-        axios.get('http://172.104.189.169:4000/api/getuserdata/' + user_id)
+        axios.get('http://172.104.189.169:4100/api/getuserdata/' + user_id)
         .then (res => {
           let result = res.data
           this.$store.commit('isLogin', true)

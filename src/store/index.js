@@ -24,6 +24,7 @@ export const store = new Vuex.Store({
       // courselast: LocalStorage.get.item('courselast'),
       // courseprice: LocalStorage.get.item('courseprice'),
       lesson: [],
+      video: [],
       favorite: [],
       creditCard: LocalStorage.get.item('creditCard'),
       course: [],
