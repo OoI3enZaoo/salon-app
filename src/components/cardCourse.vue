@@ -35,7 +35,7 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-icon>remove_red_eye</v-icon> <span>{{data.view}}</span> &nbsp;&nbsp;
+          <!-- <v-icon>remove_red_eye</v-icon> <span>{{data.view}}</span> &nbsp;&nbsp; -->
           <v-icon>shopping_cart</v-icon> <span>{{data.purchase}}</span> &nbsp;&nbsp;
           <v-icon>fa-money</v-icon> <span>{{data.price}}</span>
             <router-link :to="'/courseContent/' + data.course_id + '/0'" tag="span" style="cursor:pointer;">
@@ -59,8 +59,8 @@ export default {
     return {
       contextmenu: [
           {
-              text: 'GitHub',
-              link: 'https://github.com/MoePlayer/vue-dplayer'
+              text: '',
+              link: ''
           }
       ]
     }

@@ -92,5 +92,13 @@ export default {
   addMessage: (state, data) => {
     state.message.push(...data)
     // LocalStorage.set('message', state.message)
-  }
+  },
+  addBank (state, data) {
+    state.profile.bankName = data.account_number
+    state.profile.bankAccount = data.account_bank
+    state.profile.bankStatus = data.account_status
+    LocalStorage.set('bankname', data.account_number)
+    LocalStorage.set('bankaccount', data.account_bank)
+    LocalStorage.set('bankstatus', data.account_status)
+  },
 }

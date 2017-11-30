@@ -24,6 +24,30 @@
 
 </q-pull-to-refresh>
 
+<v-snackbar
+     :color="snackbar.color"
+     v-model="snackbar.model"
+   >
+     {{ snackbar.text }}
+     <v-btn dark flat @click.native="snackbar = false">ปิด</v-btn>
+   </v-snackbar>
+
+<v-dialog v-model="dialog"  max-width="300px">
+      <v-card>
+        <v-card-title class="headline">คุณได้ทำการแนะนำคอร์สให้ผู้อื่น</v-card-title>
+        <v-card-text>กรอกข้อมูลบัญชีเพื่อรับค่าตอบแทนจากแอดมิน</v-card-text>
+        <v-card-text>
+          <v-text-field label="ชื่อธนาคาร" v-model="bank.bankName"></v-text-field>
+          <v-text-field type="number" label="เลขบัญชี"  v-model="bank.bankAccount"></v-text-field>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn color="blue darken-1" flat @click.native="dialogClose">ปิด</v-btn>
+          <v-btn color="blue darken-1" flat :disabled="!isDialogValid" @click.native="dialogSave">บันทึก</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
       <bottomNav></bottomNav>
 </div>
 </template>
@@ -54,6 +78,26 @@ export default {
     refresher (done) {
       this.$store.dispatch('refreshCourse')
       done()
+    },
+    dialogClose () {
+      this.dialog = false
+      this.snackbar.text = "สามารถเข้าไปกรอกข้อมูลใหม่ได้ที่แถบ 'บัญชีของฉัน'"
+      this.snackbar.model = true
+    },
+    dialogSave () {
+      this.dialog = false
+      this.snackbar.text = "สามารถเข้าไปแก้ไขข้อมูลได้ที่แถบ 'บัญชีของฉัน'"
+      this.snackbar.color = "success"
+      this.snackbar.model = true
+      this.$store.dispatch('saveBankAccount', this.bank)
+    }
+  },
+  watch: {
+    bankStatus: function (status) {
+      console.log('status: ' + status);
+      if (status == 1) {
+        this.dialog = true
+      }
     }
   },
   data() {
@@ -62,8 +106,18 @@ export default {
       menuItems: [
         { title: 'ล่าสุด' },
         { title: 'ความนิยม' },
-        { title: 'ราคา' }
-      ]
+        { title: 'ราคา' },
+      ],
+      dialog: false,
+      snackbar: {
+        model: false,
+        color: 'primary',
+        text: ''
+      },
+      bank: {
+        bankName: '',
+        bankAccount: ''
+      }
     }
   },
   computed: {
@@ -72,6 +126,12 @@ export default {
     },
     course () {
       return this.$store.state.course
+    },
+    isDialogValid () {
+      return this.bank.bankName !== '' && this.bank.bankAccount !== ''
+    },
+    bankStatus () {
+      return this.$store.state.profile.bankStatus
     }
   }
 }

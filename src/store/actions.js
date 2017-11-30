@@ -132,7 +132,7 @@ export default {
   loadFavorite ({commit, state}, user_id) {
     if (state.favorite.length == 0) {
       console.log('loadFavorite: ' + user_id);
-      axios.get('http://localhost:4100/api/getfavorite/' + user_id)
+      axios.get('http://172.104.189.169:4100/api/getfavorite/' + user_id)
       .then(res => {
         let result = res.data
         commit('addFavoriteFirst', result)
@@ -180,6 +180,29 @@ export default {
       tstamp: Vue.moment().format('YYYY-MM-DD HH:mm:ss')
     }
     console.log(data);
-    axios.post('http:///172.104.189.169:4100/api/addrecommend', data)
+    axios.post('http://localhost:4100/api/addrecommend', data)
+  },
+  updateToUserRecommend ({commit}, user_id) {
+    axios.post('http://localhost:4100/api/updateuserrecommend', {user_id: user_id})
+  },
+  pullBank ({state, commit}, user_id) {
+    if (state.profile.bankStatus == '') {
+      axios.get('http://localhost:4100/api/getbank/' + user_id)
+      .then (res => {
+        console.log('pullBank')
+        console.log(res.data)
+        commit('addBank', res.data[0])
+      })
+    }
+  },
+  saveBankAccount ({state, commit}, payload) {
+    const data = {
+      user_id: state.profile.user_id,
+      account_bank: payload.bankName,
+      account_number: payload.bankAccount,
+      account_status: 2
+    }
+    commit('addBank', data)
+    axios.post('http://localhost:4100/api/insertbank', data)
   }
 }

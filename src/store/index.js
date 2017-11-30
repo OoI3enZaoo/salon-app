@@ -17,7 +17,10 @@ export const store = new Vuex.Store({
         avatar: 'https://www.shareicon.net/download/2016/05/29/772558_user_512x512.png',
         address: LocalStorage.get.item('address'),
         phone: LocalStorage.get.item('phone'),
-        age: LocalStorage.get.item('age')
+        age: LocalStorage.get.item('age'),
+        bankStatus: LocalStorage.get.item('bankstatus') == undefined ? LocalStorage.set('bankstatus','') : '',
+        bankName: LocalStorage.get.item('bankname'),
+        bankAccount: LocalStorage.get.item('bankaccount')
       },
       purchaseCourse: [],
       // coursepopular: LocalStorage.get.item('coursepopular'),

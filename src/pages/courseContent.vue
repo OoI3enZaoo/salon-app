@@ -8,7 +8,7 @@
                             ref="player">
                   </d-player>
               <v-card-actions>
-                <v-icon>remove_red_eye</v-icon>&nbsp; <span>{{course.view}}</span> &nbsp;&nbsp;
+                <!-- <v-icon>remove_red_eye</v-icon>&nbsp; <span>{{course.view}}</span> &nbsp;&nbsp; -->
                 <v-icon>shopping_cart</v-icon>&nbsp; <span>{{course.purchase}}</span> &nbsp;&nbsp;
                 <v-icon>fa-money</v-icon> <span><b>THB{{course.price}}</b></span>
                 <v-spacer></v-spacer>
@@ -34,12 +34,12 @@
                   </template>
                   <template v-else-if="!purchaseCourse && $store.state.isLogin == true">
                     <div class="form">
-                        <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://172.104.189.169:4200/checkout/' + course.course_id +'/' + $store.state.profile.user_id">
+                        <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://172.104.189.169:4200/checkout/' + course.course_id +'/' + $store.state.profile.user_id + '/' + course.price">
                          <!-- <v-btn type="submit">submitsubmit</v-btn> -->
                         <v-btn primary block class="checkout-button-1" type="submit" id="checkout-button-1" ref="cbutton1"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
                       </form>
                     </div>
-                    <v-text-field solo v-model="userRecommened" label="ไอดีของผู้แนะนำ">ไอดีผู้แนะนำ</v-text-field>
+                    <v-text-field solo type="number"v-model="userRecommened" label="ไอดีของผู้แนะนำ">ไอดีผู้แนะนำ</v-text-field>
                   </template>
 
                   <template v-else-if="$store.state.isLogin == false || $store.state.isLogin == undefined">
@@ -97,12 +97,13 @@ export default {
       console.log('data: ' + JSON.stringify(data))
       this.$store.dispatch('purchaseCourse', data)
       this.$store.dispatch('pullLesson', data.course_id)
-      if (this.userRecommened !== '') {
-        this.$store.dispatch('addUserRecommend', data.user_id)
+      if (this.userRecommened !== '' && this.userRecommened != data.user_id) {
+        this.$store.dispatch('addUserRecommend', this.userRecommened)
+        this.$store.dispatch('updateToUserRecommend', this.userRecommened)
       }
     }
     OmiseCard.configure({
-      publicKey:        'pkey_test_59wttviu3e8b5dzulzp',
+      publicKey:        'pkey_test_5a4llhtmzdkywinaz6s',
       amount:           this.course.price + '00',
       currency:         'thb',
       image:           'https://image.ibb.co/hS77sm/logo.png',

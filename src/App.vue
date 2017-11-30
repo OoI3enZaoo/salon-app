@@ -41,6 +41,7 @@ export default {
     this.$socket.emit('subscribe', this.$store.state.profile.user_id)
     this.$store.dispatch('getLastChat', this.$store.state.profile.user_id)
     this.$store.dispatch('LoadCreditCard', this.$store.state.profile.user_id)
+    this.$store.dispatch('pullBank', this.$store.state.profile.user_id)    
   },
   components: {
     QLayout,
