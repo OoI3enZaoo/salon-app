@@ -2,11 +2,13 @@
   <div>
     <toolbar :title="course.title" link="/home"></toolbar>
             <v-card class="elevation-0">
-              <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + course.video, pic: course.cover}"
+              <!-- <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + course.video, pic: course.cover}"
                             :contextmenu="contextmenu"
                             :screenshot="true"
                             ref="player">
-                  </d-player>
+                  </d-player> -->
+
+                  <my-video ref="myvideo" id="myvideo" :videoname="course.video" :options="video.options"></my-video>
               <v-card-actions>
                 <!-- <v-icon>remove_red_eye</v-icon>&nbsp; <span>{{course.view}}</span> &nbsp;&nbsp; -->
                 <v-icon>shopping_cart</v-icon>&nbsp; <span>{{course.purchase}}</span> &nbsp;&nbsp;
@@ -33,12 +35,12 @@
                     <v-btn primary block @click.native="CourseInfo(course.course_id)">หน้าจัดการคอร์ส</v-btn>
                   </template>
                   <template v-else-if="!purchaseCourse && $store.state.isLogin == true">
-                    <div class="form">
+                    <!-- <div class="form">
                         <form ref="omiseform" name="checkoutForm" method="POST" :action="'http://172.104.189.169:4200/checkout/' + course.course_id +'/' + $store.state.profile.user_id + '/' + course.price">
-                         <!-- <v-btn type="submit">submitsubmit</v-btn> -->
                         <v-btn primary block class="checkout-button-1" type="submit" id="checkout-button-1" ref="cbutton1"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
                       </form>
-                    </div>
+                    </div> -->
+                    <v-btn @click.native="dialog=true" primary>ซื้อตอนนี้</v-btn>
                     <v-text-field solo type="number"v-model="userRecommened" label="ไอดีของผู้แนะนำ">ไอดีผู้แนะนำ</v-text-field>
                   </template>
 
@@ -49,6 +51,16 @@
                   </template>
               </v-card-text>
             </v-card>
+            <v-dialog v-model="dialog" max-width="290" style="z-index:3;">
+              <v-card>
+                <v-card-title class="headline">Salon Academy</v-card-title>
+                <v-card-text>ในตอนนี้ระบบชำระเงินยังไม่สามารถใช้งานได้</v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="green darken-1" flat="flat" @click.native="dialog = false">ตกลง</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
 
   </div>
 </template>
@@ -82,13 +94,21 @@ export default {
     return {
       data: {},
       lesson: [],
+      dialog: false,
       contextmenu: [
           {
               text: 'GitHub',
               link: 'https://github.com/MoePlayer/vue-dplayer'
           }
       ],
-      userRecommened: ''
+      userRecommened: '',
+      video: {
+        options: {
+            autoplay: false,
+            volume: 0.6,
+            poster: this.$store.getters.course_from_course_id(this.$route.params.id)[0].cover
+        }
+      }
     }
   },
   mounted () {

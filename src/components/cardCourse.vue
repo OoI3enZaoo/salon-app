@@ -20,11 +20,12 @@
 
     <div>
       <v-card class="elevation-1">
-        <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + data.video, pic: data.cover}"
+        <!-- <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + data.video, pic: data.cover}"
                       :contextmenu="contextmenu"
                       :screenshot="true"
                       ref="player">
-            </d-player>
+            </d-player> -->
+            <my-video ref="myvideo" id="myvideo" :videoname="data.video" :options="video.options"></my-video>
 
         <v-card-title>
           <div class="text-xs-left">
@@ -55,6 +56,10 @@ export default {
       return this.description.substring(0, 120) + '...'
     }
   },
+  created() {
+    //do something after creating vue instance
+    this.video.options.poster = data.cover
+  },
   data () {
     return {
       contextmenu: [
@@ -62,7 +67,14 @@ export default {
               text: '',
               link: ''
           }
-      ]
+      ],
+      video: {
+        options: {
+            autoplay: false,
+            volume: 0.6,
+            poster: ''
+        }
+      }
     }
   },
   methods: {

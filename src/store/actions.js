@@ -180,14 +180,14 @@ export default {
       tstamp: Vue.moment().format('YYYY-MM-DD HH:mm:ss')
     }
     console.log(data);
-    axios.post('http://localhost:4100/api/addrecommend', data)
+    axios.post('http://172.104.189.169:4100/api/addrecommend', data)
   },
   updateToUserRecommend ({commit}, user_id) {
-    axios.post('http://localhost:4100/api/updateuserrecommend', {user_id: user_id})
+    axios.post('http://172.104.189.169:4100/api/updateuserrecommend', {user_id: user_id})
   },
   pullBank ({state, commit}, user_id) {
     if (state.profile.bankStatus == '') {
-      axios.get('http://localhost:4100/api/getbank/' + user_id)
+      axios.get('http://172.104.189.169:4100/api/getbank/' + user_id)
       .then (res => {
         console.log('pullBank')
         console.log(res.data)
@@ -203,6 +203,6 @@ export default {
       account_status: 2
     }
     commit('addBank', data)
-    axios.post('http://localhost:4100/api/insertbank', data)
+    axios.post('http://172.104.189.169:4100/api/insertbank', data)
   }
 }

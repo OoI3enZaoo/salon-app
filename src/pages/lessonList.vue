@@ -33,8 +33,7 @@
         </template>
     </v-list>
   </v-card>
-
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" width="100%">
         <v-card>
           <v-toolbar dark color="primary">
          <v-btn icon @click.native="dialog = false" dark>
@@ -55,7 +54,9 @@
            </template>
          </v-toolbar-items>
        </v-toolbar>
-           <my-video ref="myvideo"  :videoname="currentVideo.video" :options="video.options" ></my-video>
+           <my-video :videostatus="videostatus"ref="myvideo" id="myvideo" :videoname="currentVideo.video" :options="video.options"></my-video>
+           <br>
+
         </v-card>
       </v-dialog>
     </v-layout>
@@ -70,6 +71,7 @@ export default {
   data () {
     return {
       dialog: false,
+      videostatus: true,
       currentVideo: {},
       video: {
         options: {
@@ -92,6 +94,15 @@ export default {
       // let myVideo = 'http://172.104.189.169:4000/api/getfile/' + this.currentVideo.video
       // console.log(myVideo)
       // this.video.src = myVideo
+    }
+  },
+  watch: {
+    dialog: function (val) {
+      if (val == false) {
+        this.videostatus = false
+      } else {
+        this.videostatus = true
+      }
     }
   },
   computed: {

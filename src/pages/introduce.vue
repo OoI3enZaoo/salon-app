@@ -6,7 +6,7 @@
                 <img :src="intro1" height="200vh">
                   <div class="mt-5 white--text">
                     <h5>เรียนรู้ได้ตลอดเวลา</h5>
-                    <h6>รวบรวมความรู้เกี่ยวกับช่างเสริมสวยไว้ที่นี่หมดแล้ว</h6>
+                    <h6>รวบรวมความรู้เกี่ยวกับช่างเสริมสวยไว้ที่นี่หมดแล้ว มีข้อมูลอัพเดทให้ตลอดอายุการใช้งาน</h6>
                   </div>
                   <!-- <a href="www.google.co.th"><v-btn flat color="white" style="position:fixed; bottom:0; left:0; z-index: 1;" @click.native="test">ข้าม</v-btn></a>
                   <v-btn flat color="white" style="position:fixed; bottom:0; right:0;">ถัดไป</v-btn> -->
@@ -22,7 +22,7 @@
               <img :src="intro3" height="200vh">
                 <div class="mt-5 white--text">
                   <h5>กับอาจารย์สมชาย</h5>
-                  <h6>ผู้เชี่ยวชาญด้านเสริมสวย ประสบการณ์กว่า 30 ปี</h6><br><br>
+                  <h6>ผู้เชี่ยวชาญด้านเสริมสวย ประสบการณ์กว่า 30 ปี ถ่ายทอดประสบการณ์จริงกว่า 30 ปี</h6><br><br>
                   <router-link tag="span" to="/home"><v-btn round class="primary--text">ฉันพร้อมแล้ว</v-btn></router-link>
                 </div>
             </div>
