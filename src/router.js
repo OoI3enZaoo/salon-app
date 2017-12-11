@@ -12,6 +12,8 @@ import lessonList from './pages/lessonList.vue'
 import coursePurchase from './pages/coursePurchase.vue'
 import profile from './pages/profile.vue'
 import lessonContent from './pages/lessonContent.vue'
+import refundPage from './pages/refund.vue'
+import privatePage from './pages/private.vue'
 Vue.use(VueRouter)
 
 function load (component) {
@@ -45,6 +47,8 @@ export default new VueRouter({
     { path: '/profile/', component: profile },
     { path: '/lessonlist/:id', component: lessonList },
     { path: '/lessonContent/:id', component: lessonContent },
+    { path: '/refund', component: refundPage },
+    { path: '/private', component: privatePage },
     { path: '*', component: load('Error404') } // Not found
   ]
 })

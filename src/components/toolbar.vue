@@ -8,7 +8,7 @@
               <img :src="user.avatar  " />
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>John Leider</v-list-tile-title>
+              <v-list-tile-title>{{user.fname}} {{user.lname}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -53,8 +53,9 @@ export default {
       drawer: false,
       items: [
         { title: 'ส่งข้อความ', icon: 'message', link: "/message"},
-        // { title: 'การตั้งค่า', icon: 'settings', link: '/setting'},
-        // { title: 'ความช่วยเหลือและความคิดเห็น', icon: 'help', link: '/help'}
+        { title: 'นโยบายการคืนเงิน', icon: 'fa-money', link: "/refund"},
+        { title: 'นโยบายความเป็นส่วนตัว', icon: 'accessibility', link: "/private"},
+
       ]
     }
   },
