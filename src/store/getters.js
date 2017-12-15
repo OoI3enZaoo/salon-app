@@ -28,5 +28,20 @@ export default {
     return videoId => state.favorite.filter(item => {
       return videoId == item.video_id
     })
+  },
+  getCourseFor (state) {
+    return course_id => state.courseFor.filter(item => {
+      return course_id == item.course_id
+    })
+  },
+  getCourseInclude (state) {
+    return course_id => state.courseInclude.filter(item => {
+      return course_id == item.course_id
+    })
+  },
+  getCourseReceive (state) {
+    return course_id => state.courseReceive.filter(item => {
+      return course_id == item.course_id
+    })
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <toolbar :title="course.title" link="/home"></toolbar>
-            <v-card class="elevation-0">
+            <v-card>
               <!-- <d-player :video="{url : 'http://172.104.189.169:4400/api/getfile/' + course.video, pic: course.cover}"
                             :contextmenu="contextmenu"
                             :screenshot="true"
@@ -22,13 +22,83 @@
                 </span>
               </v-card-actions>
               <q-card-separator />
-              <v-card-title>
-                <span class="headline">{{course.title}}</span>
-              </v-card-title>
+            </v-card>
+            <v-card class="ma-2">
               <v-card-text>
-                 <p class="text-xs-left"v-html="course.description"></p>
+                <div class="text-xs-left">
+                  <p class="subheading" style="display:inline;"><b>ในคอร์สจะประกอบไปด้วย</b></p>
+                  <div class="mt-1">
+                  <template v-for="data in courseFor">
+                    <v-icon>card_giftcard</v-icon>&nbsp;{{data.for_des}}<br>
+                  </template>
+                  </div>
+                </div>
               </v-card-text>
             </v-card>
+
+            <v-card class="mt-3 ma-2">
+              <v-card-text>
+                <div class="text-xs-left">
+                  <p class="subheading" style="display:inline;"><b>สิ่งที่ผู้เรียนจะได้รับ</b></p>
+                  <div class="mt-1">
+                    <template v-for="data in courseReceive">
+                      <v-icon color="primary">done</v-icon>&nbsp;{{data.receive_des}}<br>
+                    </template>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+
+
+            <v-card class="mt-3 ma-2">
+              <v-card-text>
+                <div class="text-xs-left">
+                  <p class="subheading" style="display:inline;"><b>รายละเอียด</b></p>
+                  <div class="mt-1">
+                    <p v-html="course.description"></p>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+
+
+            <v-card class="mt-3 ma-2">
+              <v-card-text>
+                <div class="text-xs-left">
+                  <p class="subheading" style="display:inline;"><b>คอร์สนี้มีไว้สำหรับ</b></p>
+                  <div class="mt-1">
+                    <template v-for="data in courseInclude">
+                      <v-icon color="primary">done</v-icon>&nbsp;{{data.include_des}}<br>
+                    </template>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+
+
+            <v-card class="mt-3 ma-2">
+              <v-card-text>
+                <div class="text-xs-left">
+                  <p class="subheading" style="display:inline;"><b>เกี่ยวกับผู้สอน</b></p>
+                  <div class="mt-1">
+                    <div class="row">
+                      <div class="col-3">
+                        <v-avatar tile size="70px">
+                          <img :src="course.avatar" alt="">
+                        </v-avatar>
+                        <p>{{course.fname}} {{course.lname}}</p>
+                      </div>
+                      <div class="col-9">
+                          ปี 2545 เปิดโรงเรียนสอนเสริมสวย เอกมงคล ที่ ฟิวเจอร์พาร์คบางแค ในปี 2548 เป็นผู้ก่อตั้งสมาคมส่งเสริม เสริมความงาม ปัจจุบันดำรงค์ตำแหน่ง นายกสมาคมส่งเสริม เสริมความงาม (ประเทศไทย) ในปี2550 เป็นผู้บริหารร้านบิ๊กคัทสาขามาบุญครอง ในปี 2552 เปิดร้าน สมชาย เกย์คัท ที่สีลม ได้รับเชิญเป็นคณะกรรมการตัดสินการจัดงานแข่งชิงแชมป์ผมมาแล้วทุกสมาคม
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+
+
             <v-card class="elevation-0" style="background-color:#EEEEEE;">
                 <v-card-text>
                   <template v-if="purchaseCourse">
@@ -40,7 +110,7 @@
                         <v-btn primary block class="checkout-button-1" type="submit" id="checkout-button-1" ref="cbutton1"><v-icon dark>shopping_cart</v-icon>&nbsp;ซื้อตอนนี้</v-btn>
                       </form>
                     </div> -->
-                    <v-btn @click.native="dialog=true" primary>ซื้อตอนนี้</v-btn>
+                    <v-btn block @click.native="dialog=true" primary>ซื้อตอนนี้</v-btn>
                     <v-text-field solo type="number"v-model="userRecommened" label="ไอดีของผู้แนะนำ">ไอดีผู้แนะนำ</v-text-field>
                   </template>
 
@@ -54,7 +124,7 @@
             <v-dialog v-model="dialog" max-width="290" style="z-index:3;">
               <v-card>
                 <v-card-title class="headline">Salon Academy</v-card-title>
-                <v-card-text>ในตอนนี้ระบบชำระเงินยังไม่สามารถใช้งานได้</v-card-text>
+                <v-card-text>ในตอนนี้ระบบชำระเงินยังไม่สามารถใช้งานได้ หากต้องการซื้อในตอนนี้โปรดติดต่อแอดมินที่ Salonacademy2560@gmail.com หรือ 0827938267</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="green darken-1" flat="flat" @click.native="dialog = false">ตกลง</v-btn>
@@ -161,7 +231,25 @@ export default {
     },
     CreditCard () {
       return this.$store.state.creditCard
+    },
+    courseFor () {
+      return this.$store.getters.getCourseFor(this.$route.params.id)
+    },
+    courseInclude () {
+      return this.$store.getters.getCourseInclude(this.$route.params.id)
+    },
+    courseReceive () {
+      return this.$store.getters.getCourseReceive(this.$route.params.id)
     }
   }
 }
 </script>
+<style scoped>
+/*ul {
+list-style: none;
+}
+
+ul li:before {
+content: '✓';
+}*/
+</style>

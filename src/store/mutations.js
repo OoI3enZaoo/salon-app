@@ -101,4 +101,7 @@ export default {
     LocalStorage.set('bankaccount', data.account_bank)
     LocalStorage.set('bankstatus', data.account_status)
   },
+  addCourseFor: (state, data) => state.courseFor.push(...data),
+  addCourseInclude: (state, data) => state.courseInclude.push(...data),
+  addCourseReceive: (state, data) => state.courseReceive.push(...data),
 }

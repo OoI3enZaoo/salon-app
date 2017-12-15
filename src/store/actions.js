@@ -16,7 +16,7 @@ export default {
     LocalStorage.clear('key')
     router.push('/')
   },
-  pullCourse ({commit, state}) {
+  pullCourse ({commit, state, dispatch}) {
     if (state.course.length == 0) {
       // axios.get('http://172.104.189.169:4100/api/getcourse/popular')
       // .then (res => {
@@ -29,6 +29,9 @@ export default {
         let result = res.data
         // commit('addCourseLast', result)
         commit('addCourse', result)
+        result.map(r => {
+          dispatch('courseDetail', r.course_id)
+        })
       })
       // axios.get('http://172.104.189.169:4100/api/getcourse/price')
       // .then (res => {
@@ -51,6 +54,9 @@ export default {
       let result = res.data
       // commit('addCourseLast', result)
       commit('addCourse', result)
+      result.map(r => {
+        dispatch('courseDetail', r.course_id)
+      })
     })
     // axios.get('http://172.104.189.169:4100/api/getcourse/price')
     // .then (res => {
@@ -204,5 +210,25 @@ export default {
     }
     commit('addBank', data)
     axios.post('http://172.104.189.169:4100/api/insertbank', data)
+  },
+  courseDetail ({commit}, course_id) {
+    console.log('courseDetail: ' + course_id)
+    axios.get('http://172.104.189.169:4100/api/get_course_for/' + course_id)
+    .then(res => {
+      let result = res.data
+      commit('addCourseFor', result)      
+    })
+
+    axios.get('http://172.104.189.169:4100/api/get_course_include/' + course_id)
+    .then(res => {
+      let result = res.data
+      commit('addCourseInclude', result)
+    })
+
+    axios.get('http://172.104.189.169:4100/api/get_course_receive/' + course_id)
+    .then(res => {
+      let result = res.data
+      commit('addCourseReceive', result)
+    })
   }
 }

@@ -31,7 +31,10 @@ export const store = new Vuex.Store({
       favorite: [],
       creditCard: LocalStorage.get.item('creditCard'),
       course: [],
-      message: []
+      message: [],
+      courseFor: [],
+      courseInclude: [],
+      courseReceive: []
     },
     getters,
     mutations,
