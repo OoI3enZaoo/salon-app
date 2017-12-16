@@ -28,8 +28,8 @@
                 <div class="text-xs-left">
                   <p class="subheading" style="display:inline;"><b>ในคอร์สจะประกอบไปด้วย</b></p>
                   <div class="mt-1">
-                  <template v-for="data in courseFor">
-                    <v-icon>card_giftcard</v-icon>&nbsp;{{data.for_des}}<br>
+                  <template v-for="data in courseInclude">
+                    <v-icon color="primary">done</v-icon>&nbsp;{{data.include_des}}<br>
                   </template>
                   </div>
                 </div>
@@ -52,9 +52,9 @@
 
             <v-card class="mt-3 ma-2">
               <v-card-text>
-                <div class="text-xs-left">
+                <div class="text-xs-left" >
                   <p class="subheading" style="display:inline;"><b>รายละเอียด</b></p>
-                  <div class="mt-1">
+                  <div class="mt-1" style="text-align:justify;">
                     <p v-html="course.description"></p>
                   </div>
                 </div>
@@ -67,8 +67,8 @@
                 <div class="text-xs-left">
                   <p class="subheading" style="display:inline;"><b>คอร์สนี้มีไว้สำหรับ</b></p>
                   <div class="mt-1">
-                    <template v-for="data in courseInclude">
-                      <v-icon color="primary">done</v-icon>&nbsp;{{data.include_des}}<br>
+                    <template v-for="data in courseFor" style="text-align:justify;">
+                      <v-icon>card_giftcard</v-icon>&nbsp;{{data.for_des}}<br>
                     </template>
                   </div>
                 </div>
@@ -88,9 +88,8 @@
                         </v-avatar>
                         <p>{{course.fname}} {{course.lname}}</p>
                       </div>
-                      <div class="col-9">
-                          ปี 2545 เปิดโรงเรียนสอนเสริมสวย เอกมงคล ที่ ฟิวเจอร์พาร์คบางแค ในปี 2548 เป็นผู้ก่อตั้งสมาคมส่งเสริม เสริมความงาม ปัจจุบันดำรงค์ตำแหน่ง นายกสมาคมส่งเสริม เสริมความงาม (ประเทศไทย) ในปี2550 เป็นผู้บริหารร้านบิ๊กคัทสาขามาบุญครอง ในปี 2552 เปิดร้าน สมชาย เกย์คัท ที่สีลม ได้รับเชิญเป็นคณะกรรมการตัดสินการจัดงานแข่งชิงแชมป์ผมมาแล้วทุกสมาคม
-
+                      <div class="col-9" style="text-align: justify;">
+                          <span >ปี 2545 เปิดโรงเรียนสอนเสริมสวย เอกมงคล ที่ ฟิวเจอร์พาร์คบางแค ในปี 2548 เป็นผู้ก่อตั้งสมาคมส่งเสริม เสริมความงาม ปัจจุบันดำรงค์ตำแหน่ง นายกสมาคมส่งเสริม เสริมความงาม ในปี2550 เป็นผู้บริหารร้านบิ๊กคัทสาขามาบุญครอง ในปี 2552 เปิดร้าน สมชาย เกย์คัท ที่สีลม ได้รับเชิญเป็นคณะกรรมการตัดสินการจัดงานแข่งชิงแชมป์ผม</span>
                       </div>
                     </div>
                   </div>
